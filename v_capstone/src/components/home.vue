@@ -4,7 +4,7 @@
       <div v-show="QQQ">
         <!-- 첫번째 질문 -->
 
-        <div id="Q_1" v-if="Q_number === 1">
+        <div v-if="Q_number === 1">
           <h3>1/5</h3>
           <h2>#1 어떤 제품을 원하십니까?</h2>
 
@@ -12,7 +12,7 @@
           <input type="radio" v-model="Que1_C" value="칼라" @click="Q1_radio"><label>2. 칼라 복합기</label><br>
         </div>
         <!-- 두번째 질문 -->
-        <div id="Q_2" v-else-if="Q_number === 2">
+        <div v-else-if="Q_number === 2">
           <h3>2/5</h3>
           <h2>#2 어떤 업종에서 사용하십니까?</h2>
 
@@ -37,7 +37,7 @@
         </div>
 
         <!-- 세번째 질문 -->
-        <div id="Q_3" v-else-if="Q_number === 3">
+        <div v-else-if="Q_number === 3">
           <h2>3/5</h2>
           <h1>#3 임대 & 구매?</h1>
           <input type="radio" v-model="Que3" value="임대" @click="Q3_L = !Q3_L"><label>1. 임대</label><br>
@@ -68,18 +68,18 @@
           </div>
         </div>
         <!-- 네 번째 질문 -->
-        <div id="Q_4" v-else-if="Q_number === 4">
+        <div v-else-if="Q_number === 4">
           <h2>4/5</h2>
           <h1>#4 출력 속도, 스캔 속도는 어떻게 되십니까?</h1>
 
           <p>1. 분당 최대 출력(프린터) 속도 (1분당 A4용지 기준)</p>
           <small>(등급기준은 출력 속도 기준을 쉽게 표현하기 위함이며 복합기의 퀄리티가 아닙니다.)</small> <br><br>
-          <input type="radio" v-model="Que4" value="L" id="Q4_L" @click="Q4_L()"><label>1. 분당 20매 이하 (Low 등급) (*칼라 기계만
+          <input type="radio" v-model="Que4" value="L" @click="Q4_L()"><label>1. 분당 20매 이하 (Low 등급) (*칼라 기계만
             해당*)</label><br>
-          <input type="radio" v-model="Que4" value="M" id="Q4_M" @click="Q4_M()"><label>2. 분당 20매~45매 (Middle
+          <input type="radio" v-model="Que4" value="M" @click="Q4_M()"><label>2. 분당 20매~45매 (Middle
             등급)</label><br>
-          <input type="radio" v-model="Que4" value="H" id="Q4_H" @click="Q4_H()"><label>3. 분당 45매~75매 (High 등급)</label><br>
-          <input type="radio" v-model="Que4" value="W" id="Q4_W" @click="Q4_W()"><label>4. 모르겠다</label><br><br>
+          <input type="radio" v-model="Que4" value="H" @click="Q4_H()"><label>3. 분당 45매~75매 (High 등급)</label><br>
+          <input type="radio" v-model="Que4" value="W" @click="Q4_W()"><label>4. 모르겠다</label><br><br>
 
           <!-- 흑백기 스캔 속도 -->
           <div>
@@ -99,7 +99,7 @@
           </div>
 
           <!-- 칼라기 스캔 속도 -->
-          <div id="scan_speed">
+          <div>
             <div v-show="Q4_C_L_answer">
               <p>2. 칼라기 Low등급 분당 최대 스캔 속도</p>
               <input type="radio" v-model="Que4_2" value="24"><label>1. 흑백 24매, 칼라 19매</label><br>
@@ -125,8 +125,8 @@
 
         <br><br><br><br><br>
         <div>
-          <input type="submit" value="이전" id="Q_brfore" @click="diminishNumber" placeholder="이전">
-          <input type="submit" value="다음" id="Q_after" @click="increaseNumber" placeholder="다음">
+          <input type="submit" value="이전" @click="diminishNumber" placeholder="이전">
+          <input type="submit" value="다음" @click="increaseNumber" placeholder="다음">
         </div>
       </div>
       <div>
