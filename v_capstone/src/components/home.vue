@@ -4,15 +4,15 @@
       <div v-show="QQQ">
         <!-- 첫번째 질문 -->
 
-        <div id="Q_1" v-if="Q_number === 1">
+        <div v-if="Q_number === 1">
           <h3>1/5</h3>
           <h2>#1 어떤 제품을 원하십니까?</h2>
 
-          <input type="radio" v-model="Que1_B" value="흑백" @click="Q1_radio"><label>1. 흑백 복합기</label><br>
-          <input type="radio" v-model="Que1_C" value="칼라" @click="Q1_radio"><label>2. 칼라 복합기</label><br>
+          <input type="radio" v-model="Que1" value="흑백" @click="Q1_radio"><label>1. 흑백 복합기</label><br>
+          <input type="radio" v-model="Que1" value="칼라" @click="Q1_radio"><label>2. 칼라 복합기</label><br>
         </div>
         <!-- 두번째 질문 -->
-        <div id="Q_2" v-else-if="Q_number === 2">
+        <div v-else-if="Q_number === 2">
           <h3>2/5</h3>
           <h2>#2 어떤 업종에서 사용하십니까?</h2>
 
@@ -37,18 +37,18 @@
         </div>
 
         <!-- 세번째 질문 -->
-        <div id="Q_3" v-else-if="Q_number === 3">
+        <div v-else-if="Q_number === 3">
           <h2>3/5</h2>
           <h1>#3 임대 & 구매?</h1>
           <input type="radio" v-model="Que3" value="임대" @click="Q3_L = !Q3_L"><label>1. 임대</label><br>
-          <input type="radio" v-model="Que3" value="구매"><label>2. 구매</label><br>
+          <input type="radio" v-model="Que3" value="구매" @click="Q3_S()"><label>2. 구매</label><br>
 
           <div v-show="Q3_L">
             <p>3-1. 계약 기간</p>
             <input type="radio" v-model="Que3_1" value="3년"><label>1. 3년 </label><br>
             <input type="radio" v-model="Que3_1" value="2년"><label>2. 2년</label><br>
             <input type="radio" v-model="Que3_1" value="단기계약"><label>3. 단기계약</label><br>
-            <label>원하시는 계약기간을 적어주세요: </label>
+            <label>기타: </label>
             <input type="text" v-model="Que3_1" placeholder="계약 기간"><br>
 
             <p>3-2. 생각하는 임대 금액은 어떻게 되십니까?</p>
@@ -68,18 +68,18 @@
           </div>
         </div>
         <!-- 네 번째 질문 -->
-        <div id="Q_4" v-else-if="Q_number === 4">
+        <div v-else-if="Q_number === 4">
           <h2>4/5</h2>
           <h1>#4 출력 속도, 스캔 속도는 어떻게 되십니까?</h1>
 
           <p>1. 분당 최대 출력(프린터) 속도 (1분당 A4용지 기준)</p>
           <small>(등급기준은 출력 속도 기준을 쉽게 표현하기 위함이며 복합기의 퀄리티가 아닙니다.)</small> <br><br>
-          <input type="radio" v-model="Que4" value="L" id="Q4_L" @click="Q4_L()"><label>1. 분당 20매 이하 (Low 등급) (*칼라 기계만
+          <input type="radio" v-model="Que4" value="L" @click="Q4_L()"><label>1. 분당 20매 이하 (Low 등급) (*칼라 기계만
             해당*)</label><br>
-          <input type="radio" v-model="Que4" value="M" id="Q4_M" @click="Q4_M()"><label>2. 분당 20매~45매 (Middle
+          <input type="radio" v-model="Que4" value="M" @click="Q4_M()"><label>2. 분당 20매~45매 (Middle
             등급)</label><br>
-          <input type="radio" v-model="Que4" value="H" id="Q4_H" @click="Q4_H()"><label>3. 분당 45매~75매 (High 등급)</label><br>
-          <input type="radio" v-model="Que4" value="W" id="Q4_W" @click="Q4_W()"><label>4. 모르겠다</label><br><br>
+          <input type="radio" v-model="Que4" value="H"  @click="Q4_H()"><label>3. 분당 45매~75매 (High 등급)</label><br>
+          <input type="radio" v-model="Que4" value="W"  @click="Q4_W()"><label>4. 모르겠다</label><br><br>
 
           <!-- 흑백기 스캔 속도 -->
           <div>
@@ -99,7 +99,7 @@
           </div>
 
           <!-- 칼라기 스캔 속도 -->
-          <div id="scan_speed">
+          <div>
             <div v-show="Q4_C_L_answer">
               <p>2. 칼라기 Low등급 분당 최대 스캔 속도</p>
               <input type="radio" v-model="Que4_2" value="24"><label>1. 흑백 24매, 칼라 19매</label><br>
@@ -125,14 +125,14 @@
 
         <br><br><br><br><br>
         <div>
-          <input type="submit" value="이전" id="Q_brfore" @click="diminishNumber" placeholder="이전">
-          <input type="submit" value="다음" id="Q_after" @click="increaseNumber" placeholder="다음">
+          <input type="submit" value="이전" @click="diminishNumber" placeholder="이전">
+          <input type="submit" value="다음" @click="increaseNumber" placeholder="다음">
         </div>
       </div>
       <div>
         <h1>질문지 결과</h1>
         <p>
-          #1 희망하시는 기기: {{Que1_B}} {{Que1_C}}<br><br>
+          #1 희망하시는 기기: {{Que1}}<br><br>
           #2 고객 성함: {{Que2}}<br>
           #2-1 고객 회사명: {{Que2_1}}<br>
           #2_2 사용 규묘: {{Que2_2}}<br>
@@ -155,8 +155,7 @@ export default {
   data: function() {
     return {
       QQQ: "",
-      Que1_B: "",
-      Que1_C: "",
+      Que1: "",
       Que2: "",
       Que2_1: "",
       Que2_2: "",
@@ -184,13 +183,7 @@ export default {
 
   methods: {
     increaseNumber() {
-      if(this.Q_number === 1){
-        console.log("asd")
-        if(this.Que1_B.checked){
-          console.log("this.Que1_B.checked")
-        }
-      }
-    this.Q_number++;
+      this.Q_number++;
     },
     diminishNumber() {
       this.Q_number--;
@@ -198,44 +191,67 @@ export default {
     Q1_radio(){
 
     },
-    Q3_btn_show() {
-      Q3_show: true;
+    Q3_S(){
+      this.Q3_L = false;
     },
     Q4_L() {
-      if (this.Que1_B) {
-        console.log("흑백기는 Low급이 없습니다.");
+      if (this.Que1 == "흑백") {
+        alert("흑백기는 Low급이 없습니다.");
+        this.Q4_B_M_answer = false;
+        this.Q4_B_H_answer = false;
         this.Q4_C_L_answer = false;
-        this.Que1_B = false;
-      }else if (this.Que1_C) {
+        this.Q4_C_M_answer = false;
+        this.Q4_C_H_answer = false;
+      }else if (this.Que1 == "칼라") {
         console.log("칼라 LOW급");
-        this.Q4_C_L_answer = true
-        this.Que1_C = false;
+        this.Q4_B_M_answer = false;
+        this.Q4_B_H_answer = false;
+        this.Q4_C_L_answer = true;
+        this.Q4_C_M_answer = false;
+        this.Q4_C_H_answer = false;
       }
     },
     Q4_M() {
-      if (this.Que1_B) {
+      if (this.Que1 == "흑백") {
         console.log("Q1_B_checked");
         this.Q4_B_M_answer = true;
+        this.Q4_B_H_answer = false;
+        this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
-      } else if (this.Que1_C) {
+        this.Q4_C_H_answer = false;
+      } else if (this.Que1 == "칼라") {
         console.log("Q1_C_checked");
-        this.Q4_C_M_answer = true;
         this.Q4_B_M_answer = false;
+        this.Q4_B_H_answer = false;
+        this.Q4_C_M_answer = true;
+        this.Q4_C_L_answer = false;
+        this.Q4_C_H_answer = false;
       }
     },
     Q4_H(){
-      if (this.Que1_B) {
+      if (this.Que1 == "흑백") {
         console.log("Q1_B_checked");
+        this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = true;
+        this.Q4_C_L_answer = false;
+        this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
-      } else if (this.Que1_C) {
+      } else if (this.Que1 == "칼라") {
         console.log("Q1_C_checked");
-        this.Q4_C_H_answer = true;
+        this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = false;
+        this.Q4_C_L_answer = false;
+        this.Q4_C_M_answer = false;
+        this.Q4_C_H_answer = true;
       }
     },
     Q4_W(){
       console.log("모르겠음을 선택함")
+        this.Q4_B_H_answer = false;
+        this.Q4_B_H_answer = false;
+        this.Q4_C_L_answer = false;
+        this.Q4_C_M_answer = false;
+        this.Q4_C_H_answer = false;
     }
   }
       
