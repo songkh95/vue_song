@@ -18,10 +18,8 @@ const postSchema = mongoose.Schema({
   },
   dpi:{type:String, require: true},
   tray:{type:String, require: true},
-},
-{
-  timestamps: true
 });
 
 // Create Model & Export
-module.exports = mongoose.model('Todo', postSchema);
+let song = mongoose.model('song', postSchema);
+module.exports = song;

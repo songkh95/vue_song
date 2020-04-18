@@ -4,9 +4,12 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 
 const app = express();
-const port = process.env.PORT || 8080;
+//const port = process.env.PORT || 8080;
+
+const Todo = require('./src/models/todo');
 
 // Static File Service
 app.use(express.static('public'));
@@ -14,15 +17,61 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Node의 native Promise 사용
-mongoose.Promise = global.Promise;
-
-// Connect to MongoDB //, { useMongoClient: true }
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('Successfully connected to mongodb'))
-  .catch(e => console.error(e));
-
 // ROUTERS
-app.use('/todos', require('./src/router/todos'));
+//app.use('/todos', require('./src/router/todos'));
+const router = require('express').Router();
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect('mongodb://localhost:27017/clean');
+let db = mongoose.connection;
+
+//console.log(db)
+db.once('open', function () {
+  console.log('DB connected');
+});
+db.on('error', function (err) {
+  console.log('DB ERROR : ', err);
+});
+
+const model = mongoose.model("song", Todo.song);
+
+// app.post("/home", function (req, res) {
+//   let Que1 = req.param("Que1");
+
+//   let Que2 = req.param("Que2");
+//   let Que2_1 = req.param("Que2_1");
+//   let Que2_2 = req.param("Que2_2");
+
+//   let Que3 = req.param("Que3");
+//   let Que3_1 = req.param("Que3_1");
+//   let Que3_2 = req.param("Que3_2");
+//   let Que3_3 = req.param("Que3_3");
+
+//   let Que4 = req.param("Que4");
+//   let Que4_1 = req.param("Que4_1");
+//   let Que4_2 = req.param("Que4_2");
+
+//   console.log(`                 Que1:${Que1} 
+//                Que2:${Que2} / Que2_1: ${Que2_1} / Que2_2: ${Que2_2}  
+//                Que3: ${Que3} / Que3_1: ${Que3_1} / Que3_2: ${Que3_2} / Que3_3: ${Que3_3} 
+//                Que4: ${Que4} / Que4_1: ${Que4_1} / Que4_2: ${Que4_2} `);
+
+//   model.find({
+//       color: Que1,
+//       lease: Que3,
+//       level: Que4,
+//       Scan_B_Speed: Que4_1,
+//       Scan_C_Speed: Que4_2
+//   }, (err, res) => {
+//       console.log(res);
+//   });
+// });
+
+module.exports = router;
+
+app.listen(8080, function () {
+  console.log('conneted 8080 port!');
+});
