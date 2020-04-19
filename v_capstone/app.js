@@ -38,37 +38,36 @@ db.on('error', function (err) {
 
 const model = mongoose.model("song", Todo.song);
 
-// app.post("/home", function (req, res) {
-//   let Que1 = req.param("Que1");
+app.get("/", function (req, res) {
+  let Que1 = req.param("Que1");
 
-//   let Que2 = req.param("Que2");
-//   let Que2_1 = req.param("Que2_1");
-//   let Que2_2 = req.param("Que2_2");
+  // let Que2 = req.param("Que2");
+  // let Que2_1 = req.param("Que2_1");
+  // let Que2_2 = req.param("Que2_2");
 
-//   let Que3 = req.param("Que3");
-//   let Que3_1 = req.param("Que3_1");
-//   let Que3_2 = req.param("Que3_2");
-//   let Que3_3 = req.param("Que3_3");
+  // let Que3 = req.param("Que3");
+  // let Que3_1 = req.param("Que3_1");
+  // let Que3_2 = req.param("Que3_2");
+  // let Que3_3 = req.param("Que3_3");
 
-//   let Que4 = req.param("Que4");
-//   let Que4_1 = req.param("Que4_1");
-//   let Que4_2 = req.param("Que4_2");
+  // let Que4 = req.param("Que4");
+  // let Que4_1 = req.param("Que4_1");
+  // let Que4_2 = req.param("Que4_2");
 
-//   console.log(`                 Que1:${Que1} 
-//                Que2:${Que2} / Que2_1: ${Que2_1} / Que2_2: ${Que2_2}  
-//                Que3: ${Que3} / Que3_1: ${Que3_1} / Que3_2: ${Que3_2} / Que3_3: ${Que3_3} 
-//                Que4: ${Que4} / Que4_1: ${Que4_1} / Que4_2: ${Que4_2} `);
-
-//   model.find({
-//       color: Que1,
-//       lease: Que3,
-//       level: Que4,
-//       Scan_B_Speed: Que4_1,
-//       Scan_C_Speed: Que4_2
-//   }, (err, res) => {
-//       console.log(res);
-//   });
-// });
+  console.log(`Que1:${Que1}`);
+                // Que2:${Que2} / Que2_1: ${Que2_1} / Que2_2: ${Que2_2}  
+                // Que3: ${Que3} / Que3_1: ${Que3_1} / Que3_2: ${Que3_2} / Que3_3: ${Que3_3} 
+                // Que4: ${Que4} / Que4_1: ${Que4_1} / Que4_2: ${Que4_2}
+  model.find({
+      color: Que1
+      // lease: Que3,
+      // level: Que4,
+      // Scan_B_Speed: Que4_1,
+      // Scan_C_Speed: Que4_2
+  }, (err, res) => {
+      console.log(res);
+  });
+});
 
 module.exports = router;
 
