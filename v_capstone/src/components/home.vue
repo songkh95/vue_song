@@ -3,7 +3,7 @@
 
         <input type="submit" value="시작" placeholder="시작" @click="QQQ = !QQQ"><br><br>
         
-        <form  method="GET">
+        <!-- <form action="/home" method="POST"> -->
         <div v-show="QQQ">
           <!-- 첫번째 질문 -->
           <div v-if="Q_number === 1">
@@ -128,10 +128,9 @@
           <div>
             <input type="submit" value="이전" @click="diminishNumber" placeholder="이전">
             <input type="submit" value="다음" @click="increaseNumber" placeholder="다음">
-            <input type="submit" @click="gettest" value="get 디비 연동 연습">
           </div>
         </div>
-        </form>
+        <!-- </form> -->
         <div>
           <h1>질문지 결과</h1>
           <p>
@@ -148,12 +147,16 @@
             #4_1 스캔 속도: {{Que4_1}} {{Que4_2}}<br><br>
           </p>
         </div>
-      
-        <!-- <div>
+        <div>
+          <form method="GET">
+             <input type="submit" @click="gettest" value="get 디비 연동 연습">
+          </form>
+        </div>
+        <div>
           <form method="post">
             <input type="submit" @click="posttest" value="post 디비 연동 연습">
           </form>
-        </div> -->
+        </div>
         <div>
           <router-link to="/result">다른 페이지 이동</router-link>
         </div>
@@ -272,7 +275,7 @@ export default {
     gettest(){
       // Make a request for a user with a given ID
       axios
-        .get("http://localhost:8080/") 
+        .get("https://reqres.in/api/users?page=2") 
         .then(res => {
           console.log(res);
         }) 
@@ -281,21 +284,22 @@ export default {
         }) 
         .then(() => { 
           //성공이든 오류든 반환하여 출력
-          console.log(this.Que1);
+          console.log("test");
+        });
+    },
+    posttest(){
+      axios
+      .post("https://reqres.in/api/register", {
+        "email": "eve.holt@reqres.in",
+        "password": "pistol"
+        })
+      .then(function (response) {
+        console.log(response);
+        })
+      .catch(function (error) {
+         console.log(error);
         });
     }
-    // post_text(){
-    //   const formData = {
-    //     color: this.Que1
-    //   }
-    //   console.log(formData)
-    // },
-    // posttest(){
-    //   axios
-    //   .post("http://localhost:8081/#", formData)
-    //   .then(res => console.log(res))
-    //   .catch(error => console.log(error))
-    // }
   }
       
 }
