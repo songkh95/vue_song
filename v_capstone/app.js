@@ -70,6 +70,11 @@ const model = mongoose.model("song", Todo.song);
 //   });
 // });
 
+// 뷰 - 서버 - 데베 이 관계에서 
+                  // 1. 데이터베이스의 document의 값을 가져와 서버로 보낸다.
+                  // 2. 뷰 파일에서 input, radio 태그로 가져온 value를  axiso를 통해서 서버로 값을 전송
+                  // 3. 서버에서 데베 값과 뷰에서의 값을 비교하여 결과를 vue 파일에 다시 전송해준다.
+
 module.exports = router;
 
 app.listen(8080, function () {
