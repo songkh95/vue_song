@@ -3,15 +3,15 @@
 
         <input type="submit" value="시작" placeholder="시작" @click="QQQ = !QQQ"><br><br>
         
-        <form  method="POST">
+        <form v-on:submit.prevent="postpost">
         <div v-show="QQQ">
           <!-- 첫번째 질문 -->
           <div v-if="Q_number === 1">
             <h3>1/5</h3>
             <h2>#1 어떤 제품을 원하십니까?</h2>
 
-            <input type="radio" v-model="Que1" value="흑백"><label>1. 흑백 복합기</label><br>
-            <input type="radio" v-model="Que1" value="칼라"><label>2. 칼라 복합기</label><br>
+            <input type="radio" v-model="que1" value="black" ref="que1"><label>1. 흑백 복합기</label><br>
+            <input type="radio" v-model="que1" value="color" ref="que2"><label>2. 칼라 복합기</label><br>
           </div>
           <!-- 두번째 질문 -->
           <div v-else-if="Q_number === 2">
@@ -144,7 +144,7 @@
         <div>
           <h1>질문지 결과</h1>
           <p>
-            #1 희망하시는 기기: {{Que1}}<br><br>
+            #1 희망하시는 기기: {{que1 =='black'?'흑백':'칼라'}}<br><br>
             #2 고객 성함: {{Que2}}<br>
             #2-1 고객 회사명: {{Que2_1}}<br>
             #2_2 사용 규묘: {{Que2_2}}<br>
@@ -171,7 +171,7 @@ export default {
   data: function() {
     return {
       QQQ: "",
-      Que1: "",
+      que1: "black",
       Que2: "",
       Que2_1: "",
       Que2_2: "",
@@ -206,14 +206,14 @@ export default {
       Q3_show: true;
     },
     Q4_L() {
-      if (this.Que1 == "흑백") {
+      if (this.que1 == "흑백") {
         console.log("흑백기는 Low급이 없습니다.");
         this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = false;
         this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
-      }else if (this.Que1 == "칼라") {
+      }else if (this.que1 == "칼라") {
         console.log("칼라 LOW급");
         this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = false;
@@ -223,14 +223,14 @@ export default {
       }
     },
     Q4_M() {
-      if (this.Que1 == "흑백") {
+      if (this.que1 == "흑백") {
         console.log("흑백 MIDDLE급");
         this.Q4_B_M_answer = true;
         this.Q4_B_H_answer = false;
         this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
-      } else if (this.Que1 == "칼라") {
+      } else if (this.que1 == "칼라") {
         console.log("칼라 MIDDLE급");
         this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = false;
@@ -240,14 +240,14 @@ export default {
       }
     },
     Q4_H(){
-      if (this.Que1 == "흑백") {
+      if (this.que1 == "흑백") {
         console.log("흑백 HIGH급");
         this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = true;
         this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
-      } else if (this.Que1 == "칼라") {
+      } else if (this.que1 == "칼라") {
         console.log("칼라 HIGH급");
         this.Q4_B_M_answer = false;
         this.Q4_B_H_answer = false;
@@ -263,35 +263,14 @@ export default {
         this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
+    },
+    postpost(){
+      var que1 = this.que1;
+      
+      axios.post('http://localhost:8081/products', {
+        que1: que1,
+      });
     }
-    // gettest(){
-    //   // Make a request for a user with a given ID
-    //   axios
-    //     .get("https://reqres.in/api/users?page=2") 
-    //     .then(res => {
-    //       console.log(res);
-    //     }) 
-    //     .catch(err => {
-    //       console.log(err);
-    //     }) 
-    //     .then(() => { 
-    //       //성공이든 오류든 반환하여 출력
-    //       console.log("test");
-    //     });
-    // },
-    // posttest(){
-    //   axios
-    //   .post("https://reqres.in/api/register", {
-    //     "email": "eve.holt@reqres.in",
-    //     "password": "pistol"
-    //     })
-    //   .then(function (response) {
-    //     console.log(response);
-    //     })
-    //   .catch(function (error) {
-    //      console.log(error);
-    //     });
-    // }
   }
       
 }
