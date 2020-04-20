@@ -3,15 +3,15 @@
 
         <input type="submit" value="시작" placeholder="시작" @click="QQQ = !QQQ"><br><br>
         
-        <!-- <form action="/home" method="POST"> -->
+        <form  method="POST">
         <div v-show="QQQ">
           <!-- 첫번째 질문 -->
           <div v-if="Q_number === 1">
             <h3>1/5</h3>
             <h2>#1 어떤 제품을 원하십니까?</h2>
 
-            <input type="radio" v-model="Que1" value="흑백" @click="Q1_radio"><label>1. 흑백 복합기</label><br>
-            <input type="radio" v-model="Que1" value="칼라" @click="Q1_radio"><label>2. 칼라 복합기</label><br>
+            <input type="radio" v-model="Que1" value="흑백"><label>1. 흑백 복합기</label><br>
+            <input type="radio" v-model="Que1" value="칼라"><label>2. 칼라 복합기</label><br>
           </div>
           <!-- 두번째 질문 -->
           <div v-else-if="Q_number === 2">
@@ -129,8 +129,18 @@
             <input type="submit" value="이전" @click="diminishNumber" placeholder="이전">
             <input type="submit" value="다음" @click="increaseNumber" placeholder="다음">
           </div>
+          <!-- <div>
+          <form method="GET">
+             <input type="submit" @click="gettest" value="get 디비 연동 연습">
+          </form>
         </div>
-        <!-- </form> -->
+        <div>
+          <form method="post">
+            <input type="submit" @click="posttest" value="post 디비 연동 연습">
+          </form>
+        </div> -->
+        </div>
+        </form>
         <div>
           <h1>질문지 결과</h1>
           <p>
@@ -148,16 +158,6 @@
           </p>
         </div>
         <div>
-          <form method="GET">
-             <input type="submit" @click="gettest" value="get 디비 연동 연습">
-          </form>
-        </div>
-        <div>
-          <form method="post">
-            <input type="submit" @click="posttest" value="post 디비 연동 연습">
-          </form>
-        </div>
-        <div>
           <router-link to="/result">다른 페이지 이동</router-link>
         </div>
         <router-view/>
@@ -166,10 +166,8 @@
 
 <script>
 import axios from "axios"
-
 export default {
   name: 'home',
-
   data: function() {
     return {
       QQQ: "",
@@ -186,11 +184,9 @@ export default {
       Que4: "",
       Que4_1: "",
       Que4_2: "",
-
       Q_number: 1,
       Q3_number: 1,
       Q3_L: false,
-
       Q4_B_M_answer: false,
       Q4_B_H_answer: false,
       Q4_C_L_answer: false,
@@ -199,16 +195,12 @@ export default {
       t_btn: ""
     }
   },
-
   methods: {
     increaseNumber() {
       this.Q_number++;
     },
     diminishNumber() {
       this.Q_number--;
-    },
-    Q1_radio(){
-
     },
     Q3_btn_show() {
       Q3_show: true;
@@ -271,35 +263,35 @@ export default {
         this.Q4_C_L_answer = false;
         this.Q4_C_M_answer = false;
         this.Q4_C_H_answer = false;
-    },
-    gettest(){
-      // Make a request for a user with a given ID
-      axios
-        .get("https://reqres.in/api/users?page=2") 
-        .then(res => {
-          console.log(res);
-        }) 
-        .catch(err => {
-          console.log(err);
-        }) 
-        .then(() => { 
-          //성공이든 오류든 반환하여 출력
-          console.log("test");
-        });
-    },
-    posttest(){
-      axios
-      .post("https://reqres.in/api/register", {
-        "email": "eve.holt@reqres.in",
-        "password": "pistol"
-        })
-      .then(function (response) {
-        console.log(response);
-        })
-      .catch(function (error) {
-         console.log(error);
-        });
     }
+    // gettest(){
+    //   // Make a request for a user with a given ID
+    //   axios
+    //     .get("https://reqres.in/api/users?page=2") 
+    //     .then(res => {
+    //       console.log(res);
+    //     }) 
+    //     .catch(err => {
+    //       console.log(err);
+    //     }) 
+    //     .then(() => { 
+    //       //성공이든 오류든 반환하여 출력
+    //       console.log("test");
+    //     });
+    // },
+    // posttest(){
+    //   axios
+    //   .post("https://reqres.in/api/register", {
+    //     "email": "eve.holt@reqres.in",
+    //     "password": "pistol"
+    //     })
+    //   .then(function (response) {
+    //     console.log(response);
+    //     })
+    //   .catch(function (error) {
+    //      console.log(error);
+    //     });
+    // }
   }
       
 }
@@ -307,11 +299,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 h1, h2 {
   font-weight: normal;
 }
-
 a {
   color: #42b983;
 }
