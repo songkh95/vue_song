@@ -3,7 +3,6 @@
     <!-- <img src="./assets/logo.png">
     <h1>app.vue - home</h1>
     <p>{{msgs}}</p> -->
-    이 파일은 APP.vue
     <router-view/>   
   </div>
 </template>

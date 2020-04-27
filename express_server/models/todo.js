@@ -3,13 +3,19 @@ const mongoose = require('mongoose');
 // Define Schemes
 const postSchema = mongoose.Schema({
   name:{type:String, require: true},
-  color:{type:String, require: true}
+  color:{type:String, require: true},
+  sale:{type:String, require: true},
+  print_speed:{type:String, require: true},
+  scan_speed:{type:String, require: true},
+  dpi:{type:String, require: true},
+  tray:{type:String, require: true},
+  advantage:{type:String, require: true},
 },
 {
   collection: 'todos'
 });
 
 // Create Model & Export
-let todos = mongoose.model('Todo', postSchema);
+var todos = mongoose.model('Todo', postSchema);
 module.exports = todos;
 
