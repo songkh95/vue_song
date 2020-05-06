@@ -1,0 +1,306 @@
+{
+    "_id" : "1",
+    "title" : "어떤 제품을 원하십니까?",
+    "select" : [ 
+        {
+            "value" : "black",
+            "text" : "흑백 복합기"
+        }, 
+        {
+            "value" : "color",
+            "text" : "칼라 복합기"
+        }
+    ]
+}
+
+-------------------------------
+{
+    "_id" : "2",
+    "title" : "임대 & 구매?",
+    "select" : [ 
+        {
+            "value" : "lease",
+            "text" : "임대"
+        }, 
+        {
+            "value" : "sale",
+            "text" : "구매"
+        }
+    ],
+    "two_title" : "계약 기간",
+    "two_select" : [ 
+        {
+            "value" : "3년",
+            "text" : "3년"
+        }, 
+        {
+            "value" : "2년",
+            "text" : "2년"
+        }, 
+        {
+            "value" : "단기계약",
+            "text" : "단기계약"
+        }
+    ],
+    "three_title" : "생각하는 임대 금액은 어떻게 되십니까?",
+    "three_select" : [ 
+        {
+            "value" : "10만원",
+            "text" : "월 10만원 - 흑백 1000장 / 칼라 100장"
+        }, 
+        {
+            "value" : "12만원",
+            "text" : "월 12만원 - 흑백 3000장 / 칼라 200장"
+        }, 
+        {
+            "value" : "15만원",
+            "text" : "월 15만원 - 흑백 5000장 / 칼라 300장"
+        }
+    ]
+}
+
+--------------------------
+{
+    "_id" : "3",
+    "title" : "출력 속도, 스캔 속도는 어떻게 되십니까?",
+    "select" : [ 
+        {
+            "value" : "Low등급",
+            "text" : "분당 20매 이하 (Low 등급) (*칼라 기계만 해당*)"
+        }, 
+        {
+            "value" : "Middle등급",
+            "text" : "분당 20매~45매 (Middle 등급)"
+        }, 
+        {
+            "value" : "High등급",
+            "text" : "분당 45매~75매 (High 등급)"
+        }, 
+        {
+            "value" : "None",
+            "text" : "모르겠다"
+        }
+    ],
+    "two_title" : "흑백기 Middle등급 분당 최대 스캔 속도",
+    "two_select" : [ 
+        {
+            "value" : "black_m_25",
+            "text" : "흑백 25매, 칼라 25매"
+        }, 
+        {
+            "value" : "black_m_28",
+            "text" : "흑백 28매, 칼라 28매"
+        }, 
+        {
+            "value" : "black_m_55",
+            "text" : "흑백 55매, 칼라 55매"
+        }
+    ],
+    "three_title" : "흑백기 High등급 분당 최대 스캔 속도",
+    "three_select" : [ 
+        {
+            "value" : "black_h_140",
+            "text" : "흑백 140매, 칼라 140매"
+        }, 
+        {
+            "value" : "black_h_200",
+            "text" : "흑백 200매, 칼라 200매"
+        }
+    ],
+    "four_title" : "칼라기 Low등급 분당 최대 스캔 속도",
+    "four_select" : [ 
+        {
+            "value" : "color_l_20",
+            "text" : "흑백 20매, 칼라 20매"
+        }, 
+        {
+            "value" : "color_l_24",
+            "text" : "흑백 24매, 칼라 19매"
+        }, 
+        {
+            "value" : "color_l_55",
+            "text" : "흑백 55매, 칼라 55매"
+        }
+    ],
+    "five_title" : "칼라기 Middle등급 분당 최대 스캔 속도",
+    "five_select" : [ 
+        {
+            "value" : "color_m_40",
+            "text" : "흑백 40매, 칼라 40매"
+        }, 
+        {
+            "value" : "color_m_55",
+            "text" : "흑백 55매, 칼라 55매"
+        }, 
+        {
+            "value" : "color_m_80",
+            "text" : "흑백 80매, 칼라 80매"
+        }, 
+        {
+            "value" : "color_m_154",
+            "text" : "흑백 154매, 칼라 154매"
+        }
+    ],
+    "six_title" : "칼라기 High등급 분당 최대 스캔 속도",
+    "six_select" : [ 
+        {
+            "value" : "color_h_80",
+            "text" : "흑백 80매, 칼라 80매"
+        }, 
+        {
+            "value" : "color_h_135",
+            "text" : "흑백 135매, 칼라 135매"
+        }, 
+        {
+            "value" : "color_h_154",
+            "text" : "흑백 154매, 칼라 154매"
+        }, 
+        {
+            "value" : "color_h_200",
+            "text" : "흑백 200매, 칼라 200매"
+        }, 
+        {
+            "value" : "color_h_270",
+            "text" : "흑백 270매, 칼라 270매"
+        }
+    ]
+}
+---------------------------
+{
+    "_id" : "4",
+    "title" : "희망하는 프린트 해상도는?",
+    "select" : [ 
+        {
+            "value" : "600*600",
+            "text" : "600 x 600 dpi"
+        }, 
+        {
+            "value" : "1200*1200",
+            "text" : "1200 x 1200 dpi"
+        }, 
+        {
+            "value" : "1200*2400",
+            "text" : "1200 x 2400 dpi"
+        }, 
+        {
+            "value" : "2400*2400",
+            "text" : "2400 x 2400 dpi"
+        }
+    ]
+}
+---------------------------
+{
+    "_id" : "5",
+    "title" : "필요한 옵션",
+    "select" : [ 
+        {
+            "value" : "Tray",
+            "text" : "4Tray"
+        }, 
+        {
+            "value" : "Fax",
+            "text" : "Fax kit"
+        }, 
+        {
+            "value" : "Side tray",
+            "text" : "Side tray"
+        }, 
+        {
+            "value" : "Finisher",
+            "text" : "Finisher-A1"
+        }
+    ]
+}
+---------------------------
+{
+    "_id" : "6",
+    "title" : "가장 희망하는 기기의 장점",
+    "select" : [ 
+        {
+            "value" : "A그룹",
+            "text" : "A그룹"
+        }, 
+        {
+            "value" : "B그룹",
+            "text" : "B그룹"
+        }, 
+        {
+            "value" : "C그룹",
+            "text" : "C그룹"
+        }, 
+        {
+            "value" : "D그룹",
+            "text" : "D그룹"
+        }
+    ]
+}
+--------------------------------
+{
+    "_id" : "7",
+    "title" : "어떤 사무환경에서 사용하십니까?",
+    "two_title" : "몇 명이서 사용하십니까?",
+    "two_select" : [ 
+        {
+            "value" : "소규모",
+            "text" : "1명 ~ 10명 (소규모)"
+        }, 
+        {
+            "value" : "중규모",
+            "text" : "10명 ~ 20명 (중규모)"
+        }, 
+        {
+            "value" : "대규모",
+            "text" : "20명 ~ 30명 (대규모)"
+        }
+    ],
+    "three_title" : "출력 용지의 종류는 어떻게 되십니까?",
+    "three_select" : [ 
+        {
+            "value" : "일반 용지",
+            "text" : "일반 용지"
+        }, 
+        {
+            "value" : "UPM지",
+            "text" : "UPM지"
+        }, 
+        {
+            "value" : "특수지",
+            "text" : "특수지"
+        }
+    ],
+    "four_title" : "주로 어떤 출력물을 사용하시나요?",
+    "four_select" : [ 
+        {
+            "value" : "일반 문서",
+            "text" : "일반 문서 (A4, A3)"
+        }, 
+        {
+            "value" : "디자인",
+            "text" : "디자인 출력물"
+        }, 
+        {
+            "value" : "설계도",
+            "text" : "설계도"
+        }
+    ],
+    "five_title" : "한달 평균 사용량은 어떻게되십니까? (A4 기준)",
+    "five_select" : [ 
+        {
+            "value" : "2500장",
+            "text" : "A4 - 1BOX(2500장) 이하"
+        }, 
+        {
+            "value" : "5000장",
+            "text" : "A4 - 2BOX(5000장) 이하"
+        }, 
+        {
+            "value" : "7500장",
+            "text" : " A4 - 3BOX(7500장) 이하"
+        }, 
+        {
+            "value" : "10000장",
+            "text" : "A4 - 4BOX(10000장) 이상"
+        }
+    ]
+}
+-----------------------

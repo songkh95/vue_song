@@ -24,9 +24,8 @@ db.on('error', function (err) {
 });
 
 app.use(cors());
-app.use('/todos', require('./routes/todos'));
-app.use('/questions', require('./routes/questions'));
 
-app.listen(8081, function () {
-  console.log('conneted 8081 port!');
-});
+// ROUTERS
+app.use('/todos', require('./routes/todos'));
+
+app.listen(4500, () => console.log(`Server listening on port 4500`));
