@@ -1,28 +1,37 @@
 const router = require('express').Router();
 const Todo = require('../models/todo');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+// const multer = require('multer');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
 router.post("/:id", function (req, res) {
   let que1 = req.body.que1;
-  console.log("que1: " + que1)
+  let que2 = req.body.que2;
+  let que3 = req.body.que3;
+  let que4 = req.body.que4;
+  let que5 = req.body.que5;
+  //console.log("que1: " + que1 + "/ que2: " + que2 + "/ que3: " + que3 + "/ que4: " + que4 + "/ que5: " + que5)
 
   Todo.findOne({
-    name: que1,        //색
+    color: que1,
+    print_speed: que2,
+    scan_speed: que3,
+    dpi: que4,
+    advantage: que5
   })
   .then((todo) => {
-    res.send("asd: " + todo);
-    // console.log(res);
+    res.send(todo);
+    //console.log(res);
+    console.log("dididi: " + JSON.stringify(todo));
   })
   .catch((err) => {
     console.log(err);
   });
 });
 
-// , (err, res) => {
-//   console.log("결과: " + res);
 
 module.exports = router;
 
