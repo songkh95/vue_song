@@ -1,9 +1,7 @@
 <template>
   <div class="home">
     <div v-if="QQQ" class="Curation_form">
-      {{answer}}
-      <form v-on:submit.prevent="postpost">
-        
+      <form v-on:submit.prevent="curation_result"> 
         <div v-show="start_question">
           <h1>제품 견적 큐레이션</h1>
             <p>고객님에게 필요한 제품을 알려드리며 쉽고 빠르게 견적서를 받을 수 있습니다.</p>
@@ -11,20 +9,25 @@
         
         <div>
           <div v-if="question">
-            <h6>{{Q_number}}/7</h6>
-            <h4>{{question.title}}</h4>
-            <div v-for="select of question.selects" :key="select.value">
+            <h5>{{Q_number}}/7</h5>
+            <h3>{{question.title}}</h3>
+            <div class="question_content">
+              <div v-for="select of question.selects" :key="select.value">
               <input type="radio" name="one_radio_question" :value="select.value" v-model="answer[Q_number]">
-              <label>{{select.text}} / {{select.value}}</label>
+              <label>{{select.text}}</label>
             </div>
+            </div>
+
           </div>
           
-          <div v-if="subquestions.length > 0">
+          <div v-if="subquestions.length > 0" class="subquestion_content">
             <div v-for="(subquestion, index) in subquestions" :key="subquestion.title">
               <h4>{{subquestion.title}}</h4>
-              <div v-for="select of subquestion.selects" :key="select.value">
+              <div class="question_content">
+                <div v-for="select of subquestion.selects" :key="select.value">
                 <input type="radio"  :value="select.value" v-model="answer[`${Q_number}-${index+1}`]">
-                <label>{{select.text}} / {{select.value}}</label>
+                <label>{{select.text}}</label>
+                </div>
               </div>
             </div>
           </div>  
@@ -34,10 +37,10 @@
         <div v-show="result_question">
           <div class="Curation_result">
 
-            <h1>- 질문지 결과</h1>
-            <p>
+            <h3>- 질문지 결과</h3>
+            <div class="Curation_result_content"> 
               #1 희망하시는 기기: {{answer["1"]}}<br><br>
-
+            
               #2 구매 방법: {{answer["2"]}}<br> 
               #2_1 계약기간: {{answer["2-1"]}} <br>
               #2_2 고객이 생각하는 임대 금액: {{answer["2-2"]}}<br><br>
@@ -56,39 +59,58 @@
               #7_2 한달 평균 사용량: {{answer["7-2"]}}<br>
               #7_3 한달 평균 용지 사용량: {{answer["7-3"]}}<br>
               <!-- 총 12개 질문 / 대질문: 7개 / 소질문: 5개 -->
-            </p>
+            </div>
           </div>
         </div><br>
         
 
             <!-- <img src="../assets/1.png" alt=""> -->
-            <img :src="`../assets/${result_id}.png`" alt="기기 이미지"/><br>
-            id: {{result_id}} / <br>
-            <span v-if="results">
-              {{results}}
+            <div class="Curation_img">
+              <span v-if="first_results">
+                <img :src="`../assets/${result_id}.png`" alt="기기 이미지"/><br>
+                <br><br><br>
+                상품명: {{result_name}}<br>
+                희망 임대료: {{answer["2-1"]}}<br>
+                희망 계약기간: {{answer["2-2"]}} <br>
+                옵션: {{answer["5"]}}<br>
+                기본 매수: <br><br>
+              </span>
+            </div>
 
-              <br><br><br>
-              상품명: {{result_name}}<br>
-              희망 임대료: {{answer["2-1"]}}<br>
-              희망 계약기간: {{answer["2-2"]}} <br>
-              옵션: {{answer["5"]}}<br>
-              기본 매수: <br><br>
-              <button>문의 하기</button><br><br><br>
-            </span>
-              
+            <div class="Curation_img" v-show="other_results">
+                <img :src="`../assets/${result_id}.png`" alt="기기 이미지"/><br>
+                 <br><br><br>
+                다음 상품명: {{result_img_name}}<br>
+                상품 아이디: {{result_img_id}}<br>
+            </div>
+
+          <div class="other_results_btn">
+            <form v-on:submit.prevent="curation_result_img">
+              <div v-show="other_results_btn">
+                <input type="submit" value="이전" @click="diminish_img" placeholder="이전">
+                <input type="submit" value="다음" @click="increase_img" placeholder="다음">
+              </div>
+            </form>
+          </div>
+ 
+
+          <button v-show="send_btn" class="send_btn">문의 하기</button><br><br><br>
 
         <div class="Curation_btn">
-          <input type="submit" v-show="btn_before" value="이전" @click="diminishNumber" placeholder="이전">
-          <input type="submit" v-show="btn_after" value="다음" @click="increaseNumber" placeholder="다음">
+          <input class="btn btn1" type="submit" v-show="btn_before" value="Before" @click="diminishNumber" placeholder="이전">
+          <input class="btn btn1" type="submit" v-show="btn_after" value="Next" @click="increaseNumber" placeholder="다음">
         </div>
-
       </form>
+
+     
     </div>
     <!-- {{answer}} <br> -->
     <div>
       <router-link to="/result">다른 페이지 이동</router-link>
     </div>
     <router-view /><br><br>
+
+
 
   </div>
 </template>
@@ -115,19 +137,29 @@ export default {
       start_question: false,
       result_question: false,
 
-      results_img: null,
-
-      results: null,
+      result_img: null,
+      result_img_name: null,
+      result_img_id: null,
+      
+      first_results: null,
       result_name: null,
-      result_id: null
+      result_id: null,
+      recommend: null,
+      
+      other_results: false,
+      other_results_btn: false,
+      send_btn: false,
+      count: null
     }
   },
   created(){
     this.get_question();
-    this.postpost();
+    this.curation_result();
+    this.curation_result_img();
 
     if(this.Q_number == 0){
         this.start_question = true;
+        this.btn_before = false;
     }
   },
   computed: {
@@ -180,7 +212,7 @@ export default {
     } 
   },
   methods: {
-     postpost(){
+     curation_result(){
        let que1 = this.answer["1"];
        let que2 = this.answer["3"];
        let que3 = this.answer["3-1"];
@@ -196,13 +228,34 @@ export default {
        }) 
        .then((res)=>{
           if(this.Q_number == 8){
-            this.results = res.data;
+            this.first_results = res.data;
             this.result_name = res.data.name;
             this.result_id = res.data._id;
-            //this.results_img = res.data.img;
-            console.log(this.results_img)
+            this.recommend = res.data._id;
+            console.log("추천상품 아이디: " + this.recommend)
           }
-          
+      })
+    },
+    curation_result_img(){
+      let result_id = this.result_id;
+
+      axios.post('http://localhost:8081/todos/img/' + this.result_id , {   
+        result_id: result_id
+      }) 
+      .then((res)=>{
+          if(this.Q_number == 8){
+            this.result_img = res.data;
+            this.result_img_name = res.data.name;
+            this.result_img_id = res.data._id;
+            console.log(this.result_img_name)
+          }
+      })
+    },
+    document_count(){
+      axios.get('http://localhost:8081/todos/count') 
+      .then((res)=>{
+        this.count = res.data;
+        console.log(this.count)
       })
     },
     get_question(){
@@ -219,11 +272,15 @@ export default {
 
       if(this.Q_number >= 1){
         this.start_question = false
+        this.btn_before = true;
       }
 
       if(this.Q_number > 7){
         this.result_question = true;
         this.result_img = true;
+        this.other_results_btn = true;
+        this.send_btn = true;
+        this.btn_after = false;
       }  
     },
     diminishNumber() {
@@ -237,10 +294,37 @@ export default {
         this.start_question = true;
       }
       if(this.Q_number <= 7){
-          this.result_question = false;
-          //console.log(this.result_img = false)
+        this.result_question = false;
+        this.first_results = false;
+        this.other_results_btn = false;
+        this.send_btn = false;
+        this.other_results = false;
+        this.btn_after = true;
       }
-      
+    },
+    increase_img(){
+      this.other_results = true; 
+    
+      if(this.result_img_id <= 4){
+        this.result_id++;
+             
+        this.first_results = false;
+        if(this.result_id == 4){
+          this.result_id = 1;
+        }
+      }  
+    },
+    diminish_img(){
+      this.other_results = true;
+
+      if(this.result_img_id >= 1){
+        this.result_id--;
+ 
+        this.first_results = false;
+        if(this.result_id == 0){
+          this.result_id = 4;
+        }
+      }
     }
   }
   
@@ -253,9 +337,11 @@ body{
   margin: 0;
 }
 .Curation_form{
-  background-color: rgb(207, 250, 250);
+  background-color: rgb(229, 244, 250);
   width: 100%;
+  height: 50%;
   padding-top: 100px;
+  padding: 70px 0 70px 0;
   padding-left: 150px;
 }
 .Curation_form h1{
@@ -265,30 +351,122 @@ body{
   font-weight: 13;
 }
 .Curation_form h3{
-  font-size: 20px;
+  font-size: 50px;
   text-align: left;
   margin: 0px 0px 0px 40px;
-  color:rgb(52, 52, 172)
+  color:rgb(5, 5, 79)
+}
+.Curation_form h4{
+  font-size: 28px;
+  text-align: left;
+  margin: 20px 0px 0px 40px;
+  color:rgb(5, 5, 79)
+}
+.Curation_form h5{
+  font-size: 28px;
+  text-align: left;
+  margin: 20px 0px 10px 60px;
+  color:rgb(0, 0, 0)
 }
 .Curation_form p{
+  margin-top: 100px;
+  font-size: 25px;
   text-align: left;
 }
 .Curation_form label{
+  font-size:20px;
   text-align: left;
+  margin: 0px 0px 0px 10px;
+  color:rgb(0, 0, 0)
 }
-.Curation_form .Que_list{
+.Curation_form .question_content{
   text-align: left;
-  margin-left: 40px;
-  font-size: 22px;
+  margin-left: 50px;
+  margin-top: 20px;
+}
+.Curation_form .subquestion_content{
+  margin: 40px 0px 0px 10px;
+}
+.Curation_result{
+  width: 40%;
+  float: left;
+}
+.Curation_result  h3{
+  font-size: 40px;
+}
+.Curation_result_content{
+  font-size: 20px;
+  text-align: left;
+  margin: 50px 0px 50px 30px;
+}
+.Curation_img{
+  position: absolute;
+  width: 300px;
+  float: right;
+  text-align: left;
+  margin: 8% 70px 0px 53%;
 }
 .Curation_btn{
-  text-align: left;
-  margin-left: 500px;
+  width: 300px;
+  margin: 70px 0px 0px 0px;
 }
-.Curation_result p{
-  font-size: 20px;
-  margin-left: 50px;
+.btn{
+  width: 120px;
+  height: 60px;
+  margin: 0px 0px 0px 20px;
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  text-decoration: none;
+  border: 2px solid #09003b;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  background: rgb(255, 255, 255);
+}
+.btn:hover{
+  background: rgb(2, 0, 68);
+  color:rgb(255, 255, 255)
+}
+.send_btn{
+  position: relative;
+  width: 120px;
+  height: 60px;
+  margin: 590px 20% 0px 0px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  text-decoration: none;
+  border: 2px solid #09003b;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  background: rgb(255, 255, 255);
 }
 
+.send_btn:hover{
+  background: rgb(2, 0, 68);
+  color:rgb(255, 255, 255)
+}
+.other_results_btn{
+  position: absolute;
+  margin-top: 270px;
+  margin-left: 46%;
+}
+
+.other_results_btn input:hover{
+  background: rgb(2, 0, 68);
+  color:rgb(255, 255, 255)
+}
+.other_results_btn input{
+  color: rgb(0, 0, 0);
+  width: 50px;
+  height: 40px;
+  font-size: 13px;
+  text-decoration: none;
+  border: 2px solid #09003b;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  background: rgb(255, 255, 255);
+}
+.other_results_btn input:nth-child(2){
+  margin-left: 500px;
+}
 </style>
 
