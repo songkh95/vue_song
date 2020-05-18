@@ -14,10 +14,10 @@ const postSchema = mongoose.Schema({
   advantage:{type:String, require: true},
 },
 {
-  collection: 'todos'
+  collection: 'b_products'
 });
 
 // Create Model & Export
-var todos = mongoose.model('Todo', postSchema);
-module.exports = todos;
+var b_products = mongoose.model('B_product', postSchema);
+module.exports = b_products;
 

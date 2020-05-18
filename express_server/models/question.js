@@ -10,22 +10,16 @@ const questionSchema = mongoose.Schema({
       text:{type:String, require: true}
     }
   ],
-  two_select:[
+  subquestions:[
     {
-      value:{type:String, require: true},
-      text:{type:String, require: true}
-    }
-  ],
-  three_select:[
-    {
-      value:{type:String, require: true},
-      text:{type:String, require: true}
-    }
-  ],
-  four_select:[
-    {
-      value:{type:String, require: true},
-      text:{type:String, require: true}
+      _id:{type:String, require: true},
+      title:{type:String, require: true},
+      selects:[
+        {
+          value:{type:String, require: true},
+          text:{type:String, require: true}
+        }
+      ]
     }
   ]
 },

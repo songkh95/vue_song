@@ -1,8 +1,6 @@
 const router = require('express').Router();
-const Todo = require('../models/todo');
+const B_product = require('../models/b_product');
 const bodyParser = require('body-parser');
-const fs = require('fs');
-// const multer = require('multer');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
@@ -15,7 +13,7 @@ router.post("/:id", function (req, res) {
   let que5 = req.body.que5;
   //console.log("que1: " + que1 + "/ que2: " + que2 + "/ que3: " + que3 + "/ que4: " + que4 + "/ que5: " + que5)
 
-  Todo.findOne({
+  B_product.findOne({
     color: que1
     // print_speed: que2,
     // scan_speed: que3,
@@ -25,7 +23,8 @@ router.post("/:id", function (req, res) {
   .then((todo) => {
     res.send(todo);
     //console.log(res);
-    console.log("result: " + JSON.stringify(todo));
+    //console.log("b_result: " + JSON.stringify(todo));
+    
   })
   .catch((err) => {
     console.log(err);
@@ -35,7 +34,7 @@ router.post("/:id", function (req, res) {
 router.post("/img/:id", function (req, res) {
   let result_id = req.body.result_id;
   console.log("result_id: " + result_id)
-  Todo.findOne({_id: result_id})
+  B_product.findOne({_id: result_id})
   .then((item) => {
     res.send(item);
   })
@@ -45,7 +44,7 @@ router.post("/img/:id", function (req, res) {
 });
 
 router.get("/count", function (req, res) {
-  Todo.count()
+  B_product.count()
   .then((count) => {
     res.send(count);
   })
@@ -56,7 +55,7 @@ router.get("/count", function (req, res) {
 
 module.exports = router;
 
-// var dc = new Todo({
+// var dc = new B_product({
 //   name: "AP VI 7771",
 //   color: "color",
 //   sale: '9,125,000',
@@ -67,7 +66,7 @@ module.exports = router;
 //   advantage: 'C그룹'
 // });
 
-//  dc = new Todo({
+//  dc = new B_product({
 //   name: "DC V2265",
 //   color: "color",
 //   sale: '3280000',
@@ -78,7 +77,7 @@ module.exports = router;
 //   advantage: 'B그룹'
 // });
 
-// dc = new Todo({
+// dc = new B_product({
 //   name: "DC V2060",
 //   color: "black",
 //   sale: '2300000',
