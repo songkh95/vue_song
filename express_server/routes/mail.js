@@ -18,7 +18,6 @@ router.post('/:id', function (req, res) {
   let customer_company = req.body.customer_company;
   let customer_local = req.body.customer_local;
   let first_results = req.body.first_results;
-  let result_img = req.body.result_img;
   
   const mailOptions = {
     from: customer_email,
@@ -28,7 +27,7 @@ router.post('/:id', function (req, res) {
     - 이름: ${customer_name}
     - 회사명: ${customer_company}
     - 지역: ${customer_local}
-    - 질문지 결과: ${first_results.name} ${result_img.name}
+    - 질문지 결과: ${first_results.name}
     `
   };
   

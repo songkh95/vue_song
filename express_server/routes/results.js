@@ -6,7 +6,7 @@ router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
 
-router.post("/:id", function (req, res) {
+router.get("/count", function (req, res) {
   // const result = new Result();
    let name = req.body.customer_name;
    let first_results = req.body.first_results;
@@ -17,7 +17,6 @@ router.post("/:id", function (req, res) {
    Result.findByIdAndUpdate('5ec136116e5a5e77ad3f89fb', {$inc: {counter: 1}}, {new: true})
    .then((count) => {
      res.send(count);
-     console.log(JSON.stringify(count))
    })
    .catch((err) => {
      console.log(err);

@@ -5,12 +5,12 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-router.post("/:id", function (req, res) {
-  let que1 = req.body.que1;
-  let que2 = req.body.que2;
-  let que3 = req.body.que3;
-  let que4 = req.body.que4;
-  let que5 = req.body.que5;
+router.get("/search", function (req, res) {
+  let que1 = req.query.que1;
+  let que2 = req.query.que2;
+  let que3 = req.query.que3;
+  let que4 = req.query.que4;
+  let que5 = req.query.que5;
   //console.log("que1: " + que1 + "/ que2: " + que2 + "/ que3: " + que3 + "/ que4: " + que4 + "/ que5: " + que5)
 
   C_product.findOne({
@@ -31,11 +31,11 @@ router.post("/:id", function (req, res) {
 });
 
 
-router.post("/img/:id", function (req, res) {
-  let result_id = req.body.result_id;
-  console.log("result_id: " + result_id)
+router.get("/img", function (req, res) {
+  let plus_result_id = req.query.plus_result_id;
+
   
-  C_product.findOne({_id: result_id})
+  C_product.findOne({_id: plus_result_id})
   .then((item) => {
     res.send(item);
   })
