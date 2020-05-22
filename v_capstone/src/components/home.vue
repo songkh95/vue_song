@@ -8,7 +8,6 @@
         </div>
 
         <div v-show="restart_question">
-          <sample title="안녕" :Q_number="Q_number" v-show="sam"/>
           <h1>제품 견적 큐레이션</h1>
           <p>고객님께 추천드리는 상품은 {{result_name}} 입니다.</p>
         </div>
@@ -37,21 +36,18 @@
             </div>
           </div>
         </div>
-          <!-- 질문 -->
-          <div class="Curation_btn">
-            <input type="submit" class="btn_before" v-show="curation_restart" value="다시하기" @click="curation_restart_click">
-            <input class="btn_before" type="submit" v-show="btn_before" value="Before" @click="diminishNumber" placeholder="이전">
-            <input class="btn_after" type="submit" v-show="btn_after" value="Next" @click="increaseNumber" placeholder="다음">
+        <!-- 질문 -->
+        <div class="Curation_btn">
+          <input type="submit" class="btn_before" v-show="curation_restart" value="다시하기" @click="curation_restart_click">
+          <input class="btn_before" type="submit" v-show="btn_before" value="Before" @click="diminishNumber"
+            placeholder="이전">
+          <input class="btn_after" type="submit" v-show="btn_after" value="Next" @click="increaseNumber"
+            placeholder="다음">
 
-            <!-- <button v-show="question_result_show_btn" class="send_btn" @click="question_result_btn">질문지 결과</button> -->
-            <button v-show="send_btn" class="send_btn" @click="customer_service_btn">문의 하기</button>
-          </div>
-        
+          <button v-show="send_btn" class="send_btn" @click="customer_service_btn">문의 하기</button>
+        </div>
+
         <div>
-             
-          <div v-show="views">
-            <h5 class="view">큐레이션 사용횟수: {{result_count}}</h5>   
-          </div>
 
           <!-- 결과 감사 소개-->
           <div class="result_Explanation" v-show="result_Explanation">
@@ -67,9 +63,9 @@
             </p>
           </div>
 
-            <!-- 추천 상품 -->
-            <div class="Curation_img">
-              <span v-show="first_results_img">
+          <!-- 추천 상품 -->
+          <div class="Curation_img">
+            <span v-show="first_results_img">
               <!-- <img :src="require(`../assets/${result_name}.png`)" alt="처음 이미지" /><br> -->
               <br><br><br>
               맞춤 추천 상품명: {{result_name}}<br>
@@ -77,46 +73,20 @@
               희망 계약기간: {{answer["2-2"]}} <br>
               옵션: {{answer["5"]}}<br>
               기본 매수: <br><br>
-              </span>
-            </div>
-
-            <input type="submit" @click="click_other" value="다른 상품 보기" v-show="btn_other">
-
-        <OtherProducts v-show="curation_products_result"
-        :Q_number="Q_number"
-        :answer="answer" 
-        :result_id="result_id" 
-        :result_name="result_name" 
-        :result_img_name="result_img_name"
-        :result_img="result_img"
-        />
-          <!-- 질문자 결과 -->
-          <question_result :answer="answer"/>
-
-          <!-- 문의하기 -->
-          <form v-on:submit.prevent="post_email">
-            <div v-show="customer_service" class="customer_service">
-              <h1>견적서 문의</h1>
-              이름: <input type="text" value="이름" placeholder="이름" v-model="customer_name"><br>
-              회사명: <input type="text" value="회사명" placeholder="회사명" v-model="customer_company"><br>
-              지역: <input type="text" value="지역" placeholder="지역" v-model="customer_local"><br>
-              연락처: <input type="text" value="연락처" placeholder="연락처"><br>
-              이메일: <input type="email" value="이메일" placeholder="songch95@naver.com" v-model="customer_email"><br>
-              설치 날짜/시간: <input type="text" value="설지날짜" placeholder="희망하는 날짜와 시간대를 작성해주세요."><br>
-              내용: <input type="textarea" value="내용" placeholder="희망사항"><br>
-
-              <br><br><br>
-              <button type="submit" class="btn_before" @click="send_mail">전송하기</button>
-            </div>
-
-          </form>
-
+            </span>
+          </div>
         </div>
-
-        
-
-        
       </form>
+
+          <!-- 제품 다른 추천 -->
+          <OtherProducts v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
+          
+          <!-- 질문자 결과 -->
+          <button @click="click_question_result" v-show="btn_question_result">질문지 결과</button>
+          <question_result :answer="answer" v-show="question_result" />
+          
+          <!-- 문의하기 -->
+          <post_mail :first_results="first_results" v-show="customer_service"/>
     </div>
 
 
@@ -126,75 +96,49 @@
 
 <script>
 import axios from "axios"
-import Sample from './Sample'
 import Question_result from './Question_result'
 import OtherProducts from './OtherProducts'
+import Post_mail from './Post_email'
 
 export default {
   name: 'home',
   components: {
-    Sample,
     Question_result,
-    OtherProducts
+    OtherProducts,
+    Post_mail
   },
   data: function() {
     return {
-      customer_name: "",
-      customer_company: "",
-      customer_local:"",
-      customer_email: "",
+      QQQ: true,
+
+      Q_number: 0,
       answer: {},
       question: null,
-
       title:"",
       selects:[],
 
-      QQQ: true,
+      btn_before: true, //질문 다음 버튼
+      btn_after: true,  //질문 이전 버튼
      
-      btn_before: true,
-      btn_after: true,
-      Q_number: 0,
+      start_question: false,     //시작 질문
+      restart_question: false,   //다시 시작 질문 
+      result_Explanation: false, //감사 인사
 
-      start_question: false,
-      restart_question: false,
-      //result_question: false,
-      result_Explanation: false,
-      question_result_show_btn: false,
-      customer_service: false,
-
-      result_img: null,
-      result_img_name: null,
-      result_img_id: null,
+      first_results_img: false,  // 맞춤 추천 이미지
+      first_results: null,       // 맞춤 추천 결과 
+      result_name: null,         //맞춤 추천 결과 이름
+      result_id: "",             //맞춤 추천 결과 ID
       
-      first_results_img: false,
-      first_results: null,
-      btn_other: false,
-
-      result_name: null,
-      result_id: "",
-      
-      other_results: false,
-      other_results_btn: false,
-      send_btn: false,
-      result_count: null,
-
-      lease_selects: "",
-      optin_selects: "",
-      shopping_basket: "",
-      shopping_basket_result:"",
-      finish: true,
-
-      curation_products_result: false,
-      btn_other: false,
-
-      sam: false
-
-
+      curation_products_result: false,   //슬라드쇼 제품 components
+      question_result: false,            //질문결과
+      btn_question_result: false,        //질문 결과 버튼
+      customer_service: false,            //문의하기 폼
+      send_btn: false,                   //문의하기 버튼
     }
   },
   created(){
     this.get_question();
-    // this.curation_result_img();
+   
     
     if(this.Q_number == 0){
         this.start_question = true;
@@ -263,29 +207,7 @@ export default {
     } 
   },
   methods: {
-    //이메일 전송
-    post_email(){
-      let customer_name = this.customer_name;
-      let customer_company = this.customer_company;
-      let customer_local = this.customer_local;
-      let customer_email = this.customer_email;
-      let first_results = this.first_results;
-      let result_img = this.result_img;
-
-       axios.post('http://localhost:8081/mail/' +  this.Q_number, {   
-         customer_name: customer_name,
-         customer_company: customer_company,
-         customer_local: customer_local,
-         customer_email: customer_email,
-         first_results: first_results,
-         result_img: result_img
-
-       }) 
-       .then((res)=>{
-            console.log(res.deta)
-      })
-    },
-    // 맞춤 추천
+    //맞춤 추천
     curation_result(){
        let que1 = this.answer["1"];
        let que2 = this.answer["3"];
@@ -308,8 +230,7 @@ export default {
             this.first_results = JSON.stringify(res.data);
             this.result_name = res.data.name;
             this.result_id = res.data._id;
-            
-
+          
             localStorage.setItem("curation_result", JSON.stringify(this.first_results))
           }
       })
@@ -328,29 +249,11 @@ export default {
             this.first_results = JSON.stringify(res.data);
             this.result_name = res.data.name;
             this.result_id = res.data._id;
-            console.log(this.result_name + " / " + this.result_id);
+            console.log(this.first_results + " / " + this.result_id);
 
             localStorage.setItem("curation_result", JSON.stringify(this.first_results))
           }
       })        
-      }
-    },
-    //질문 결과 정리 - 테스트중
-    result_save() {
-      let first_results = this.first_results;
-      let customer_name = this.customer_name;
-
-      if (this.Q_number > 7 && this.finish) {
-
-        axios.get('http://localhost:8081/results/count', {
-            first_results: first_results,
-            customer_name: customer_name
-          })
-          .then((res) => {
-            this.result_count = res.data.counter;
-            console.log("큐레이션 사용 횟수: " + JSON.stringify(this.result_count))
-            this.finish = false;
-          })
       }
     },
     //질문 가져오기
@@ -360,7 +263,7 @@ export default {
         this.question = res.data;
       })
     },
-    //다음 질문
+    //다음 질문 버튼
     increaseNumber() {
       if(this.Q_number >= 0 && this.Q_number <= 7){
         this.Q_number++;
@@ -374,26 +277,21 @@ export default {
       }
 
       if(this.Q_number > 7){
-       //this.result_question = false;
-        this.question_result_show_btn = true;
-        this.result_img = true;
-        this.other_results_btn = true;
         this.send_btn = true;
         this.btn_after = false;
         this.result_Explanation = true;
         this.views = true;
-
+        this.btn_question_result = true;
         this.first_results_img = true;
-        this.btn_other = true;
-        this.result_save();
+        this.curation_products_result = true;
+        this.customer_service = false;
       }  
     },
-    //이전 질문
+    //이전 질문 버튼
     diminishNumber() {
       if(this.Q_number >= 1 && this.Q_number <= 8){
         this.Q_number--;
         this.get_question();
-        this.result_img = false;
         this.curation_restart= false;
       }
 
@@ -402,41 +300,26 @@ export default {
         this.btn_before = false;
       }
       if(this.Q_number <= 7){
-        this.question_result_show_btn = false;
-        //this.result_question = false;
-        this.other_results_btn = false;
         this.send_btn = false;
         this.other_results = false;
         this.btn_after = true;
         this.result_Explanation = false;
         this.views=false;
-
+        this.btn_question_result = false;
         this.first_results_img = false;
-        this.btn_other = false;
+        this.curation_products_result = false;
+        this.customer_service = false;
         }
-    },
-    click_other(){
-      this.first_results_img = false;
-      this.btn_other = false;
-      this.curation_products_result = true;
-    },
-    //질문지 결과 확인 버튼
-    question_result_btn(){
-     // this.result_question = true;
-      this.result_Explanation = false;
-      this.customer_service = false;
     },
     //문의하기 버튼
     customer_service_btn(){
-      this.customer_service = true;
+      this.customer_service = !this.customer_service;
       //this.result_question = false;
-      this.result_Explanation = false;
-    },
-    //문의하기 ->  이메일 전송 버튼
-    send_mail(){
-       this.result_Explanation = true;
-       this.customer_service = false;
-       //this.result_question = false;
+      if(this.customer_service == false){
+        this.result_Explanation = true;
+      } else {
+        this.result_Explanation = false;
+      }
     },
     //큐레이션 다시시작하기 버튼
     curation_restart_click(){
@@ -449,13 +332,17 @@ export default {
       this.curation_restart = false;
       this.btn_after = true;
       this.btn_before = true;
+    },
+    //질문지 결과 버튼
+    click_question_result(){
+      this.question_result = !this.question_result;
     }
   }
   
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 body{
   margin: 0;
@@ -644,32 +531,6 @@ body{
   margin: 0% 70px 0px 8%;
   background: rgb(214, 169, 255);
   font-size: 13px;
-}
-.other_results_btn{
-  position: absolute;
-  top: 35vh;
-  left: 52vw;
-  
-}
-
-.other_results_btn input{
-  position: absolute;
-  color: rgb(0, 0, 0);
-  width: 50px;
-  height: 40px;
-  font-size: 13px;
-  text-decoration: none;
-  border: 2px solid #09003b;
-  overflow: hidden;
-  transition: 0.6s all ease;
-  background: rgb(255, 255, 255);
-}
-.other_results_btn input:hover{
-  background: rgb(2, 0, 68);
-  color:rgb(255, 255, 255)
-}
-.other_results_btn input:nth-child(2){
-  margin-left: 40vw;
 }
 
 .view{

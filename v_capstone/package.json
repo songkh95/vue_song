@@ -16,6 +16,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.9",
     "vue": "^2.5.2",
+    "vue-carousel": "^0.18.0",
+    "vue-owl-carousel": "^2.0.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

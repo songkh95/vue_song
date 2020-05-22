@@ -22,9 +22,6 @@ router.get("/search", function (req, res) {
   })
   .then((todo) => {
     res.send(todo);
-    //console.log(res);
-    //console.log("b_result: " + JSON.stringify(todo));
-    
   })
   .catch((err) => {
     console.log(err);
@@ -34,9 +31,8 @@ router.get("/search", function (req, res) {
 });
 
 router.get("/img", function (req, res) {
-  let plus_result_id = req.query.plus_result_id;
-  console.log(plus_result_id)
-  B_product.findOne({_id: plus_result_id})
+
+  B_product.find()
   .then((item) => {
     res.send(item);
   })

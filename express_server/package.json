@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.13",
     "nodemailer": "^6.4.6",
-    "nodemailer-smtp-pool": "^2.8.3"
+    "nodemailer-smtp-pool": "^2.8.3",
+    "vue-owl-carousel": "^2.0.3"
   },
   "devDependencies": {
     "minimist": "^1.2.5"

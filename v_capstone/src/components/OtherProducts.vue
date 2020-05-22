@@ -1,122 +1,84 @@
 <template>
   <div id="other_products">
-    <!-- 다른 상품 -->
-    <div class="Curation_img">
-      <!-- <img :src="require(`../assets/${plus_result_name}.png`)" alt="다른 이미지" /><br> -->
-      <br><br><br>
-      상품명: {{plus_result_name}}<br>
-      기능/장점: {{answer["6"]}}<br>
-      기본 계약기간: <br>
-      원가 월 임대료: <br>
-      할인 월 임대료:
-      <select v-model="lease_selects">
-        <option>월 10만원 - 흑백 1000장 / 칼라 100장</option>
-        <option>월 12만원 - 흑백 3000장 / 칼라 200장</option>
-        <option>월 15만원 - 흑백 5000장 / 칼라 300장</option>
-      </select><br>
-      옵션:
-      <select v-model="optin_selects">
-        <option>4Tray</option>
-        <option>Fax kit</option>
-        <option>Side tray</option>
-        <option>Finisher-A1</option>
-      </select><br><br>
-      <div>
-        구매 금액 / 할인 금액 / 설명(a/s 출장비, 소모품)
-      </div>
-      수량: <input type="text" value="수량" placeholder="개수를 입력하세요." /> <br>
-    </div>
 
-<!-- 버튼 -->
-    <div class="other_results_btn">
-      <form v-on:submit.prevent="curation_result_img">
-        <div>
-          
-          <input type="submit" value="이전"  @click="diminish_img" placeholder="이전">
-          <input type="submit" value="다음"  @click="increase_img" placeholder="다음">
-        </div>
-      </form>
-    </div>
+    <form v-on:submit.prevent="curation_result_img">
+      <input type="submit" value="다른 상품" @click="click_curation_result_img" v-show="btn_curation_result_img">
+    </form>
+ 
+    
+    <carousel  v-show="btn_slide">
+      <slide v-for="result of this.result_img" :key="result.value">
+        <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
+        상품명: {{result.name}} <br>
+        기기 종류: {{result.color}} <br>
+        분당 프린트 속도: {{result.print_speed}} <br>
+        분당 스캔 속도: {{result.scan_speed}}<br>
+
+      </slide>
+    </carousel>
 
   </div>
 </template>
 
 <script>
 import axios from "axios"
+import {
+  Carousel,
+  Slide
+} from 'vue-carousel';
 
 export default {
   name: 'Other_products',
-  props: {
-    Q_number:Number,
-    answer: Object,
-    result_id: String,
-    result_name: String,
-    result_img_name: String
+  components: {
+    Carousel,
+    Slide
   },
-  data: function() {
+  props: {
+    Q_number: Number,
+    answer: Object,
+    result_id: String
+  },
+  data: function () {
     return {
-      lease_selects: "",
-      optin_selects: "" ,
-
       result_img: null,
-      plus_result_id: null,
-      plus_result_name: null,
-
+      result_name: null,
+      btn_curation_result_img: true,
+      btn_slide: false,
+      products_img: null
     }
   },
-  // created(){
-
-  // },
-  methods:{
-    increase_img(){
-      this.plus_result_id++;
-      this.curation_result_img();
-
-      if(this.plus_result_id >= 3){
-        this.plus_result_id = 1;
-      } else {
-        this.plus_result_id++;
-      }
-    },
-    diminish_img(){
-      if(this.plus_result_id >= 1){
-        this.plus_result_id--;
-        if(this.plus_result_id == 0){
-          this.plus_result_id = 2;
-        }
-      }
-    },
-    curation_result_img(){
+  methods: {
+    curation_result_img() {
       if (this.answer["1"] == 'black') {
-        axios.get('http://localhost:8081/b_products/img/', {
-           params: {
-            plus_result_id: this.plus_result_id
-           }
-          })
+        axios.get('http://localhost:8081/b_products/img/')
           .then((res) => {
             if (this.Q_number == 8) {
               this.result_img = res.data; //결과
-              this.plus_result_name = res.data.name; //상품 이름
-              this.plus_result_id = res.data._id; //상품 ID
+              this.result_name = res.data.name; //상품 이름
             }
           })
-      } else if(this.answer["1"] == 'color'){
-         axios.get('http://localhost:8081/c_products/img/', {
-            params: {
-            plus_result_id: this.plus_result_id
-           }
+          .catch((err) => {
+            console.log(err);
           })
+      } else if (this.answer["1"] == 'color') {
+        axios.get('http://localhost:8081/c_products/img/')
           .then((res) => {
             if (this.Q_number == 8) {
               this.result_img = res.data; //결과
-              this.plus_result_name = res.data.name; //상품 이름
-              this.plus_result_id = res.data._id; //상품 ID
+              this.result_name = res.data.name; //상품 이름
             }
+          })
+          .catch((err) => {
+            console.log(err);
           })
       }
+    },
+    click_curation_result_img(){
+      this.btn_slide = !this.btn_slide;
     }
   }
 }
+
 </script>
 
 <style>

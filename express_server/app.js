@@ -28,7 +28,6 @@ app.use('/b_products', require('./routes/b_products'));
 app.use('/c_products', require('./routes/c_products'));
 app.use('/questions', require('./routes/questions'));
 app.use('/mail', require('./routes/mail'));
-app.use('/results', require('./routes/results'));
 
 app.listen(8081, function () {
   console.log('conneted 8081 port!');

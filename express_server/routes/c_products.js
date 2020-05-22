@@ -32,12 +32,11 @@ router.get("/search", function (req, res) {
 
 
 router.get("/img", function (req, res) {
-  let plus_result_id = req.query.plus_result_id;
 
-  
-  C_product.findOne({_id: plus_result_id})
+  C_product.find()
   .then((item) => {
     res.send(item);
+    console.log(item);
   })
   .catch((err) => {
     console.log(err);

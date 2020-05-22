@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 // Define Schemes
 const postSchema = mongoose.Schema({
   _id:{type:String, require: true},
-  img:{data: Buffer, contentType: String},
   name:{type:String, require: true},
   color:{type:String, require: true},
   sale:{type:String, require: true},
