@@ -1,7 +1,8 @@
 <template>
   <div id="question_result">
-      <div>
+    <div>
 
+      <form v-on:submit.prevent="result_save">
         <h1> 질문지 결과</h1>
         <div>
           <ul>
@@ -21,7 +22,8 @@
           </ul>
           <!-- 총 12개 질문 / 대질문: 7개 / 소질문: 5개 -->
         </div>
-      </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -34,7 +36,9 @@ export default {
   data: function() {
     return {
     }
-  }
+  },
+
+  
 }
 </script>
 

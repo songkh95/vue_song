@@ -49,13 +49,15 @@ export default {
 
       console.log("asd: "+this.first_results)
 
-       axios.get('http://localhost:8081/mail/mail', {   
-         customer_name: customer_name,
-         customer_company: customer_company,
-         customer_local: customer_local,
-         customer_email: customer_email,
-         first_results: first_results
-
+       axios.get('http://localhost:8081/mail/mail', { 
+         params: {
+          customer_name: customer_name,
+          customer_company: customer_company,
+          customer_local: customer_local,
+          customer_email: customer_email,
+          first_results: first_results
+         },
+         timeout: 2000
        }) 
        .then((res)=>{
             console.log(res.deta)

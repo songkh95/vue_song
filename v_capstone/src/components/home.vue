@@ -2,16 +2,19 @@
   <div class="home">
     <div v-if="QQQ" class="Curation_form">
       <form v-on:submit.prevent="curation_result">
+        <!-- 시작 질문 -->
         <div v-show="start_question">
           <h1>제품 견적 큐레이션</h1>
           <p>고객님에게 필요한 제품을 알려드리며 쉽고 빠르게 견적서를 받을 수 있습니다.</p>
         </div>
 
+        <!-- 다시 시작 질문 -->
         <div v-show="restart_question">
           <h1>제품 견적 큐레이션</h1>
           <p>고객님께 추천드리는 상품은 {{result_name}} 입니다.</p>
         </div>
 
+        <!-- 질문 -->
         <div>
           <div v-if="question">
             <h5>{{Q_number}}/7</h5>
@@ -36,61 +39,59 @@
             </div>
           </div>
         </div>
-        <!-- 질문 -->
+
+        <!-- 결과 감사 소개-->
+        <div class="result_Explanation" v-show="result_Explanation">
+          <h1>제품 큐레이션 결과</h1>
+          <h5>지금까지 큐레이션 사용횟수: {{view_count}}</h5>
+          <p>
+            제품 큐레이션을 이용해주셔서 감사합니다! <br><br>
+
+            7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
+            쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
+
+            "문의하기" 버튼을 클릭하시면 저희 회사에 큐레이션 결과가 전송되어 당일에 고객님께 연락드립니다.<br><br>
+
+          </p>
+        </div>
+
+        <!-- 추천 상품 -->
+        <div class="Curation_img">
+          <span v-if="first_results_img">
+            <img :src="require(`../assets/${result_name}.png`)" alt="상품 이미지" /><br>
+            맞춤 추천 상품명: {{result_name}}<br>
+            희망 임대료: {{answer["2-1"]}}<br>
+            희망 계약기간: {{answer["2-2"]}} <br>
+            옵션: {{answer["5"]}}<br>
+            기본 매수: <br><br>
+          </span>
+        </div>
+
+        <!-- 문의하기 -->
+        <post_mail :first_results="first_results" v-show="customer_service" class="Curation_result" />
+
+        <!-- 질문자 결과 -->
+        <question_result :answer="answer" v-show="question_result" class="Curation_result" />
+
+        <!-- 질문 버튼들-->
         <div class="Curation_btn">
-          <input type="submit" class="btn_before" v-show="curation_restart" value="다시하기" @click="curation_restart_click">
+          <input type="submit" class="btn_before" v-show="curation_restart" value="다시하기"
+            @click="curation_restart_click">
           <input class="btn_before" type="submit" v-show="btn_before" value="Before" @click="diminishNumber"
             placeholder="이전">
           <input class="btn_after" type="submit" v-show="btn_after" value="Next" @click="increaseNumber"
             placeholder="다음">
 
-          <button v-show="send_btn" class="send_btn" @click="customer_service_btn">문의 하기</button>
+          <button class="send_btn" v-show="send_btn"  @click="customer_service_btn">문의 하기</button>
+          <button class="btn_before" @click="click_question_result" v-show="btn_question_result">질문지 결과</button>
         </div>
-
-        <div>
-
-          <!-- 결과 감사 소개-->
-          <div class="result_Explanation" v-show="result_Explanation">
-            <h1>제품 큐레이션 결과</h1>
-            <p>
-              제품 큐레이션을 이용해주셔서 감사합니다! <br><br>
-
-              7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
-              쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
-
-              "문의하기" 버튼을 클릭하시면 저희 회사에 큐레이션 결과가 전송되어 당일에 고객님께 연락드립니다.<br><br>
-
-            </p>
-          </div>
-
-          <!-- 추천 상품 -->
-          <div class="Curation_img">
-            <span v-show="first_results_img">
-              <!-- <img :src="require(`../assets/${result_name}.png`)" alt="처음 이미지" /><br> -->
-              <br><br><br>
-              맞춤 추천 상품명: {{result_name}}<br>
-              희망 임대료: {{answer["2-1"]}}<br>
-              희망 계약기간: {{answer["2-2"]}} <br>
-              옵션: {{answer["5"]}}<br>
-              기본 매수: <br><br>
-            </span>
-          </div>
-        </div>
+        
       </form>
 
-          <!-- 제품 다른 추천 -->
-          <OtherProducts v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
-          
-          <!-- 질문자 결과 -->
-          <button @click="click_question_result" v-show="btn_question_result">질문지 결과</button>
-          <question_result :answer="answer" v-show="question_result" />
-          
-          <!-- 문의하기 -->
-          <post_mail :first_results="first_results" v-show="customer_service"/>
+      <!-- 제품 다른 추천 -->
+      <OtherProducts v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
+
     </div>
-
-
-
   </div>
 </template>
 
@@ -117,7 +118,7 @@ export default {
       title:"",
       selects:[],
 
-      btn_before: true, //질문 다음 버튼
+      btn_before: false, //질문 다음 버튼
       btn_after: true,  //질문 이전 버튼
      
       start_question: false,     //시작 질문
@@ -132,18 +133,20 @@ export default {
       curation_products_result: false,   //슬라드쇼 제품 components
       question_result: false,            //질문결과
       btn_question_result: false,        //질문 결과 버튼
-      customer_service: false,            //문의하기 폼
+      customer_service: false,           //문의하기 폼
       send_btn: false,                   //문의하기 버튼
+
+      view_count: null,                         //사용횟수
+      view_count_check: false
     }
   },
   created(){
     this.get_question();
-   
+    this.result_name = localStorage.getItem('product_name');
     
     if(this.Q_number == 0){
         this.start_question = true;
         this.btn_before = false;
-        this.views = false;
 
       if(localStorage.getItem('curation_result')){
         this.restart_question = true;
@@ -200,8 +203,6 @@ export default {
         if (this.Q_number == 7) {
             return this.question.subquestions
         } else return []
-         
-
         return []
       }
     } 
@@ -223,16 +224,15 @@ export default {
             que3: que3,
             que4: que4,
             que5: que5
-          }
+          },
+          timeout: 2000
        }) 
        .then((res)=>{
-          if(this.Q_number == 8){
             this.first_results = JSON.stringify(res.data);
             this.result_name = res.data.name;
             this.result_id = res.data._id;
-          
             localStorage.setItem("curation_result", JSON.stringify(this.first_results))
-          }
+            localStorage.setItem("product_name", JSON.stringify(this.result_name))
       })
       } else if(this.answer["1"] == 'color'){
         axios.get('http://localhost:8081/c_products/search/', {   
@@ -242,17 +242,17 @@ export default {
             que3: que3,
             que4: que4,
             que5: que5
-         }
+         },
+         timeout: 2000
        }) 
        .then((res)=>{
-          if(this.Q_number == 8){
             this.first_results = JSON.stringify(res.data);
             this.result_name = res.data.name;
             this.result_id = res.data._id;
             console.log(this.first_results + " / " + this.result_id);
 
             localStorage.setItem("curation_result", JSON.stringify(this.first_results))
-          }
+            localStorage.setItem("product_name", JSON.stringify(this.result_name))
       })        
       }
     },
@@ -264,57 +264,68 @@ export default {
       })
     },
     //다음 질문 버튼
-    increaseNumber() {
-      if(this.Q_number >= 0 && this.Q_number <= 7){
-        this.Q_number++;
-        this.get_question();
-      }    
+    increaseNumber(){
+        if(this.Q_number >= 0 && this.Q_number <= 7){
+          this.Q_number++;
+          this.get_question();
+        }
+          
+        if(this.Q_number >= 1 && this.Q_number <= 7){
+          this.start_question = false;
+          this.btn_before = true;
+          this.curation_restart = false;
+        }
 
-      if(this.Q_number >= 1){
-        this.start_question = false
-        this.btn_before = true;
-        this.curation_restart = false;
-      }
+        if(this.Q_number >= 8){
+          this.send_btn = true;
+          this.result_Explanation = true;
+          this.btn_question_result = true;
+          this.first_results_img = true;
+          
+          this.curation_products_result = true;
+          this.curation_restart = true;
 
-      if(this.Q_number > 7){
-        this.send_btn = true;
-        this.btn_after = false;
-        this.result_Explanation = true;
-        this.views = true;
-        this.btn_question_result = true;
-        this.first_results_img = true;
-        this.curation_products_result = true;
-        this.customer_service = false;
-      }  
+          this.btn_after = false;
+          this.customer_service = false;
+          this.view_count_check = true;
+          this.btn_before = false;
+
+          this.result_save();
+          this.count();
+        }
     },
     //이전 질문 버튼
     diminishNumber() {
-      if(this.Q_number >= 1 && this.Q_number <= 8){
+      if(this.Q_number >= 1 && this.Q_number < 8){
         this.Q_number--;
         this.get_question();
         this.curation_restart= false;
       }
 
-      if(this.Q_number == 0){
+      if(this.Q_number <= 1){
         this.start_question = true;
         this.btn_before = false;
+        this.question = false;
+        this.btn_before = false
       }
       if(this.Q_number <= 7){
         this.send_btn = false;
         this.other_results = false;
         this.btn_after = true;
         this.result_Explanation = false;
-        this.views=false;
         this.btn_question_result = false;
         this.first_results_img = false;
         this.curation_products_result = false;
         this.customer_service = false;
+        
+        this.view_count_check = false;
+        this.curation_restart = false;
         }
     },
     //문의하기 버튼
     customer_service_btn(){
       this.customer_service = !this.customer_service;
-      //this.result_question = false;
+      this.question_result = false;
       if(this.customer_service == false){
         this.result_Explanation = true;
       } else {
@@ -324,24 +335,85 @@ export default {
     //큐레이션 다시시작하기 버튼
     curation_restart_click(){
       localStorage.removeItem("curation_result"); 
-      this.Q_number++;
-      this.get_question();
+      localStorage.removeItem("product_name")
+      if(this.Q_number == 0){
+        this.Q_number++;
+        this.get_question();
+        
+        this.start_question = false;
+        this.restart_question = false;
+        this.curation_restart = false;
+        this.btn_after = true;
+        this.btn_before = true;
+      }
       
-      this.start_question = false;
-      this.restart_question = false;
-      this.curation_restart = false;
-      this.btn_after = true;
-      this.btn_before = true;
+      if(this.Q_number == 8){
+        localStorage.removeItem("curation_result"); 
+        localStorage.removeItem("product_name");
+        location.reload();
+      }
     },
     //질문지 결과 버튼
     click_question_result(){
       this.question_result = !this.question_result;
+      this.result_Explanation = false;
+      this.customer_service = false;
+      if(this.question_result == false){
+        this.result_Explanation = true;
+      } else {
+        this.result_Explanation = false;
+      }
+    },
+    //질문 결과 저장
+    result_save(){
+       let answer1 = this.answer["1"];
+       let answer2 = this.answer["2"];
+       let answer2_1 = this.answer["2-1"];
+       let answer2_2 = this.answer["2-2"];
+       let answer3 = this.answer["3"];
+       let answer3_1 = this.answer["3-1"];
+       let answer4 = this.answer["4"];
+       let answer5 = this.answer["5"];
+       let answer6 = this.answer["6"];
+       let answer7 = this.answer["7"];
+       let answer7_1 = this.answer["7-1"];
+       let answer7_2 = this.answer["7-2"];
+       let answer7_3 = this.answer["7-3"];
+
+      axios.get('http://localhost:8081/result_save/save', {   
+          params: {
+            answer1: answer1,
+            answer2: answer2,
+            answer2_1: answer2_1,
+            answer2_2: answer2_2,
+            answer3: answer3,
+            answer3_1: answer3_1,
+            answer4: answer4,
+            answer5: answer5,
+            answer6: answer6,
+            answer7: answer7,
+            answer7_1: answer7_1,
+            answer7_2: answer7_2,
+            answer7_3: answer7_3 
+          }
+       })  
+      .then((res)=>{
+        console.log("질문결과 저장 완료")
+      })
+    },
+    //사용횟수
+    count(){
+      if(this.view_count_check == true){
+        axios.get('http://localhost:8081/result_save/count') 
+        .then((res)=>{
+          this.view_count = res.data.length;
+      })       
+      console.log(this.view_count)
+      }
     }
   }
-  
 }
 </script>
-
 
 <style scoped>
 body{
@@ -474,7 +546,7 @@ body{
 }
 .btn_before{
   position: relative;
-  width: 80px;
+  width: 90px;
   height: 35px;
   color: rgb(0, 0, 0);
   font-size: 13px;
@@ -525,12 +597,17 @@ body{
 .Curation_img{
   position: absolute;
   width: 30vw;
-  top: 30vh;
+  top: 5vh;
   left: 50vw;
   text-align: left;
   margin: 0% 70px 0px 8%;
   background: rgb(214, 169, 255);
   font-size: 13px;
+}
+
+.Curation_img img{
+  width: 50px;
+  height: 50px;
 }
 
 .view{
