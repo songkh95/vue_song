@@ -1,12 +1,12 @@
 <template>
   <div id="other_products">
-
     <form v-on:submit.prevent="curation_result_img">
-      <input class="btn_before" type="submit" value="다른 상품" @click="click_curation_result_img" v-show="btn_curation_result_img">
+      <input class="btn_before" type="submit" value="다른 상품" @click="click_curation_result_img"
+        v-show="btn_curation_result_img">
     </form>
- 
-    
-    <carousel  v-show="btn_slide" class="slide">
+
+    <a href="#">같은 종류의 다른 상품</a>
+    <carousel v-show="btn_slide" class="slide">
       <slide v-for="result of this.result_img" :key="result.value">
         <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
         상품명: {{result.name}} <br>
@@ -14,10 +14,9 @@
         분당 프린트 속도: {{result.print_speed}} <br>
         분당 스캔 속도: {{result.scan_speed}}<br>
         <br>
-        <input type="radio" :value="result.value" @click="checkbox_estimate($event)">
+        문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate"> <br>
       </slide>
     </carousel>
-
   </div>
 </template>
 
@@ -41,14 +40,15 @@ export default {
   },
   data: function () {
     return {
+      val: [],
+
       result_img: null,
       result_name: null,
       btn_curation_result_img: true,
       btn_slide: false,
       products_img: null,
-      asd: null,
-      result_value: null
-      
+      result_value: null,
+      asd: null
     }
   },
   methods: {
@@ -59,8 +59,10 @@ export default {
         })
           .then((res) => {
             if (this.Q_number == 8) {
+              this.black_products = res.data;
               this.result_img = res.data; //결과
               this.result_name = res.data.name; //상품 이름
+              this.color =  res.data.color;
             }
           })
           .catch((err) => {
@@ -72,9 +74,10 @@ export default {
         })
           .then((res) => {
             if (this.Q_number == 8) {
+              this.color_products = res.data;
               this.result_img = res.data; //결과
               this.result_name = res.data.name;
-              this.asd = res.data.name; //상품 이름
+              this.color =  res.data.color;
             }
           })
           .catch((err) => {
@@ -85,16 +88,19 @@ export default {
     click_curation_result_img(){
       this.btn_slide = !this.btn_slide;
     },
-    checkbox_estimate($event){
-      let aaa = $event.target.value
-      console.log(aaa)
+    checkbox_estimate(){
+      localStorage.setItem("estimate", JSON.stringify(this.val))
+      this.asd = localStorage.getItem("estimate");
     }
   }
 }
-
 </script>
 
 <style>
+.slide{
+  margin-left: 40px;
+  text-align: left;
+}
 .slide img{
   width: 200px;
   height: 200px;

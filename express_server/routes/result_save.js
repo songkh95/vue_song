@@ -15,7 +15,8 @@ let answer7 = req.query.answer7;
 let answer7_1 = req.query.answer7_1;
 let answer7_2 = req.query.answer7_2;
 let answer7_3 = req.query.answer7_3;
-  
+let option_select = req.query.option_select;
+
   results_save = new Results_save({
     answer1: answer1,
     answer2: answer2,
@@ -29,7 +30,8 @@ let answer7_3 = req.query.answer7_3;
     answer7: answer7,
     answer7_1: answer7_1,
     answer7_2: answer7_2,
-    answer7_3: answer7_3 
+    answer7_3: answer7_3,
+    option_select: option_select
   });
 
   results_save.save(function(err, dc){

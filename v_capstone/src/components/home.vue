@@ -62,13 +62,18 @@
             맞춤 추천 상품명: {{result_name}}<br>
             희망 임대료: {{answer["2-1"]}}<br>
             희망 계약기간: {{answer["2-2"]}} <br>
-            옵션: {{answer["5"]}}<br>
+            옵션: 
+              <select v-model="option_select">
+                <option disabled value="">please select one</option>
+                <option>A4 용지 1Box</option>
+                <option>A3 용지 1Box</option>
+              </select>  <br>
             기본 매수: <br><br>
           </span>
         </div>
 
         <!-- 문의하기 -->
-        <post_mail :first_results="first_results" v-show="customer_service" class="Curation_result" />
+        <post_email :first_results="first_results" :option_select="option_select" v-show="customer_service" class="Curation_result" />
 
         <!-- 질문자 결과 -->
         <question_result :answer="answer" v-show="question_result" class="Curation_result" />
@@ -99,14 +104,14 @@
 import axios from "axios"
 import Question_result from './Question_result'
 import OtherProducts from './OtherProducts'
-import Post_mail from './Post_email'
+import Post_email from './Post_email'
 
 export default {
   name: 'home',
   components: {
     Question_result,
     OtherProducts,
-    Post_mail
+    Post_email
   },
   data: function() {
     return {
@@ -136,8 +141,9 @@ export default {
       customer_service: false,           //문의하기 폼
       send_btn: false,                   //문의하기 버튼
 
-      view_count: null,                         //사용횟수
-      view_count_check: false
+      view_count: null,                  //사용횟수
+      view_count_check: false,           //사용횟수 체크
+      option_select: ""                  //맞춤 설정 옵션
     }
   },
   created(){
@@ -168,9 +174,15 @@ export default {
       } else {
         if (this.Q_number == 2) {
           if (this.answer["2"] == "lease") {
-            return this.question.subquestions
+            // return this.question.subquestions
+            return this.question.subquestions.filter(function (item) {
+              return item._id === "2-1" || item._id === "2-2"
+            })
+          } else if(this.answer["2"] == "sale"){
+            return this.question.subquestions.filter(function (item) {
+              return item._id === "2-3";
+            })
           }
-          else return []
         } 
         
         if (this.Q_number == 3) {
@@ -205,7 +217,7 @@ export default {
         } else return []
         return []
       }
-    } 
+    }
   },
   methods: {
     //맞춤 추천
@@ -249,8 +261,6 @@ export default {
             this.first_results = JSON.stringify(res.data);
             this.result_name = res.data.name;
             this.result_id = res.data._id;
-            console.log(this.first_results + " / " + this.result_id);
-
             localStorage.setItem("curation_result", JSON.stringify(this.first_results))
             localStorage.setItem("product_name", JSON.stringify(this.result_name))
       })        
@@ -265,9 +275,13 @@ export default {
     },
     //다음 질문 버튼
     increaseNumber(){
-        if(this.Q_number >= 0 && this.Q_number <= 7){
-          this.Q_number++;
-          this.get_question();
+        if (this.Q_number >= 0 && this.Q_number <= 7) {
+          if (this.Q_number == 1 && this.answer["1"] == null) {
+            alert("필수항목입니다!")
+          } else {
+            this.Q_number++;
+            this.get_question();
+          }
         }
           
         if(this.Q_number >= 1 && this.Q_number <= 7){
@@ -292,6 +306,7 @@ export default {
 
           this.result_save();
           this.count();
+
         }
     },
     //이전 질문 버튼
@@ -307,6 +322,8 @@ export default {
         this.btn_before = false;
         this.question = false;
         this.btn_before = false
+      } else {
+        this.question = false;
       }
       if(this.Q_number <= 7){
         this.send_btn = false;
@@ -336,6 +353,7 @@ export default {
     curation_restart_click(){
       localStorage.removeItem("curation_result"); 
       localStorage.removeItem("product_name")
+      localStorage.removeItem("estimate")
       if(this.Q_number == 0){
         this.Q_number++;
         this.get_question();
@@ -379,6 +397,7 @@ export default {
        let answer7_1 = this.answer["7-1"];
        let answer7_2 = this.answer["7-2"];
        let answer7_3 = this.answer["7-3"];
+       let option_select = this.option_select;
 
       axios.get('http://localhost:8081/result_save/save', {   
           params: {
@@ -394,7 +413,8 @@ export default {
             answer7: answer7,
             answer7_1: answer7_1,
             answer7_2: answer7_2,
-            answer7_3: answer7_3 
+            answer7_3: answer7_3,
+            option_select: option_select
           }
        })  
       .then((res)=>{
@@ -402,13 +422,12 @@ export default {
       })
     },
     //사용횟수
-    count(){
-      if(this.view_count_check == true){
-        axios.get('http://localhost:8081/result_save/count') 
-        .then((res)=>{
-          this.view_count = res.data.length;
-      })       
-      console.log(this.view_count)
+    count() {
+      if (this.view_count_check == true) {
+        axios.get('http://localhost:8081/result_save/count')
+          .then((res) => {
+            this.view_count = res.data.length;
+          })
       }
     }
   }

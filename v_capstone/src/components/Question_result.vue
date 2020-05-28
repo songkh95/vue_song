@@ -1,15 +1,16 @@
 <template>
   <div id="question_result">
     <div>
-
-      <form v-on:submit.prevent="result_save">
+      {{answer["2-3"]}}
+      <form v-on:submit.prevent="result_save"  class="result_save">
         <h1> 질문지 결과</h1>
         <div>
           <ul>
             <li>희망하시는 기기: {{answer["1"]}}</li>
             <li>구매 방법: {{answer["2"]}}</li>
-            <li>계약기간: {{answer["2-1"]}}</li>
+            <li>계약기간: {{answer["2"] == "lease" ? answer["2-1"] : answer["2-3"]}}</li>
             <li>희망 임대 금액: {{answer["2-2"]}}</li>
+            <li>희망 구매 금액: {{answer["2-3"]}}</li>
             <li>스캔 속도: {{answer["3"]}}</li>
             <li>프린터 속도: {{answer["3-1"]}}</li>
             <li>프린트 해상도: {{answer["4"]}}</li>
@@ -43,5 +44,7 @@ export default {
 </script>
 
 <style>
-
+.result_save{
+  text-align: left;
+}
 </style>
