@@ -5,8 +5,10 @@
         v-show="btn_curation_result_img">
     </form>
 
+      
+      
     <a href="#">같은 종류의 다른 상품</a>
-    <carousel v-show="btn_slide" class="slide">
+    <carousel v-show="btn_slide" class="slide" >
       <slide v-for="result of this.result_img" :key="result.value">
         <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
         상품명: {{result.name}} <br>
@@ -47,22 +49,26 @@ export default {
       btn_curation_result_img: true,
       btn_slide: false,
       products_img: null,
-      result_value: null,
-      asd: null
+      result_value: null
+    }
+  },
+  computed:{
+    parentCounter(){
+      return this.$store.state.counter
     }
   },
   methods: {
     curation_result_img() {
       if (this.answer["1"] == 'black') {
         axios.get('http://localhost:8081/b_products/img/', {
-         timeout: 2000
-        })
+            timeout: 2000
+          })
           .then((res) => {
             if (this.Q_number == 8) {
               this.black_products = res.data;
               this.result_img = res.data; //결과
               this.result_name = res.data.name; //상품 이름
-              this.color =  res.data.color;
+              this.color = res.data.color;
             }
           })
           .catch((err) => {
@@ -70,14 +76,14 @@ export default {
           })
       } else if (this.answer["1"] == 'color') {
         axios.get('http://localhost:8081/c_products/img/', {
-         timeout: 2000
-        })
+            timeout: 2000
+          })
           .then((res) => {
             if (this.Q_number == 8) {
               this.color_products = res.data;
               this.result_img = res.data; //결과
               this.result_name = res.data.name;
-              this.color =  res.data.color;
+              this.color = res.data.color;
             }
           })
           .catch((err) => {
@@ -85,12 +91,13 @@ export default {
           })
       }
     },
-    click_curation_result_img(){
+    click_curation_result_img() {
       this.btn_slide = !this.btn_slide;
     },
-    checkbox_estimate(){
-      localStorage.setItem("estimate", JSON.stringify(this.val))
-      this.asd = localStorage.getItem("estimate");
+    checkbox_estimate() {
+      console.log(JSON.stringify(this.val))
+      let estimate = JSON.stringify(this.val)
+      this.$store.dispatch('checkbox_estimate', estimate);
     }
   }
 }

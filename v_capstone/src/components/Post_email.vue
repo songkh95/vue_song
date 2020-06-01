@@ -18,7 +18,7 @@
         </p>
 
         <div>
-          <!-- 장바구니: {{asd}} -->
+          {{$store.state.counter}}
         </div>
         <br><br><br>
         <button type="submit" class="btn_before" >전송하기</button>

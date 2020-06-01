@@ -34,7 +34,7 @@ router.get("/img", function (req, res) {
   C_product.find()
   .then((item) => {
     res.send(item);
-    console.log(item);
+    // console.log(item);
   })
   .catch((err) => {
     console.log(err);
