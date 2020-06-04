@@ -22,6 +22,7 @@ router.get('/mail', function (req, res) {
   let customer_date = req.query.customer_date;
   let customer_content = req.query.customer_content;
   let option_select = req.query.option_select;
+  let other_products = req.query.other_products;
 
   const mailOptions = {
     from: customer_email,
@@ -36,6 +37,7 @@ router.get('/mail', function (req, res) {
     - 내용: ${customer_content}
     - 옵션: ${option_select}
     - 질문지 결과: ${first_results}
+    - 다른 상품: ${other_products}
     `
   };
   

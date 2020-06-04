@@ -18,10 +18,11 @@
         </p>
 
         <div>
+          <h3>선택한 항목</h3>
           {{$store.state.counter}}
         </div>
         <br><br><br>
-        <button type="submit" class="btn_before" >전송하기</button>
+        <button type="submit" class="btn_mail" >전송하기</button>
       </div>
 
     </form>
@@ -85,6 +86,7 @@ export default {
         let customer_date = this.customer_date;
         let customer_content = this.customer_content;
         let option_select = this.option_select;
+        let other_products = this.$store.state.counter;
 
         console.log(customer_name)
         console.log("이메일 전송: " + this.first_results)
@@ -99,7 +101,8 @@ export default {
               customer_phone: customer_phone,
               customer_date: customer_date,
               customer_content: customer_content,
-              option_select: option_select
+              option_select: option_select,
+              other_products: other_products
             },
             timeout: 2000
           })
@@ -112,5 +115,20 @@ export default {
 </script>
 
 <style>
-
+.btn_mail{
+  position: relative;
+  width: 90px;
+  height: 35px;
+  color: rgb(0, 0, 0);
+  font-size: 13px;
+  text-decoration: none;
+  border: 2px solid #09003b;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  background: rgb(255, 255, 255);
+}
+.btn_mail:hover{
+  background: rgb(2, 0, 68);
+  color:rgb(255, 255, 255)
+}
 </style>

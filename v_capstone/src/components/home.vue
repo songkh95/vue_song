@@ -1,71 +1,102 @@
 <template>
   <div id="Home">
     <!-- 상단 메뉴 -->
-    <div class="menu">
-      <img :src="require(`../assets/xerox_logo.png`)" alt="xerox_logo">
-      <ul>
-        <li><a href="#">홈</a></li>
-        <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
-        <li><a href="#">모든 제품</a></li>
-        <li><a href="#">공지사항</a></li>
-      </ul>
-    </div>
+    <header>
+      <div class="menu">
+        <img :src="require(`../assets/xerox_logo.png`)" alt="xerox_logo">
+        <ul>
+          <li><a href="http://localhost:8080">홈</a></li>
+          <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
+          <li><a href="#">모든 제품</a></li>
+          <li><a href="#">공지사항</a></li>
+        </ul>
+      </div>
+    </header>
+
 
 
     <!-- 왼쪽 내용 -->
-    <div class="content">
-      <h1>크린솔루션</h1>
+    <section class="section_left">
+      <div class="content">
+        <h1>크린솔루션</h1>
 
-      <p>
-        orem Ipsum is simply dummy text of the printing and typesetting industry.
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-        unchanged.
-        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
+        <p>
+          orem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+          It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+          unchanged.
+          It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+          and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          <br>#제록스대리점 #정품 #복합기 #프린터 #소모품 #임대 #판매   
+        </p>
 
-      <a href="http://localhost:8080/Curation" title="Start Curation" class="btn_Start_Curation">Start Curation</a>
-      <a href="#" class="btn_All_Products"> ▶ All products</a>
-    </div>
+        <a href="http://localhost:8080/Curation" title="Start Curation" class="btn_Start_Curation">Start Curation</a>
+        <a href="#" class="btn_All_Products"> ▶ All products</a>
+
+      </div>
+    </section>
+
+    <!-- <div>
+        <span class="Clean_Solution">Clean<br> Solution</span>
+      </div> -->
 
     <!-- 오른쪽 내용 -->
-    <div class="products">
-      <form v-on:submit.prevent="curation_result_img">
-        <carousel v-show="btn_slide" class="carousel" :perPage="1" :autoplay="true" :navigationEnabled="true"
-          :navigationNextLabel="next" :navigationPrevLabel="before" indicators="hover">
-          <slide v-for="result of this.result_img" :key="result.value" class="slide">
-            <img class="products_img" :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
-            <div class="products_content">
-              상품명: {{result.name}} <br>
-              기기 종류: {{result.color}} <br>
-              분당 프린트 속도: {{result.print_speed}} <br>
-              분당 스캔 속도: {{result.scan_speed}}<br>
-            </div>
-          </slide>
+    <section class="section_right">
+      <div class="products">
+        <form :submit="curation_result_img" class="products_form">
+          <carousel class="carousel" 
+          :perPage="2" 
+          :autoplay="true" 
+          :navigationEnabled="true" 
+          navigationNextLabel="▶" 
+          navigationPrevLabel="◀" 
+          :loop="loop" 
+          paginationActiveColor="rgb(248, 70, 70)"
+          paginationColor="#555555"
+          :paginationPadding="2"
+          :paginationSize="10"
+          :autoplayTimeout="4000"
+          >
+            <slide v-for="result of this.result_img" :key="result.value" class="slide">
+              <img class="products_img" :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
+              <div class="products_content">
+                <h2>{{result.name}}</h2>
+                <h3>{{result.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h3>
+                <p>
+                  분당 프린트 속도: {{result.print_speed}}매 / {{result.print_speed_level}} 등급<br>
+                  분당 스캔 속도: {{result.scan_speed }}매<br>
+                  임대: 협의 가능 <br>
+                  판매가: {{result.sale}} <br>
+                </p>
+                <button class="btn_estimate">문의하기</button>
+              </div>
+            </slide>
+          </carousel>
+        </form>
+      </div>
+    </section>
 
-
-        </carousel>
-      </form>
-    </div>
     <!-- 하단 정보 -->
-    <div class="information">
-      <div class="information_left">
-        <h3>크린솔루션</h3>
-        <p>
-          한국후지제록스주식회사 | 대표: 송윤식 | 사업자등록번호: 119-13-45830 | 2006년 - 2020년 <br>
-          150-909 서울특별시 영등포구 시흥대로 173길 13 (대림동, 신대림자이상가 101동 107-5호) <br>
-        </p>
+    <footer>
+      <div class="information">
+        <div class="information_left">
+          <h3>크린솔루션</h3>
+          <p>
+            한국후지제록스주식회사 | 대표: 송윤식 | 사업자등록번호: 119-13-45830 | 2006년 - 2020년 <br>
+            150-909 서울특별시 영등포구 시흥대로 173길 13 (대림동, 신대림자이상가 101동 107-5호) <br>
+          </p>
+        </div>
+        <div class="information_right">
+          <h3>문의 및 제휴</h3>
+          <p>
+            월 ~ 금 | 09시 ~ 18시 | 전화 및 채팅 상담 문의해주세요. <br>
+            TEL: 02) 877 - 4300 | FAX: 02) 877 - 4319 | Mobile: 010 - 5223 - 7540 | E-mail: krc017501@fxk.co.kr <br>
+          </p>
+        </div>
       </div>
-      <div class="information_right">
-        <h3>문의 및 제휴</h3>
-        <p>
-          월 ~ 금 | 09시 ~ 18시 | 전화 및 채팅 상담 문의해주세요. <br>
-          TEL: 02) 877 - 4300 | FAX: 02) 877 - 4319 | Mobile: 010 - 5223 - 7540 | E-mail: krc017501@fxk.co.kr <br>
-        </p>
-      </div>
-    </div>
+
+    </footer>
 
 
   </div>
@@ -87,9 +118,7 @@ export default {
   data: function() {
     return {
       result_img: null,
-      btn_slide: true,
-      next: "▶",
-      before: "◀"
+      loop: true
     }
   },
   created(){
@@ -113,49 +142,77 @@ export default {
       }
   }
 }
+
+
 </script>
 
 <style>
-body{
+*{
   margin: 0;
   padding: 0;
+  
+}
+body{
   font-family: sans-serif;
-  background: #242424;
+  background: #ffffff;
+  height: 100%;
+    
+}
+
+header{
+  top: 0;
+}
+
+.section_left{
+  float: left;
+  height: 100%;
+  width: 50%;
+}
+
+.section_right{
+  float: left;
+  height: 100%;
+  width: 50%;
+  z-index: -1;
+}
+
+footer{
+  bottom: 10px;
+  height: 10%;
+  width: 100%;
+  position: fixed;
 }
 .menu img{
   width: 10vw;
-  left: 20vw;
-  float: left;
+  display: inline-block;
   margin: 1vh 0 0 8vw;
 }
 
 .menu ul{
-  position: relative;
-  float: left;
-  left: 38vw;
-  margin: 0;
-  padding: 0;
-  display: flex;
+  display: block;
+  float: right;
+  margin-top:2vh;
+  margin-right: 10vw;
 }
 
 ul li{
   list-style: none;
+  float: left;
 }
 
 ul li a{
   position: relative;
-  display: block;
-  padding: 10px 20px;
-  margin: 20px 10px;
+  display: inline-block;
+  margin-left: 25px;
   text-decoration: none;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #000000;
   font-weight: bold;
   transition: .5s;
-  font-size: 20px;
+  font-size: 16px;
 }
 ul li a:hover{
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 ul li a:before{
@@ -165,8 +222,8 @@ ul li a:before{
   left: 0;
   width: 100%;
   height: 100%;
-  border-top: 1px solid rgb(255, 255, 255);
-  border-bottom: 1px solid rgb(255, 255, 255);
+  border-top: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
   transform: scaleY(2);
   opacity: 0;
   transition: .5s;
@@ -185,7 +242,7 @@ ul li a:after{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(255, 255, 255);
+  background: rgb(0, 0, 0);
   transform: scale(0);
   transition: .5s;
   z-index: -1;
@@ -194,47 +251,55 @@ ul li a:after{
 ul li a:hover:after{
   transform: scale(1);
 }
-.content{
+
+/* .Clean_Solution {
   position: absolute;
+  bottom: 100px;
+  left: 3vw;
+  font-size: 16vw;
+  z-index: -2;
+  font-weight: 400;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 15rem;
+	letter-spacing: 10px;
+	text-align: left;
+	color: #ffffff;
+  opacity: 0.15;
+  line-height: 230px;
+	background-image: -webkit-linear-gradient(92deg, #000dff, #ffffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: hue 10s infinite linear;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+} */
+
+.content{
+  position: relative;
+  
   left: 8vw;
-  top: 25vh;
+  margin-top: 20%;
   text-align: left;
 }
 
-.content:before{
-  content: "Clean";
-  position: absolute;
-  top: 11vh;
-  left: -10vw;
-  font-size: 16vw;
-  z-index: -2;
-  font-weight: 550;
-  color: rgb(255, 255, 255);
-  opacity: 0.03;
-  letter-spacing:30px;
-}
-.content:after{
-  content: "Solution";
-  position: absolute;
-  top: 36vh;
-  left: -10vw;
-  font-size: 18vw;
-  z-index: -2;
-  font-weight: 700;
-  color: rgb(255, 255, 255);
-  opacity: 0.03;
-  letter-spacing:25px;
-}
 
 .content h1{
-  font-size: 65px;
-  color:rgb(255, 255, 255);
+  font-size: 60px;
+  color:rgb(0, 0, 0);
+  margin: 0;
 }
 .content p{
-  width: 30vw;
-  margin-top: 10px;
-  color: rgb(179, 179, 179);
-  font-size: 16px;
+  width: 37vw;
+  margin-top: 25px;
+  color: rgb(105, 105, 105);
+  font-size: 15px;
 }
 
 .content .btn_Start_Curation{
@@ -248,7 +313,7 @@ ul li a:hover:after{
   transition: .5s;
 }
 .content .btn_All_Products{
-  top: 33px;
+  top: 24px;
   left: 110px;
   font-size: 16px;
   font-family: Arial;
@@ -257,12 +322,13 @@ ul li a:hover:after{
   transform-style: preserve-3d;
   position: relative;
   transition: .5s;
-  color: rgb(243, 103, 103);
+    font-weight: bold;
+  color: rgb(248, 70, 70);
 ;
 }
 
 .content .btn_All_Products:hover{
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .content .btn_Start_Curation:before{
@@ -276,9 +342,10 @@ ul li a:hover:after{
   padding: 15px 40px;
   background: #fff;
   color: #000;
-  border: 3px solid rgb(255, 255, 255);
+  border: 1px solid rgb(0, 0, 0);
   transition: .5s;
   transform-origin: right;
+  font-weight: bold;
   transform: translateX(-100%) rotateY(90deg);
 }
 
@@ -293,7 +360,7 @@ ul li a:hover:after{
   padding: 15px 40px;
   background: #000;
   color: #fff;
-  border: 3px solid rgb(255, 255, 255);
+  border: 1px solid rgb(0, 0, 0);
   transition: .5s;
   transform-origin: left;
   transform: translateX(0) rotateY(0deg);
@@ -306,52 +373,84 @@ ul li a:hover:after{
 .content .btn_Start_Curation:hover:after{
   transform: translateX(100%) rotateY(90deg);
 }
+
 .products{
-  position: absolute;
+  position: relative;
   right: 0;
   width: 53%;
-  height: 100%;
-  z-index: -2;
+  
   /* background: #010c27; */
-  clip-path: polygon(0 0, 100% 0%, 100% 100%, 5% 100%);
+  /* clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%); */
 }
 
-.carousel{
-  width: 18vw;
-  height: 60vh;
-  position: relative;
-  top: 17vh;
-  left: 15vw;
-  padding-top: 40px;
-  border-radius: 50px;
-  background: linear-gradient(145deg, #272727, #202020);
-  box-shadow:  20px 20px 20px #1f1f1f, 
-              -20px -20px 20px #292929;
+.products_content h1{
+  margin: 0;
 }
-/* .slide{
-  
-} */
-.products_img{
-  width: 10vw;
+.VueCarousel-pagination{
+  width: 30px;
+}
+.carousel{
+  width: 36vw;
+  height: 50%;
+  top: 7vh;
   left: 4vw;
+  padding-top: 3vh;
+  border-radius: 20px;
+  background: #f3f3f3;
+  box-shadow:  48px 48px 96px #d0d0d0, 
+              -48px -48px 96px #ffffff;
+             
+}
+.products_img{
+  width: 45%;
+  left: 5vw;
   position: relative;
 }
 .products_content{
-  color: rgb(255, 255, 255);
-  text-align: center;
-  font-size: 14px;
-  margin-top: 2vh;
+  width: 70%;
+  height: 30%;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  font-size: 0.3em;
+  margin-top: 5vh;
+  margin-left: 3vw;
 }
+
+.products_content h2{
+  font-size: 5em;
+}
+
+.products_content h3{
+  font-size: 3.5em;
+  color: #424242;
+}
+
+.products_content p{
+  margin-top: 10px;
+  font-size: 2.5em;
+}
+
+.products_content .btn_estimate{
+  margin-top: 10px;
+  
+}
+.carousel .VueCarousel-pagination{
+  height: 5vh;
+  width: 100%;
+}
+/* .carousel .VueCarousel-dot-container{
+} */
+
 .information{
-  position: absolute;
+  position: relative;
   left: 8vw;
-  bottom: 3vh;
+  bottom: -2vh;
   text-align: left;
   font-size: 12px;
 }
 
 .information h3{
-  color:rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
   font-weight: bold;
 }
 

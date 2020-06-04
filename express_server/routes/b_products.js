@@ -15,7 +15,7 @@ router.get("/search", function (req, res) {
 
   B_product.findOne({
     color: que1
-    // print_speed: que2,
+    // print_speed_level: que2,
     // scan_speed: que3,
     // dpi: que4,
     // advantage: que5

@@ -1,14 +1,13 @@
 <template>
   <div id="other_products">
+
     <form v-on:submit.prevent="curation_result_img">
-      <input class="btn_before" type="submit" value="다른 상품" @click="click_curation_result_img"
+      <input class="btn_OtherProducts" type="submit" value="다른 상품" @click="click_curation_result_img"
         v-show="btn_curation_result_img">
     </form>
 
-      
-      
-    <a href="#">같은 종류의 다른 상품</a>
-    <carousel v-show="btn_slide" class="slide" >
+    <carousel v-show="btn_slide" class="slide" :perPage="4" :loop="loop" :autoplay="true" :navigationEnabled="true"
+      :navigationNextLabel="next" :navigationPrevLabel="before">
       <slide v-for="result of this.result_img" :key="result.value">
         <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
         상품명: {{result.name}} <br>
@@ -19,6 +18,9 @@
         문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate"> <br>
       </slide>
     </carousel>
+
+
+
   </div>
 </template>
 
@@ -47,9 +49,12 @@ export default {
       result_img: null,
       result_name: null,
       btn_curation_result_img: true,
-      btn_slide: false,
+      btn_slide: true,
       products_img: null,
-      result_value: null
+      result_value: null,
+      next: "▶",
+      before: "◀",
+      loop: true
     }
   },
   computed:{
@@ -107,16 +112,19 @@ export default {
 .slide{
   margin-left: 40px;
   text-align: left;
+  width: 80%;
 }
 .slide img{
   width: 200px;
   height: 200px;
 }
 
-.btn_before{
+.btn_OtherProducts{
   position: relative;
-  width: 90px;
-  height: 35px;
+  left: 8vw;
+
+  padding: 10px;
+  width: 100px;
   color: rgb(0, 0, 0);
   font-size: 13px;
   text-decoration: none;
@@ -125,7 +133,7 @@ export default {
   transition: 0.6s all ease;
   background: rgb(255, 255, 255);
 }
-.btn_before:hover{
+.btn_OtherProducts:hover{
   background: rgb(2, 0, 68);
   color:rgb(255, 255, 255)
 }
