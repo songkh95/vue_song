@@ -2,15 +2,7 @@
   <div id="Home">
     <!-- 상단 메뉴 -->
     <header>
-      <div class="menu">
-        <img :src="require(`../assets/xerox_logo.png`)" alt="xerox_logo">
-        <ul>
-          <li><a href="http://localhost:8080">홈</a></li>
-          <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
-          <li><a href="#">모든 제품</a></li>
-          <li><a href="#">공지사항</a></li>
-        </ul>
-      </div>
+      <Menu />
     </header>
 
 
@@ -106,6 +98,7 @@
 
 <script>
 import axios from "axios"
+import Menu from './Menu'
 import {
   Carousel,
   Slide
@@ -115,7 +108,8 @@ export default {
   name: 'Home',
   components: {
     Carousel,
-    Slide
+    Slide,
+    Menu
   },
   data: function() {
     return {
@@ -163,14 +157,14 @@ body{
 
 header{
   top: 0;
-  background: #ff0000;
+  background: #ffffff;
 }
 
 .section_left{
   float: left;
   height: 100%;
   width: 50%;
-  background: #aed500;
+  background: #ffffff;
 }
 
 .section_right{
@@ -178,7 +172,7 @@ header{
   height: 100%;
   width: 50%;
   z-index: -1;
-  background: #00ac3f;
+  background: #ffffff;
 }
 
 footer{
@@ -186,77 +180,9 @@ footer{
   height: 10%;
   width: 100%;
   position: fixed;
-  background: #0042b5;
-}
-.menu img{
-  width: 10vw;
-  display: inline-block;
-  margin: 1vh 0 0 8vw;
+  background: #ffffff;
 }
 
-.menu ul{
-  display: block;
-  float: right;
-  margin-top:2vh;
-  margin-right: 10vw;
-}
-
-ul li{
-  list-style: none;
-  float: left;
-}
-
-ul li a{
-  position: relative;
-  display: inline-block;
-  margin-left: 25px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000000;
-  font-weight: bold;
-  transition: .5s;
-  font-size: 16px;
-}
-ul li a:hover{
-  color: rgb(255, 255, 255);
-}
-
-ul li a:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  transform: scaleY(2);
-  opacity: 0;
-  transition: .5s;
-  z-index: -1;
-}
-
-ul li a:hover:before{
-  transform: scaleY(1.1);
-  opacity: 1;
-}
-
-ul li a:after{
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgb(0, 0, 0);
-  transform: scale(0);
-  transition: .5s;
-  z-index: -1;
-}
-
-ul li a:hover:after{
-  transform: scale(1);
-}
 
 /* .Clean_Solution {
   position: absolute;

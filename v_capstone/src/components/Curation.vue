@@ -2,15 +2,7 @@
   <div class="home">
     <header class="curation_header">
       <!-- 상단 메뉴 -->
-      <div class="menu">
-        <img :src="require(`../assets/xerox_logo.png`)" alt="xerox_logo">
-        <ul>
-          <li><a href="http://localhost:8080">홈</a></li>
-          <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
-          <li><a href="#">모든 제품</a></li>
-          <li><a href="#">공지사항</a></li>
-        </ul>
-      </div>
+      <Menu />
     </header>
     
     <section class="curation_section">
@@ -55,8 +47,8 @@
               <h3>{{question.title}}</h3>
               <div class="question_content">
                 <div class="question_option" v-for="select of question.selects" :key="select.value">
-                  <input type="radio" name="one_radio_question" :value="select.value" v-model="answer[Q_number]">
-                  <label>{{select.text}}</label>
+                  <input type="radio" name="one_radio_question"  :value="select.value" v-model="answer[Q_number]" :id="select.value">
+                  <label :for="select.value">{{select.text}}</label>
                 </div>
               </div>
             </div>
@@ -150,6 +142,7 @@
 <script>
 import axios from "axios"
 import Question_result from './Question_result'
+import Menu from './Menu'
 import OtherProducts from './OtherProducts'
 import Post_email from './Post_email'
 
@@ -158,7 +151,8 @@ export default {
   components: {
     Question_result,
     OtherProducts,
-    Post_email
+    Post_email,
+    Menu
   },
   data: function() {
     return {
@@ -502,7 +496,7 @@ body{
 }
 .curation_section{
   position: relative;
-float: left;
+  float: left;
   width: 60%;
 
   background: rgb(255, 255, 255);
@@ -510,8 +504,7 @@ float: left;
 
 .curation_nav{
   position: relative;
-
-float: right;
+  float: right;
   width: 40%;
   background: rgb(255, 255, 255);
 
@@ -525,76 +518,7 @@ float: right;
   position: relative;
 
 }
-/* 상단 메뉴 */
-.menu img{
-  width: 10vw;
-  display: inline-block;
-  margin: 1vh 0 0 8vw;
-}
 
-.menu ul{
-  display: inline-block;
-  float: right;
-  margin-top:2vh;
-  margin-right: 10vw;
-}
-
-ul li{
-  list-style: none;
-  float: left;
-}
-
-ul li a{
-  position: relative;
-  display: inline-block;
-  margin-left: 25px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000000;
-  font-weight: bold;
-  transition: .5s;
-  font-size: 16px;
-}
-ul li a:hover{
-  color: rgb(255, 255, 255);
-}
-
-ul li a:before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  transform: scaleY(2);
-  opacity: 0;
-  transition: .5s;
-  z-index: -1;
-}
-
-ul li a:hover:before{
-  transform: scaleY(1.1);
-  opacity: 1;
-}
-
-ul li a:after{
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgb(0, 0, 0);
-  transform: scale(0);
-  transition: .5s;
-  z-index: -1;
-}
-
-ul li a:hover:after{
-  transform: scale(1);
-}
 
 /* 큐레이션 form */
 .Curation_form{
@@ -646,9 +570,9 @@ ul li a:hover:after{
 }
 .question_option{
   font-size: 25px;
-  height: 17px;
+  height: 25px;
   text-align: left;
-   margin: 0px 0px 0px 1vw;
+   margin: 2px 0px 0px 1vw;
   color:rgb(0, 0, 0)
 }
 .Curation_form label{

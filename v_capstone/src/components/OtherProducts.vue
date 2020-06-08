@@ -11,8 +11,8 @@
     :loop="loop" 
     :autoplay="true" 
     :navigationEnabled="true"
-    :navigationNextLabel="next" 
-    :navigationPrevLabel="before"
+    navigationNextLabel="<i class='btn_next'> </i>" 
+    navigationPrevLabel="<i class='btn_before'> </i>"
     paginationActiveColor="rgb(248, 70, 70)"
     paginationColor="#555555"
     :paginationPadding="2"
@@ -66,8 +66,6 @@ export default {
       btn_slide: true,
       products_img: null,
       result_value: null,
-      next: "▶",
-      before: "◀",
       loop: true
     }
   },
@@ -123,6 +121,14 @@ export default {
 </script>
 
 <style>
+.btn_next{
+  content:url("../assets/right-arrow.png" );
+  width: 2vw;
+}
+.btn_before{
+  content:url("../assets/back.png" );
+  width: 2vw;
+}
 .slide{
   width: 80%;
   position: relative;
