@@ -6,16 +6,30 @@
         v-show="btn_curation_result_img">
     </form>
 
-    <carousel v-show="btn_slide" class="slide" :perPage="4" :loop="loop" :autoplay="true" :navigationEnabled="true"
-      :navigationNextLabel="next" :navigationPrevLabel="before">
+    <carousel v-show="btn_slide" class="slide" 
+    :perPage="3" 
+    :loop="loop" 
+    :autoplay="true" 
+    :navigationEnabled="true"
+    :navigationNextLabel="next" 
+    :navigationPrevLabel="before"
+    paginationActiveColor="rgb(248, 70, 70)"
+    paginationColor="#555555"
+    :paginationPadding="2"
+    :paginationSize="10"
+    :autoplayTimeout="4000">
       <slide v-for="result of this.result_img" :key="result.value">
         <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
-        상품명: {{result.name}} <br>
-        기기 종류: {{result.color}} <br>
-        분당 프린트 속도: {{result.print_speed}} <br>
-        분당 스캔 속도: {{result.scan_speed}}<br>
-        <br>
-        문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate"> <br>
+        <div class="slide_content">
+          <h2>{{result.name}}</h2>
+          <h3>{{result.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h3>
+          <p>
+            분당 프린트 속도: {{result.print_speed}}매 / {{result.print_speed_level}} 등급<br>
+            분당 스캔 속도: {{result.scan_speed }}매 <br>
+            문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate">
+          </p>
+          
+        </div>
       </slide>
     </carousel>
 
@@ -110,31 +124,58 @@ export default {
 
 <style>
 .slide{
-  margin-left: 40px;
-  text-align: left;
   width: 80%;
+  position: relative;
+  left:10vw;
 }
 .slide img{
-  width: 200px;
-  height: 200px;
+  float: left;
+  margin: 0vh 0vw 2vw 13vh;
+  width: 6vw;
+}
+.slide_content{
+  margin-top: 4vh;
+  margin-left: 14vw;
+}
+.slide h2{
+  font-size: 17px;
+  margin: 0;
+}
+
+.slide h3{
+  font-size: 15px;
+  margin: 0;
+}
+
+.slide p{
+  position: relative;
+  float: left;
+  margin: 0vh 0vw 0vw 0vh;
+  width: 10vw;
+  font-size: 11px;
+
+}
+
+.VueCarousel-pagination{
+  height: 5vh;
+  width: 100%;
 }
 
 .btn_OtherProducts{
   position: relative;
-  left: 8vw;
-
-  padding: 10px;
-  width: 100px;
+  left: 10vw;
+  width: 65px;
+  height: 20px;
   color: rgb(0, 0, 0);
   font-size: 13px;
   text-decoration: none;
-  border: 2px solid #09003b;
+  border: 2px none #09003b;
   overflow: hidden;
   transition: 0.6s all ease;
   background: rgb(255, 255, 255);
+  
 }
 .btn_OtherProducts:hover{
-  background: rgb(2, 0, 68);
-  color:rgb(255, 255, 255)
+  color:rgb(255, 0, 0)
 }
 </style>

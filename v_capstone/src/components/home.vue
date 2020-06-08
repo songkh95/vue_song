@@ -75,10 +75,12 @@
           </carousel>
         </form>
       </div>
+      
     </section>
 
     <!-- 하단 정보 -->
     <footer>
+      
       <div class="information">
         <div class="information_left">
           <h3>크린솔루션</h3>
@@ -161,12 +163,14 @@ body{
 
 header{
   top: 0;
+  background: #ff0000;
 }
 
 .section_left{
   float: left;
   height: 100%;
   width: 50%;
+  background: #aed500;
 }
 
 .section_right{
@@ -174,6 +178,7 @@ header{
   height: 100%;
   width: 50%;
   z-index: -1;
+  background: #00ac3f;
 }
 
 footer{
@@ -181,6 +186,7 @@ footer{
   height: 10%;
   width: 100%;
   position: fixed;
+  background: #0042b5;
 }
 .menu img{
   width: 10vw;

@@ -2,27 +2,68 @@
   <div id="post_email">
 
     <!-- 문의하기 -->
-    <form v-on:submit.prevent="post_email" @submit="checkForm" novalidate="true">
-      <div v-show="customer_service">
-        <h1>견적서 문의</h1>
-        이름:             <input type="text" value="이름"     v-model="customer_name"><br>
-        회사명:           <input type="text" value="회사명"   v-model="customer_company"><br>
-        지역:             <input type="text" value="지역"     v-model="customer_local"><br>
-        연락처:           <input type="text" value="연락처"   v-model="customer_phone"><br>
-        이메일:           <input type="email" value="이메일"  v-model="customer_email"><br>
-        설치 날짜/시간:   <input type="date" value="설지날짜" v-model="customer_date"><br>
-        내용:             <input type="textarea" value="내용" v-model="customer_content"><br>
+    <form v-on:submit.prevent="post_email" @submit="checkForm" novalidate="true" class="mail_form">
+      <div v-show="customer_service" class="post_email">
+
+        <h1> 견적서 문의</h1>
         
-        <p v-if="errors.length">
-          <label v-for="error in errors" :key="error.value">{{error}}</label>
-        </p>
+        <table>
+          <tr>
+            <td col>이름:</td>
+            <td><input type="text" value="이름" v-model="customer_name"></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내용:</td>
+          </tr>
+          <tr>
+            <td>회사명:</td>
+            <td><input type="text" value="회사명" v-model="customer_company"></td>
+            <td rowspan="5"><input class="mail_textarea" type="textarea" value="내용" v-model="customer_content"></td>
+          </tr>
+          <tr>
+            <td>지역:</td>
+            <td><input type="text" value="지역" v-model="customer_local"></td>
+
+          </tr>
+          <tr>
+            <td>연락처:</td>
+            <td><input type="text" value="연락처" v-model="customer_phone"></td>
+          </tr>
+          <tr>
+            <td>이메일:</td>
+            <td><input type="email" value="이메일" v-model="customer_email"></td>
+          </tr>
+          <tr>
+            <td>설치 날짜:</td>
+            <td><input type="date" value="설지날짜" v-model="customer_date"></td>
+          </tr>
+          <tr>
+
+
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h3>선택한 항목</h3>
+            </td>
+            <td class="estimate_error">
+              <p v-if="errors.length">
+                <label v-for="error in errors" :key="error.value">{{error}}</label>
+              </p>
+            </td>
+          </tr>
+          <tr class="estimate">
+            <td colspan="2">{{$store.state.counter}}</td>
+            <td><button type="submit" class="btn_mail">전송하기</button></td>
+          </tr>
+          <tr>
+
+          </tr>
+          </table>
 
         <div>
-          <h3>선택한 항목</h3>
-          {{$store.state.counter}}
+          
+          
         </div>
         <br><br><br>
-        <button type="submit" class="btn_mail" >전송하기</button>
+        
       </div>
 
     </form>
@@ -57,12 +98,11 @@ export default {
         e.preventDefault();
         this.errors = [];
         if (!this.customer_name) {
-          this.errors.push("이름은 필수입니다.");
-        }
-        if (!this.customer_email) {
-          this.errors.push("이메일은 필수입니다.");
+          this.errors.push("  이름은 필수입니다.");
+        } else if (!this.customer_email) {
+          this.errors.push("  이메일은 필수입니다.");
         } else if (!this.validEmail(this.customer_email)) {
-          this.errors.push("이메일 형식을 확인하세요.");
+          this.errors.push("  이메일 형식을 확인하세요.");
         }
         if (!this.errors.length) {
           this.result_Explanation = true;
@@ -115,20 +155,54 @@ export default {
 </script>
 
 <style>
+
+.post_email{
+  position: relative;
+  margin: 0;
+  height: 38vh;
+
+}
+.estimate{
+  border: 4px;
+}
+.estimate_error{
+  position: relative;
+  float: right;
+}
+
+.post_email h1{
+  font-size: 30px;
+}
+.post_email input{
+  left: 20vw;
+
+}
+.post_email td{
+  width: 8vw;
+  font-size: 13px;
+}
+.post_email h3{
+  margin: 5px;
+} 
+.mail_textarea{
+  width: 15vw;
+  height:15vh;
+  margin-left: 2vw;
+}
 .btn_mail{
   position: relative;
-  width: 90px;
-  height: 35px;
+  float: right;
+  width: 60px;
+  height: 25px;
   color: rgb(0, 0, 0);
-  font-size: 13px;
+  font-size: 10px;
   text-decoration: none;
-  border: 2px solid #09003b;
+  border: 1px solid #000000;
   overflow: hidden;
   transition: 0.6s all ease;
   background: rgb(255, 255, 255);
 }
 .btn_mail:hover{
-  background: rgb(2, 0, 68);
-  color:rgb(255, 255, 255)
+  color:rgb(241, 0, 0)
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <header>
+    <header class="curation_header">
       <!-- 상단 메뉴 -->
       <div class="menu">
         <img :src="require(`../assets/xerox_logo.png`)" alt="xerox_logo">
@@ -12,10 +12,9 @@
         </ul>
       </div>
     </header>
-
-
-    <div class="Curation_form">
-      <section>
+    
+    <section class="curation_section">
+      <div class="Curation_form">
         <form v-on:submit.prevent="curation_result">
 
           <div class="first_question">
@@ -28,10 +27,7 @@
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                 when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages,
-                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum. <br>
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets <br>
                 고객님에게 필요한 제품을 알려드리며 쉽고 빠르게 견적서를 받을 수 있습니다.
               </p>
             </div>
@@ -45,10 +41,7 @@
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                 when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages,
-                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum. <br>
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets <br>
                 고객님께 추천드리는 상품은 {{result_name}} 입니다.
               </p>
             </div>
@@ -118,9 +111,10 @@
           </div>
 
         </form>
-      </section>
+      </div> 
+    </section>
 
-      <nav>
+    <nav class="curation_nav">
         <!-- 추천 상품 -->
         <div class="Curation_img">
           <div v-if="first_results_img">
@@ -133,23 +127,22 @@
                 희망 계약기간: {{answer["2-2"]}} <br>
                 옵션:
                 <select v-model="option_select">
-                  <option disabled value="">please select one</option>
+                  <option disabled value="">optipn</option>
                   <option>A4 용지 1Box</option>
                   <option>A3 용지 1Box</option>
                 </select> <br>
                 기본 매수: <br><br>
+              견적문의하기<input type="checkbox" v-model="val" :value="`${result_name}`" @change="checkbox_estimate">
               </p>
             </div>
           </div>
         </div>
-
-      </nav>
-      
-              <!-- 제품 다른 추천 -->
-        <OtherProducts v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
-
-
-    </div>
+    </nav>
+    
+    <footer class="curation_footer">
+      <!-- 제품 다른 추천 -->
+      <OtherProducts class="OtherProducts" v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
+    </footer>
 
   </div>
 </template>
@@ -169,7 +162,7 @@ export default {
   },
   data: function() {
     return {
-
+      val: true,
       Q_number: 0,
       answer: {},
       question: null,
@@ -484,40 +477,53 @@ export default {
             this.view_count = res.data.length;
           })
       }
+    },
+    checkbox_estimate() {
+      console.log(JSON.stringify(this.val))
+      let estimate = JSON.stringify(this.result_name )
+      this.$store.dispatch('checkbox_estimate', estimate);
     }
   }
 }
 </script>
 
 <style scoped>
-*{
-  margin: 0;
-  padding: 0;
-  
-}
+
 body{
-  height: 100%;
+  height: 100vh;
+  margin: 0;
 }
 
-header{
+.curation_header{
   top: 0;
-}
 
-section{
+  background: rgb(255, 255, 255);
+
+}
+.curation_section{
   position: relative;
-  top: 10vh;
+float: left;
   width: 60%;
-  float: left;
-  background: #ffffff;
+
+  background: rgb(255, 255, 255);
 }
 
-nav{
+.curation_nav{
   position: relative;
-  top: 7vh;
-  float: left;
-  height: 100%;
+
+float: right;
   width: 40%;
-  background: #ffffff;
+  background: rgb(255, 255, 255);
+
+}
+
+.curation_footer{
+  float: left;
+  bottom: -11vh;
+  height:30%;
+  width: 100%;
+  position: relative;
+
 }
 /* 상단 메뉴 */
 .menu img{
@@ -592,54 +598,57 @@ ul li a:hover:after{
 
 /* 큐레이션 form */
 .Curation_form{
-  position:relative;
+  position: relative;
 
-  top: 18px;
+  top: 5vh;
   padding: 10px 70px 70px 10px;
   margin: 0;
   width: 100%;
+
 }
 .first_question{
-  margin-left: 8vw;
+  margin: 20vh 0 -10vh 8vw;
 }
 .first_question p{
-  width: 60%;
+  width: 35vw;;
   margin-left: 0.5vw;
-  font-size: 15px;
+  font-size: 13px;
 }
 .question{
-  margin-left: 8vw;
+  position: relative;
+  margin: 15vh 0 15px 8vw;
+
 }
 .Curation_form h1{  /* 제품 견적 큐레이션 */
   color: #000000;
-  font-size: 40px;
+  font-size: 30px;
   text-align: left;
-  margin-top: 10px;
+  margin: 60px 0 15px 0;
   font-weight: bold;
 }
 .Curation_form h3{ 
-  font-size: 2em;
+  font-size: 20px;
   text-align: left;
   margin: 0 0 1vh 0px;
   color:rgb(0, 0, 0)
 }
 .Curation_form h4{
-  font-size: 19px;
+  font-size: 16px;
   text-align: left;
   margin: 3vh 0 0 1vw;
   color:rgb(69, 69, 69)
 }
 .Curation_form h5{
-  font-size: 15px;
+  font-size: 13px;
   text-align: left;
   margin: 0 0 1vh 1vw;
   color:rgb(0, 0, 0)
 }
 .question_option{
   font-size: 25px;
-  height: 25px;
+  height: 17px;
   text-align: left;
-   margin: 0px 0px 0px 2vw;
+   margin: 0px 0px 0px 1vw;
   color:rgb(0, 0, 0)
 }
 .Curation_form label{
@@ -658,9 +667,10 @@ ul li a:hover:after{
 
 .result_Explanation{
   padding-left: 8vw;
+
 }
 .result_Explanation h1{
-  margin-top: 5vh;
+  margin-top: 0vh;
   font-size: 40px;
 }
 .result_Explanation p{
@@ -680,22 +690,20 @@ ul li a:hover:after{
   margin: 0px 0px 50px 30px;
 }
 
-
-
 /* Before 버튼 */
 
 .Curation_btn{
    float: left;
-   margin: 5vh 0 0 9vw;
+   margin: 2vh 0 0 8vw;
    width: 300px;
 }
 
 .btn_before{
   position: relative;
-  width: 90px;
-  height: 35px;
+  width: 75px;
+  height: 30px;
   color: rgb(0, 0, 0);
-  font-size: 13px;
+  font-size: 10px;
   text-decoration: none;
   border: 2px solid #09003b;
   overflow: hidden;
@@ -708,54 +716,59 @@ ul li a:hover:after{
 }
 
 
-.customer_service{
-  position: relative;
-  margin: 0 0 20px 0px;
-  background: rgb(203, 255, 230);
-  width: 40vw;
-  height: 50vh;
-  text-align: left;
-}
-
-.customer_service button{
-  margin-right: 50px;
-  float: right;
-}
-
 .Curation_img{
-  float: left;
-  width: 70%;
-  height: 50%;
+  position: relative;
+  top: 8vh;
+  left: 0vw;
+  width: 26vw;
+  height: 46vh;
 
   border-radius: 20px;
   background: #f3f3f3;
-  box-shadow:  48px 48px 96px #d0d0d0, 
+  box-shadow:  48px 48px 96px #e7e7e7, 
               -48px -48px 96px #ffffff;
 }
 
-.Curation_img img{
+.Curation_img img {
+  position: relative;
   float: left;
-  margin: 2vh 3vw 2vw 4vh;
+  margin: 2vh 0vw 2vw 4vh;
   width: 10vw;
 
 }
 
-.Curation_img_content{
-float: left;
-margin-top: 20vh;
-  width: 45%;
-  
+.Curation_img_content {
+  position: relative;
+  float: left;
+  margin: 15vh 0vw 0vw 7vh;
+  width: 10vw;
+  left: -20px;
+
 }
-.Curation_img_content h2{
-  font-size: 24px;
+
+.Curation_img_content h2 {
+  font-size: 22px;
   margin: 0;
 }
-.Curation_img_content h4{
-  font-size: 17px;
+
+.Curation_img_content h4 {
+  font-size: 15px;
   margin: 0;
 }
-.Curation_img_content p{
+
+.Curation_img_content p {
   font-size: 14px;
+}
+.Curation_img_content select {
+  width: 7vw;
+}
+
+
+.OtherProducts{
+  position: relative;
+  bottom: 0;
+  height: 20vh;
+  z-index: 1;
 }
 
 </style>
