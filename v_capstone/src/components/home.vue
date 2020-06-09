@@ -25,7 +25,6 @@
 
         <a href="http://localhost:8080/Curation" title="Start Curation" class="btn_Start_Curation">Start Curation</a>
         <a href="#" class="btn_All_Products"> ▶ All products</a>
-
       </div>
     </section>
 
@@ -41,8 +40,8 @@
           :perPage="2" 
           :autoplay="true" 
           :navigationEnabled="true" 
-          navigationNextLabel="▶" 
-          navigationPrevLabel="◀" 
+          navigationNextLabel="<i class='btn_next'> </i>" 
+          navigationPrevLabel="<i class='btn_before'> </i>"
           :loop="loop" 
           paginationActiveColor="rgb(248, 70, 70)"
           paginationColor="#555555"
@@ -61,7 +60,7 @@
                   임대: 협의 가능 <br>
                   판매가: {{result.sale}} <br>
                 </p>
-                <button class="btn_estimate">문의하기</button>
+                <button class="btn_estimate" @click="email">문의하기</button>
               </div>
             </slide>
           </carousel>
@@ -69,7 +68,7 @@
       </div>
       
     </section>
-
+<Post_email v-show="estimate" />
     <!-- 하단 정보 -->
     <footer>
       
@@ -99,6 +98,7 @@
 <script>
 import axios from "axios"
 import Menu from './Menu'
+import Post_email from './Post_email'
 import {
   Carousel,
   Slide
@@ -109,12 +109,14 @@ export default {
   components: {
     Carousel,
     Slide,
-    Menu
+    Menu,
+    Post_email
   },
   data: function() {
     return {
       result_img: null,
-      loop: true
+      loop: true,
+      estimate: false
     }
   },
   created(){
@@ -135,7 +137,11 @@ export default {
           .catch((err) => {
             console.log(err);
           })
+      },
+      email(){
+        this.estimate = true;
       }
+
   }
 }
 
@@ -332,6 +338,14 @@ footer{
   box-shadow:  48px 48px 96px #d0d0d0, 
               -48px -48px 96px #ffffff;
              
+}
+.btn_next{
+  content:url("../assets/right-arrow.png" );
+  width: 1vw;
+}
+.btn_before{
+  content:url("../assets/back.png" );
+  width: 1vw;
 }
 .products_img{
   width: 45%;

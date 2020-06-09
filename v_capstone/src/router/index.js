@@ -6,6 +6,7 @@ import NoticeCreate from '@/components/NoticeCreate'
 import NoticeDetail from '@/components/NoticeDetail'
 import NoticeModify from '@/components/NoticeModify'
 import Notice from '@/components/Notice'
+import Products from '@/components/Products'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
       path: '/notice/:nid',
       name: 'detail',
       component: NoticeDetail
+    },
+    {
+      path: '/Products',
+      name: 'Products',
+      component: Products
     }
   ]
 })

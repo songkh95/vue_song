@@ -57,9 +57,9 @@
               <div v-for="(subquestion, index) in subquestions" :key="subquestion.title">
                 <h4>{{subquestion.title}}</h4>
                 <div class="question_content">
-                  <div class="question_option" v-for="select of subquestion.selects" :key="select.value">
-                    <input type="radio" :value="select.value" v-model="answer[`${Q_number}-${index+1}`]">
-                    <label>{{select.text}}</label>
+                  <div class="question_option" v-for="select of subquestion.selects" :key="select.value" >
+                    <input type="radio" :value="select.value" v-model="answer[`${Q_number}-${index+1}`]" :id="select.value">
+                    <label :for="select.value">{{select.text}}</label>
                   </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default {
   },
   data: function() {
     return {
-      val: true,
+      val: [],
       Q_number: 0,
       answer: {},
       question: null,
@@ -473,8 +473,8 @@ export default {
       }
     },
     checkbox_estimate() {
-      console.log(JSON.stringify(this.val))
-      let estimate = JSON.stringify(this.result_name )
+      console.log(this.val)
+      let estimate = this.val[0]
       this.$store.dispatch('checkbox_estimate', estimate);
     }
   }
@@ -512,7 +512,7 @@ body{
 
 .curation_footer{
   float: left;
-  bottom: -11vh;
+  bottom: -6vh;
   height:30%;
   width: 100%;
   position: relative;
@@ -642,7 +642,7 @@ body{
 
 .Curation_img{
   position: relative;
-  top: 8vh;
+  top: 14vh;
   left: 0vw;
   width: 26vw;
   height: 46vh;

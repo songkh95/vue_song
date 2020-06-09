@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export const store =new Vuex.Store({
   state: {
     counter:'',
-    data: { // default data�̴�. ���� �����Ǵ� �Խñ��� ���� ������ ��´�.
+    data: { 
       category: '',
       title: '',
       contents: '',
@@ -16,13 +16,12 @@ export const store =new Vuex.Store({
       nid: 0
     },
     notices: [],
-    admin: { // ������ �α��ν�
-      pw: 'abcd', // ������ �ڵ�(?)
-      verify: true // ������ ����
+    admin: { 
+      pw: 'abcd',
+      verify: true 
     }
   },
-  mutations: { // ���� ó���� ���
-    // �÷��ǿ� ����� ��� ������ ���� �����´�(Notice.vue)
+  mutations: { 
     getNotices (state) {
       axios.post(
         url
@@ -32,7 +31,6 @@ export const store =new Vuex.Store({
         console.log(res)
       })
     },
-    // collection�� ���ο� document�� �߰�(Create-Notice.vue)
     setForm (state, { title, contents, date, category }) {
       state.data.category = category
       state.data.title = title
@@ -48,7 +46,6 @@ export const store =new Vuex.Store({
         console.log(res)
       })
     },
-    // nid�� ���� detail������ �����´�.(detail.vue)
     getDetail (state, nid) {
       axios.post(
         url + ':nid',
@@ -65,7 +62,6 @@ export const store =new Vuex.Store({
         console.log(res)
       })
     },
-    // �ش� �������� document�� ����(detail.vue)
     deleteNotice (state, nid) {
       // state.data.nid = nid
       axios.post(
@@ -77,7 +73,6 @@ export const store =new Vuex.Store({
         console.log(res)
       })
     },
-    // detail�� �����ϱ����� ������������ �̵�(detail.vue)
     modifyNotice (state, { title, contents, nid, category }) {
       axios.post(
         url + 'modify/:nid',

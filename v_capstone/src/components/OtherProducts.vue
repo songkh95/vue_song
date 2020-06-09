@@ -112,8 +112,8 @@ export default {
       this.btn_slide = !this.btn_slide;
     },
     checkbox_estimate() {
-      console.log(JSON.stringify(this.val))
-      let estimate = JSON.stringify(this.val)
+      console.log(this.val)
+      let estimate = this.val
       this.$store.dispatch('checkbox_estimate', estimate);
     }
   }
