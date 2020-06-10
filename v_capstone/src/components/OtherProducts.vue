@@ -7,17 +7,17 @@
     </form>
 
     <carousel v-show="btn_slide" class="slide" 
-    :perPage="3" 
-    :loop="loop" 
-    :autoplay="true" 
-    :navigationEnabled="true"
-    navigationNextLabel="<i class='btn_next'> </i>" 
-    navigationPrevLabel="<i class='btn_before'> </i>"
-    paginationActiveColor="rgb(248, 70, 70)"
-    paginationColor="#555555"
-    :paginationPadding="2"
-    :paginationSize="10"
-    :autoplayTimeout="4000">
+      :perPage="3" 
+      :loop="loop" 
+      :autoplay="true" 
+      :navigationEnabled="true"
+      navigationNextLabel="<i class='btn_next'> </i>" 
+      navigationPrevLabel="<i class='btn_before'> </i>"
+      paginationActiveColor="rgb(248, 70, 70)"
+      paginationColor="#555555"
+      :paginationPadding="2"
+      :paginationSize="10"
+      :autoplayTimeout="4000">
       <slide v-for="result of this.result_img" :key="result.value">
         <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
         <div class="slide_content">
@@ -183,5 +183,6 @@ export default {
 }
 .btn_OtherProducts:hover{
   color:rgb(255, 0, 0)
+  
 }
 </style>

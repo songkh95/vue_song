@@ -5,7 +5,7 @@
         <ul>
           <li><a href="http://localhost:8080">홈</a></li>
           <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
-          <li><a href="http://localhost:8080/Products">모든 제품</a></li>
+          <li><a href="http://localhost:8080/All_products">모든 제품</a></li>
           <li><a href="http://localhost:8080/Notice">공지사항</a></li>
         </ul>
       </div>

@@ -59,12 +59,13 @@ export default {
 </script>
 
 <style>
+
 .result_save{
   text-align: left;
 }
 
 .result_save td{
-  width: 10vw;
+  width: 20vw;
   font-size: 15px;
 }
 

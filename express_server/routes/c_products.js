@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const C_product = require('../models//c_product');
+const C_product = require('../models/c_product');
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({extended: false}));
@@ -28,6 +28,19 @@ router.get("/search", function (req, res) {
   });
 });
 
+router.get("/product", function (req, res) {
+  let product_name = req.query.product_name;
+  
+  C_product.findOne({
+    name: product_name
+  })
+  .then((todo) => {
+    res.send(todo);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
 
 router.get("/img", function (req, res) {
 

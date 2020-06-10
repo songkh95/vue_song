@@ -18,9 +18,7 @@
           when an unknown printer took a galley of type and scrambled it to make a type specimen book.
           It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
           unchanged.
-          It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-          and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          <br>#제록스대리점 #정품 #복합기 #프린터 #소모품 #임대 #판매   
+          <br><br>#제록스대리점 #정품 #복합기 #프린터 #소모품 #임대 #판매   
         </p>
 
         <a href="http://localhost:8080/Curation" title="Start Curation" class="btn_Start_Curation">Start Curation</a>
@@ -60,18 +58,19 @@
                   임대: 협의 가능 <br>
                   판매가: {{result.sale}} <br>
                 </p>
-                <button class="btn_estimate" @click="email">문의하기</button>
+                <button class="btn_estimate" @click="click_btn_estimate">문의하기</button>
               </div>
             </slide>
           </carousel>
         </form>
       </div>
-      
     </section>
-<Post_email v-show="estimate" />
+
+    <Post_email v-show="estimate" />
+    
     <!-- 하단 정보 -->
     <footer>
-      
+      <hr>
       <div class="information">
         <div class="information_left">
           <h3>크린솔루션</h3>
@@ -138,8 +137,10 @@ export default {
             console.log(err);
           })
       },
-      email(){
-        this.estimate = true;
+      click_btn_estimate(e){
+        this.estimate = !this.estimate;
+        e.preventDefault()
+        
       }
 
   }
@@ -158,7 +159,7 @@ body{
   font-family: sans-serif;
   background: #ffffff;
   height: 100%;
-    
+
 }
 
 header{

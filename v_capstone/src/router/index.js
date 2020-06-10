@@ -6,6 +6,7 @@ import NoticeCreate from '@/components/NoticeCreate'
 import NoticeDetail from '@/components/NoticeDetail'
 import NoticeModify from '@/components/NoticeModify'
 import Notice from '@/components/Notice'
+import All_products from '@/components/All_products'
 import Products from '@/components/Products'
 Vue.use(Router)
 
@@ -42,6 +43,12 @@ export default new Router({
       name: 'detail',
       component: NoticeDetail
     },
+    {
+      path: '/All_products',
+      name: 'All_products',
+      component: All_products
+    }
+    ,
     {
       path: '/Products',
       name: 'Products',

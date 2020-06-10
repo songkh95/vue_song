@@ -126,12 +126,15 @@
                 기본 매수: <br><br>
               견적문의하기<input type="checkbox" v-model="val" :value="`${result_name}`" @change="checkbox_estimate">
               </p>
+              <hr>
             </div>
           </div>
         </div>
+        
     </nav>
     
     <footer class="curation_footer">
+       
       <!-- 제품 다른 추천 -->
       <OtherProducts class="OtherProducts" v-show="curation_products_result" :Q_number="Q_number" :answer="answer" />
     </footer>
@@ -490,15 +493,13 @@ body{
 
 .curation_header{
   top: 0;
-
   background: rgb(255, 255, 255);
-
 }
+
 .curation_section{
   position: relative;
   float: left;
   width: 60%;
-
   background: rgb(255, 255, 255);
 }
 
@@ -507,7 +508,6 @@ body{
   float: right;
   width: 40%;
   background: rgb(255, 255, 255);
-
 }
 
 .curation_footer{
@@ -516,33 +516,34 @@ body{
   height:30%;
   width: 100%;
   position: relative;
-
 }
-
 
 /* 큐레이션 form */
 .Curation_form{
   position: relative;
-
-  top: 5vh;
+  
   padding: 10px 70px 70px 10px;
   margin: 0;
   width: 100%;
 
 }
+
 .first_question{
   margin: 20vh 0 -10vh 8vw;
 }
+
 .first_question p{
   width: 35vw;;
   margin-left: 0.5vw;
   font-size: 13px;
 }
+
 .question{
   position: relative;
   margin: 15vh 0 15px 8vw;
 
 }
+
 .Curation_form h1{  /* 제품 견적 큐레이션 */
   color: #000000;
   font-size: 30px;
@@ -550,38 +551,44 @@ body{
   margin: 60px 0 15px 0;
   font-weight: bold;
 }
+
 .Curation_form h3{ 
   font-size: 20px;
   text-align: left;
   margin: 0 0 1vh 0px;
   color:rgb(0, 0, 0)
 }
+
 .Curation_form h4{
   font-size: 16px;
   text-align: left;
   margin: 3vh 0 0 1vw;
   color:rgb(69, 69, 69)
 }
+
 .Curation_form h5{
   font-size: 13px;
   text-align: left;
   margin: 0 0 1vh 1vw;
   color:rgb(0, 0, 0)
 }
+
 .question_option{
   font-size: 25px;
   height: 25px;
   text-align: left;
-   margin: 2px 0px 0px 1vw;
+  margin: 2px 0px 0px 1vw;
   color:rgb(0, 0, 0)
 }
+
 .Curation_form label{
   font-size: 12px;
   text-align: left;
   margin: 0px 0px 0px 0px;
   color:rgb(0, 0, 0)
 }
- .subquestion_content{
+
+.subquestion_content{
   margin: 0px 0px 0px 0px;
 }
 
@@ -593,20 +600,25 @@ body{
   padding-left: 8vw;
 
 }
+
 .result_Explanation h1{
   margin-top: 0vh;
   font-size: 40px;
 }
+
 .result_Explanation p{
   font-size: 14px;
 }
+
 .Curation_result{
   margin-left: 8vw;
 }
+
 .Curation_result h1{
   width: 30vw;
   font-size: 40px;
 }
+
 .Curation_result_content{
   display: block;
   font-size: 14px;
@@ -646,7 +658,6 @@ body{
   left: 0vw;
   width: 26vw;
   height: 46vh;
-
   border-radius: 20px;
   background: #f3f3f3;
   box-shadow:  48px 48px 96px #e7e7e7, 
@@ -690,6 +701,7 @@ body{
 
 .OtherProducts{
   position: relative;
+  margin-top: 0vh;
   bottom: 0;
   height: 20vh;
   z-index: 1;

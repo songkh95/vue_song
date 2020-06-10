@@ -7,6 +7,8 @@ Vue.use(Vuex)
 export const store =new Vuex.Store({
   state: {
     counter:'',
+    product_name: '',
+    product_content: {},
     data: { 
       category: '',
       title: '',
@@ -22,6 +24,7 @@ export const store =new Vuex.Store({
     }
   },
   mutations: { 
+
     getNotices (state) {
       axios.post(
         url
@@ -88,14 +91,34 @@ export const store =new Vuex.Store({
         console.log(res)
       })
     },
-    checkbox_estimate: function (state, payload) {
+    checkbox_estimate(state, payload) {
       return state.counter = payload;
+    },
+    product_intro(state, payload){
+      console.log(payload)
+      let product_name = payload;
+      console.log(product_name)
+      axios.get('http://localhost:8081/c_products/product/', {   
+          params: {
+            product_name: product_name
+          },
+          timeout: 2000
+      }) 
+      .then((res)=>{
+          state.product_content = res.data; 
+          console.log(state.product_content)
+      })
     }
+
+
   },
   actions: { // �񵿱� ó���� ���
-    checkbox_estimate: function (context, payload) {
-      // commit 의 대상인 addCounter 는 mutations 의 메서드를 의미한다.
+    checkbox_estimate(context, payload) {
       return context.commit('checkbox_estimate', payload);
+    },
+    product_intro(context, payload){
+      console.log(payload)
+      return context.commit('product_intro', payload);
     }
   },
   modules: {
