@@ -28,7 +28,7 @@
             분당 스캔 속도: {{result.scan_speed }}매 <br>
             문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate">
           </p>
-          
+          <button  :value="result.name" @click="click_product_name">더 자세히</button>
         </div>
       </slide>
     </carousel>
@@ -115,6 +115,15 @@ export default {
       console.log(this.val)
       let estimate = this.val
       this.$store.dispatch('checkbox_estimate', estimate);
+    },
+    click_product_name(e){
+      e.preventDefault()
+      console.log(e.target.value)
+      let asd = e.target.value;
+      this.$store.dispatch('product_intro', asd);
+      this.$router.push({
+        path: '/Products'
+      })
     }
   }
 }

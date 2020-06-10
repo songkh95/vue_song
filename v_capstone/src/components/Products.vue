@@ -14,8 +14,8 @@
                 <h1>{{$store.state.product_content.name}}</h1>
               
               <p>
-                사용자의 비지니스 확대는 새로운 ApeosPort 시리즈의 강력한 성능을 발휘하게 합니다.
-                전반적으로 생산성 향상이 필요한 환경에 대해 클라우드 서비스와 연동시킨 기기들의 통합,
+                사용자의 비지니스 확대는 새로운 ApeosPort 시리즈의 강력한 성능을 발휘하게 합니다.<br>
+                전반적으로 생산성 향상이 필요한 환경에 대해 클라우드 서비스와 연동시킨 기기들의 통합,<br>
                 스마트폰과의 원활한 연결과 같이 최적의 수준으로 확장이 가능해집니다. <br><br>
 
                 분당 프린트 속도: {{$store.state.product_content.print_speed}}매 / {{$store.state.product_content.print_speed_level}}등급<br>
