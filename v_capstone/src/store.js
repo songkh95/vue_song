@@ -24,7 +24,6 @@ export const store =new Vuex.Store({
     }
   },
   mutations: { 
-
     getNotices (state) {
       axios.post(
         url
@@ -94,10 +93,9 @@ export const store =new Vuex.Store({
     checkbox_estimate(state, payload) {
       return state.counter = payload;
     },
-    product_intro(state, payload){
-      console.log(payload)
+    product_intro(state, payload){    
       let product_name = payload;
-      console.log(product_name)
+
       axios.get('http://localhost:8081/c_products/product/', {   
           params: {
             product_name: product_name
@@ -106,7 +104,6 @@ export const store =new Vuex.Store({
       }) 
       .then((res)=>{
           state.product_content = res.data; 
-          console.log(state.product_content)
       })
     }
 

@@ -56,7 +56,7 @@
         </div>
         <div class="product">
           <div class="product_div" v-show="show_black_products" v-for="product of this.products" :key="product.value">
-            <a href="#">
+
               
               <img :src="require(`../assets/${product.name}.png`)" alt="PPL 이미지" />
               <h2>{{product.name}}</h2>
@@ -65,9 +65,9 @@
                 분당 프린트 속도: {{product.print_speed}}매 / {{product.print_speed_level}} 등급<br>
                 분당 스캔 속도: {{product.scan_speed }}매
               </p>
-              <button :value="product.name" @click="click_product_name">더 자세히</button>
-              
-            </a>
+
+              <button  :value="product.name" @click="click_product_name">더 자세히</button>
+
           </div>
         </div>
       </div>
@@ -133,10 +133,13 @@ export default {
         })  
     },
     click_product_name(e){
+      e.preventDefault()
       console.log(e.target.value)
       let asd = e.target.value;
       this.$store.dispatch('product_intro', asd);
-
+      this.$router.push({
+        path: '/Products'
+      })
     }
   }
 }

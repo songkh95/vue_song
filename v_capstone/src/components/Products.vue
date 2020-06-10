@@ -11,21 +11,21 @@
           </div>
           <!-- 상품 내용 -->
           <div class="Products_content">
-              
+                <h1>{{$store.state.product_content.name}}</h1>
               
               <p>
                 사용자의 비지니스 확대는 새로운 ApeosPort 시리즈의 강력한 성능을 발휘하게 합니다.
                 전반적으로 생산성 향상이 필요한 환경에 대해 클라우드 서비스와 연동시킨 기기들의 통합,
                 스마트폰과의 원활한 연결과 같이 최적의 수준으로 확장이 가능해집니다. <br><br>
 
-                분당 프린트 속도: 매 / 등급<br>
-                분당 스캔 속도: 매 <br>
-                프린트 해상도:  <br><br>
+                분당 프린트 속도: {{$store.state.product_content.print_speed}}매 / {{$store.state.product_content.print_speed_level}}등급<br>
+                분당 스캔 속도: {{$store.state.product_content.scan_speed}}매 <br>
+                프린트 해상도:  {{$store.state.product_content.dpi}}<br><br>
 
                 무선랜 지원 | 모바일 지원 | 클라우드 인터랙티브 <br>
                 배송안내 : 무료배송 <br><br>
 
-                구입: <br><br>
+                구입 금액: {{$store.state.product_content.sale}} <br><br>
                 
                 <button> 견적 문의 </button>
               </p>
@@ -37,12 +37,12 @@
       </section>
       <!-- 제품 상세설명 -->
       <section class="section_bottom">
-          asd<br><br><br><br><br>
+        <img :src="require(`../assets/${$store.state.product_content.name}_detail.jpg`)" alt="상품 이미지" />
       </section>
       <!-- 밑 -->
       <footer>
-            {{this.$store.state.product_content}}<br><br><br><br><br>
-            
+           
+            <br><br><br><br><br>
       </footer>
   </div>
 </template>
@@ -58,11 +58,20 @@ export default {
   },
   data: function() {
     return {
-
+        product_content: ""
     }
   },
   methods: {
-    ...mapMutations(['product_intro']),
+    ...mapMutations(['product_intro'])
+
+    //   this.product_content = this.$store.state.product_content
+    //   console.log('asd = ', this.$store.state.product_content)
+
+    
+  },
+  mounted () {
+      this.product_content = this.$store.state.product_content;
+    //   console.log('asd = ', this.$store.state.product_content)
   },
   created(){
 
@@ -72,30 +81,30 @@ export default {
 
 <style>
 header{
-    background: #00d4d4;
+    background: #ffffff;
 }
 .section_top{
-    background: #2000ad;
+    background: #ffffff;
 }
 .products_img{
     position: relative;
     float: left;
     width: 50%;
-    background: #ebffbd;
+    background: #ffffff;
 }
 
 .products_img img{
     position: relative;
-
-    width: 50%;
-    background: #fcffcd;
+    margin-left: 40%;
+    width: 30%;
+    background: #ffffff;
 }
 
 .Products_content{
     position: relative;
     float: left;
     width: 50%;
-    background: #ebffb6;
+    background: #ffffff;
 }
 .section_mid{
     position: relative;
@@ -107,7 +116,11 @@ header{
     position: relative;
     float: left;
     width: 100%;
-    background: #6fcf00;
+    background: #ffffff;
+}
+.section_bottom img{
+    margin-left: 20%;
+    width: 50%;
 }
 footer{
     position: relative;

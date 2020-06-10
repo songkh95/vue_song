@@ -33,7 +33,7 @@ export default new Router({
       name: 'notice',
       component: Notice
     },
-    { // /notice/modify�� /notice/:nid�� ������ ���� ������޶���...
+    {
       path: '/notice/modify/:nid',
       name: 'modify',
       component: NoticeModify
