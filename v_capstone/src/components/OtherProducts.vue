@@ -26,9 +26,10 @@
           <p>
             분당 프린트 속도: {{result.print_speed}}매 / {{result.print_speed_level}} 등급<br>
             분당 스캔 속도: {{result.scan_speed }}매 <br>
-            문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate">
+            문의 항목에 추가<input type="checkbox" v-model="val" :value="result.name" @change="checkbox_estimate"> <br><br>
+            <button  :value="result.name" @click="click_product_name">더 자세히</button>
           </p>
-          <button  :value="result.name" @click="click_product_name">더 자세히</button>
+          
         </div>
       </slide>
     </carousel>
@@ -129,7 +130,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 .btn_next{
   content:url("../assets/right-arrow.png" );
   width: 2vw;
@@ -139,18 +141,19 @@ export default {
   width: 2vw;
 }
 .slide{
-  width: 80%;
   position: relative;
+  width: 80%;
+  margin: 20px;
   left:10vw;
 }
 .slide img{
   float: left;
-  margin: 0vh 0vw 2vw 13vh;
+  margin: 0vh 0vw 2vw 5vw;
   width: 6vw;
 }
 .slide_content{
-  margin-top: 4vh;
-  margin-left: 14vw;
+  margin-top: 7vh;
+  margin-left: 12vw;
 }
 .slide h2{
   font-size: 17px;

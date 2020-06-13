@@ -6,36 +6,34 @@
     </header>
     
     <section class="curation_section">
-      <div class="Curation_form">
-        <form v-on:submit.prevent="curation_result">
 
+        <form v-on:submit.prevent="curation_result">
+      <div class="Curation_form">
           <div class="first_question">
             <!-- 시작 질문 -->
             <div v-show="start_question">
               <h1>제품 견적 큐레이션</h1>
-
-              <p>
+              <img class="curation_question_img" :src="require(`../assets/At the office-pana.png`)" alt="상품 이미지" />
+              <p class="first_question_p">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets <br>
+                when an unknown printer took a galley of type and scrambled it to make a type specim.<br><br>
                 고객님에게 필요한 제품을 알려드리며 쉽고 빠르게 견적서를 받을 수 있습니다.
               </p>
+              
             </div>
 
             <!-- 다시 시작 질문 -->
             <div v-show="restart_question">
               <h1>제품 견적 큐레이션</h1>
-
+              <img class="curation_question_img" :src="require(`../assets/At the office-pana.png`)" alt="상품 이미지" />
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets <br>
+                when an unknown printer took a galley of type and scrambled it to make a type specime.<br><br>
                 고객님께 추천드리는 상품은 {{result_name}} 입니다.
               </p>
+              
             </div>
           </div>
 
@@ -45,70 +43,63 @@
             <div v-if="question">
               <h5>{{Q_number}}/7</h5>
               <h3>{{question.title}}</h3>
-              <div class="question_content">
+                <img class="curation_question_img" :src="require(`../assets/At the office-pana.png`)" alt="상품 이미지" />
                 <div class="question_option" v-for="select of question.selects" :key="select.value">
                   <input type="radio" name="one_radio_question"  :value="select.value" v-model="answer[Q_number]" :id="select.value">
                   <label :for="select.value">{{select.text}}</label>
-                </div>
               </div>
             </div>
 
             <div v-if="subquestions.length > 0" class="subquestion_content">
               <div v-for="(subquestion, index) in subquestions" :key="subquestion.title">
-                <h4>{{subquestion.title}}</h4>
-                <div class="question_content">
+                <h4>- {{subquestion.title}}</h4>
                   <div class="question_option" v-for="select of subquestion.selects" :key="select.value" >
                     <input type="radio" :value="select.value" v-model="answer[`${Q_number}-${index+1}`]" :id="select.value">
                     <label :for="select.value">{{select.text}}</label>
                   </div>
-                </div>
               </div>
             </div>
           </div>
 
-          <!-- 결과 감사 소개-->
-          <div class="result_Explanation" v-show="result_Explanation">
-            <h1>제품 큐레이션 결과</h1>
-            <br>
-            <h5>지금까지 큐레이션 사용횟수: {{view_count}}</h5><br>
-            <p>
-              제품 큐레이션을 이용해주셔서 감사합니다! <br><br>
+          <div class="question_result">
+              <!-- 결과 감사 소개-->
+            <div class="result_Explanation" v-show="result_Explanation">
+              <h1>제품 큐레이션 완료!</h1>
+              <h5>지금까지 큐레이션 사용횟수: {{view_count}}</h5><br>
+              <p>
+                제품 큐레이션을 이용해주셔서 감사합니다! <br><br>
 
-              7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
-              쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
+                7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
+                쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
 
-              "문의하기" 버튼을 클릭하시면 저희 회사에 큐레이션 결과가 전송되어 당일에 고객님께 연락드립니다.<br><br>
+                "문의하기" 버튼을 클릭하시면 저희 회사에 큐레이션 결과가 전송되어 당일에 고객님께 연락드립니다.<br><br>
 
-            </p>
+              </p>
+            </div>
+
+            <!-- 문의하기 -->
+            <Estimate :first_results="first_results" :option_select="option_select" v-show="customer_service" class="Curation_result" />
+
+            <!-- 질문자 결과 -->
+            <!-- <question_result :answer="answer" v-show="question_result" class="Curation_result" /> -->
           </div>
-
-          <!-- 문의하기 -->
-          <post_email :first_results="first_results" :option_select="option_select" v-show="customer_service"
-            class="Curation_result" />
-
-          <!-- 질문자 결과 -->
-          <question_result :answer="answer" v-show="question_result" class="Curation_result" />
-
-          <!-- 질문 버튼들-->
+           <!-- 질문 버튼들-->
+           <input type="submit" class="btn_return" v-show="curation_restart" value="다시하기" @click="curation_restart_click">
           <div class="Curation_btn">
-            <input type="submit" class="btn_before" v-show="curation_restart" value="다시하기"
-              @click="curation_restart_click">
-            <input class="btn_before" type="submit" v-show="btn_before" value="Before" @click="diminishNumber"
-              placeholder="이전">
-            <input class="btn_before" type="submit" v-show="btn_after" value="Next" @click="increaseNumber"
-              placeholder="다음">
-
-            <button class="btn_before" v-show="send_btn" @click="customer_service_btn">문의 하기</button>
-            <button class="btn_before" @click="click_question_result" v-show="btn_question_result">질문지 결과</button>
+            <input type="submit" class="btn_before" v-show="btn_before" value="Before" @click="diminishNumber" placeholder="이전">
+            <input type="submit" class="btn_before" v-show="btn_after" value="Next" @click="increaseNumber" placeholder="다음">
+          </div>
+         
+            <!-- <button class="btn_before" @click="click_question_result" v-show="btn_question_result">질문지 결과</button> -->
           </div>
 
         </form>
-      </div> 
+ 
     </section>
 
     <nav class="curation_nav">
         <!-- 추천 상품 -->
-        <div class="Curation_img">
+        <div v-show="Curation_img" class="Curation_img">
           <div v-if="first_results_img">
             <img :src="require(`../assets/${result_name}.png`)" alt="상품 이미지" /><br>
             <div class="Curation_img_content">
@@ -124,9 +115,10 @@
                   <option>A3 용지 1Box</option>
                 </select> <br>
                 기본 매수: <br><br>
-              견적문의하기<input type="checkbox" v-model="val" :value="`${result_name}`" @change="checkbox_estimate">
+                <!-- 견적문의하기<input type="checkbox" v-model="val" :value="`${result_name}`" @change="checkbox_estimate"> -->
+                <button class="btn_before" v-show="send_btn" @click="customer_service_btn">문의 하기</button>
+                 <button  :value="result_name" @click="click_product_name">더 자세히</button>
               </p>
-              <hr>
             </div>
           </div>
         </div>
@@ -147,14 +139,14 @@ import axios from "axios"
 import Question_result from './Question_result'
 import Menu from './Menu'
 import OtherProducts from './OtherProducts'
-import Post_email from './Post_email'
+import Estimate from './Estimate'
 
 export default {
   name: 'home',
   components: {
     Question_result,
     OtherProducts,
-    Post_email,
+    Estimate,
     Menu
   },
   data: function() {
@@ -187,7 +179,9 @@ export default {
 
       view_count: null,                  //사용횟수
       view_count_check: false,           //사용횟수 체크
-      option_select: ""                  //맞춤 설정 옵션
+      option_select: "",                  //맞춤 설정 옵션
+
+      Curation_img: false                //맞춤 추천 div
     }
   },
   created(){
@@ -349,6 +343,7 @@ export default {
           this.customer_service = false;
           this.view_count_check = true;
           this.btn_before = false;
+          this.Curation_img = true;
 
           this.result_save();
           this.count();
@@ -379,7 +374,7 @@ export default {
         this.first_results_img = false;
         this.curation_products_result = false;
         this.customer_service = false;
-        
+        this.Curation_img = false;
         this.view_count_check = false;
         this.curation_restart = false;
         }
@@ -475,237 +470,26 @@ export default {
           })
       }
     },
-    checkbox_estimate() {
-      console.log(this.val)
-      let estimate = this.val[0]
-      this.$store.dispatch('checkbox_estimate', estimate);
+    // checkbox_estimate() {
+    //   console.log(this.val)
+    //   let estimate = this.val[0]
+    //   this.$store.dispatch('checkbox_estimate', estimate);
+    // },
+    click_product_name(e){
+      e.preventDefault()
+      console.log(e.target.value)
+      let asd = e.target.value;
+      this.$store.dispatch('product_intro', asd);
+      this.$router.push({
+        path: '/Products'
+      })
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped src="./Curation.css">
 
-body{
-  height: 100vh;
-  margin: 0;
-}
-
-.curation_header{
-  top: 0;
-  background: rgb(255, 255, 255);
-}
-
-.curation_section{
-  position: relative;
-  float: left;
-  width: 60%;
-  background: rgb(255, 255, 255);
-}
-
-.curation_nav{
-  position: relative;
-  float: right;
-  width: 40%;
-  background: rgb(255, 255, 255);
-}
-
-.curation_footer{
-  float: left;
-  bottom: -6vh;
-  height:30%;
-  width: 100%;
-  position: relative;
-}
-
-/* 큐레이션 form */
-.Curation_form{
-  position: relative;
-  
-  padding: 10px 70px 70px 10px;
-  margin: 0;
-  width: 100%;
-
-}
-
-.first_question{
-  margin: 20vh 0 -10vh 8vw;
-}
-
-.first_question p{
-  width: 35vw;;
-  margin-left: 0.5vw;
-  font-size: 13px;
-}
-
-.question{
-  position: relative;
-  margin: 15vh 0 15px 8vw;
-
-}
-
-.Curation_form h1{  /* 제품 견적 큐레이션 */
-  color: #000000;
-  font-size: 30px;
-  text-align: left;
-  margin: 60px 0 15px 0;
-  font-weight: bold;
-}
-
-.Curation_form h3{ 
-  font-size: 20px;
-  text-align: left;
-  margin: 0 0 1vh 0px;
-  color:rgb(0, 0, 0)
-}
-
-.Curation_form h4{
-  font-size: 16px;
-  text-align: left;
-  margin: 3vh 0 0 1vw;
-  color:rgb(69, 69, 69)
-}
-
-.Curation_form h5{
-  font-size: 13px;
-  text-align: left;
-  margin: 0 0 1vh 1vw;
-  color:rgb(0, 0, 0)
-}
-
-.question_option{
-  font-size: 25px;
-  height: 25px;
-  text-align: left;
-  margin: 2px 0px 0px 1vw;
-  color:rgb(0, 0, 0)
-}
-
-.Curation_form label{
-  font-size: 12px;
-  text-align: left;
-  margin: 0px 0px 0px 0px;
-  color:rgb(0, 0, 0)
-}
-
-.subquestion_content{
-  margin: 0px 0px 0px 0px;
-}
-
-.question_content{
-  text-align: left;
-}
-
-.result_Explanation{
-  padding-left: 8vw;
-
-}
-
-.result_Explanation h1{
-  margin-top: 0vh;
-  font-size: 40px;
-}
-
-.result_Explanation p{
-  font-size: 14px;
-}
-
-.Curation_result{
-  margin-left: 8vw;
-}
-
-.Curation_result h1{
-  width: 30vw;
-  font-size: 40px;
-}
-
-.Curation_result_content{
-  display: block;
-  font-size: 14px;
-  text-align: left;
-  margin: 0px 0px 50px 30px;
-}
-
-/* Before 버튼 */
-
-.Curation_btn{
-   float: left;
-   margin: 2vh 0 0 8vw;
-   width: 300px;
-}
-
-.btn_before{
-  position: relative;
-  width: 75px;
-  height: 30px;
-  color: rgb(0, 0, 0);
-  font-size: 10px;
-  text-decoration: none;
-  border: 2px solid #09003b;
-  overflow: hidden;
-  transition: 0.6s all ease;
-  background: rgb(255, 255, 255);
-}
-.btn_before:hover{
-  background: rgb(2, 0, 68);
-  color:rgb(255, 255, 255)
-}
-
-
-.Curation_img{
-  position: relative;
-  top: 14vh;
-  left: 0vw;
-  width: 26vw;
-  height: 46vh;
-  border-radius: 20px;
-  background: #f3f3f3;
-  box-shadow:  48px 48px 96px #e7e7e7, 
-              -48px -48px 96px #ffffff;
-}
-
-.Curation_img img {
-  position: relative;
-  float: left;
-  margin: 2vh 0vw 2vw 4vh;
-  width: 10vw;
-
-}
-
-.Curation_img_content {
-  position: relative;
-  float: left;
-  margin: 15vh 0vw 0vw 7vh;
-  width: 10vw;
-  left: -20px;
-
-}
-
-.Curation_img_content h2 {
-  font-size: 22px;
-  margin: 0;
-}
-
-.Curation_img_content h4 {
-  font-size: 15px;
-  margin: 0;
-}
-
-.Curation_img_content p {
-  font-size: 14px;
-}
-.Curation_img_content select {
-  width: 7vw;
-}
-
-
-.OtherProducts{
-  position: relative;
-  margin-top: 0vh;
-  bottom: 0;
-  height: 20vh;
-  z-index: 1;
-}
 
 </style>
 

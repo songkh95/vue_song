@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import axios from "axios"
 import Menu from './Menu'
 import {
@@ -223,10 +223,10 @@ body {
 .slide{
   width: 80%;
   position: relative;
-  left:10vw;
+  left: 10vw;
 }
 .slide img{
-  margin: 0vh 0vw 0vw 35%;
+  margin: 0vh 0vw 0vw 26vw;
   width: 20vw;
   height: 25vh;
 }

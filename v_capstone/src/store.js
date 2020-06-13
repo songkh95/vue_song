@@ -105,6 +105,16 @@ export const store =new Vuex.Store({
       .then((res)=>{
           state.product_content = res.data; 
       })
+      
+      axios.get('http://localhost:8081/b_products/product/', {   
+          params: {
+            product_name: product_name
+          },
+          timeout: 2000
+      }) 
+      .then((res)=>{
+          state.product_content = res.data; 
+      })
     }
 
 

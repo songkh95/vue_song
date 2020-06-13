@@ -30,6 +30,20 @@ router.get("/search", function (req, res) {
 
 });
 
+router.get("/product", function (req, res) {
+  let product_name = req.query.product_name;
+  
+  B_product.findOne({
+    name: product_name
+  })
+  .then((todo) => {
+    res.send(todo);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
+
 router.get("/img", function (req, res) {
 
   B_product.find()

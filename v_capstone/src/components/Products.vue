@@ -41,7 +41,7 @@
       </section>
       <!-- 밑 -->
       <footer>
-           
+
             <br><br><br><br><br>
       </footer>
   </div>
@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 header{
     background: #ffffff;
 }

@@ -5,11 +5,11 @@
         <ul>
           <li><a href="http://localhost:8080">홈</a></li>
           <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
-          <li><a href="http://localhost:8080/All_products">모든 제품</a></li>
-          <li><a href="http://localhost:8080/Notice">공지사항</a></li>
+          <li><a href="http://localhost:8080/All_products">제품</a></li>
+          <li><a href="http://localhost:8080/Notice">고객지원</a></li>
         </ul>
       </div>
-
+  <hr>
   </div>
 </template>
 
@@ -26,28 +26,34 @@ export default {
 </script>
 
 <style>
+hr{
+  position: relative;
+  top: -10px;
+  width: 83%;
+  border: 1px solid #c3c3c3;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+}
 .menu img{
   width: 10vw;
   display: inline-block;
-  margin: 1vh 0 0 8vw;
+  margin: 0vh 0 0 8vw;
 }
-
 .menu ul{
   display: block;
   float: right;
   margin-top:2vh;
-  margin-right: 10vw;
+  margin-right: 9vw;
 }
-
 ul li{
   list-style: none;
   float: left;
 }
-
 ul li a{
   position: relative;
   display: inline-block;
-  margin-left: 25px;
+  margin-left: 60px;
   text-decoration: none;
   text-transform: uppercase;
   color: #000000;
@@ -56,9 +62,8 @@ ul li a{
   font-size: 16px;
 }
 ul li a:hover{
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
-
 ul li a:before{
   content: "";
   position: absolute;
@@ -66,19 +71,17 @@ ul li a:before{
   left: 0;
   width: 100%;
   height: 100%;
-  border-top: 1px solid rgb(0, 0, 0);
+  /* border-top: 1px solid rgb(0, 0, 0); */
   border-bottom: 1px solid rgb(0, 0, 0);
   transform: scaleY(2);
   opacity: 0;
   transition: .5s;
   z-index: -1;
 }
-
 ul li a:hover:before{
   transform: scaleY(1.1);
   opacity: 1;
 }
-
 ul li a:after{
   content: "";
   position: absolute;
@@ -86,12 +89,11 @@ ul li a:after{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(0, 0, 0);
+  /* background: #000; */
   transform: scale(0);
   transition: .5s;
   z-index: -1;
 }
-
 ul li a:hover:after{
   transform: scale(1);
 }
