@@ -5,21 +5,21 @@ body{
 
 .curation_header{
   top: 0;
-  background: rgb(255, 255, 255);
+  
 }
 
 .curation_section{
   position: relative;
   float: left;
-  width: 60%;
-  background: rgb(255, 255, 255);
+  width:50%;
+  
 }
 
 .curation_nav{
   position: relative;
   float: right;
   width: 40%;
-  background: rgb(255, 255, 255);
+  
 }
 
 .curation_footer{
@@ -27,44 +27,50 @@ body{
   float: left;
   bottom: -12vh;
   width: 100%;
-  background: rgb(255, 255, 255);
+  
 }
 
 /* 큐레이션 form */
 .Curation_form{
   position: relative;
-  float: left;
-  left: 4vw;
+  
+  top:10vh;
+  left: 0vw;
   margin: 0;
-  width: 70vw;
+  width: 65vw;
   height: 100%;
-  background: rgb(255, 255, 255);
+  
 }
 
 .first_question{
-  margin: 20vh 0 -10vh 8vw;
+  position: relative;
+  
+  margin: 0vh 0 -0vh 8vw;
 }
 
 .question{
   position: relative;
-  margin: 18vh 0 15px 8vw;
+  margin: 5vh 0 15px 8vw;
 }
 .curation_question_img{
   position: relative;
   float: right;
-  right: -12vw;
-  top: -24vh;
+  right: -10vw;
+  top: -19vh;
   width: 25vw;
   z-index: 1;
 }
 
 .first_question_p{
-  width: 37vw;
+  position: relative;
+  float: left;
+  width: 25vw;
   margin-top: 5vh;
   margin-left: 0.5vw;
-  height: 6vh;
+  margin-bottom: 5vh;
   font-size: 14px;
 }
+
 
 
 .Curation_form h1{  /* 제품 견적 큐레이션 */
@@ -120,8 +126,8 @@ body{
 
 .result_Explanation{
   position: relative;
-  top: 5vh;
-  height: 40vh;
+  top: 2vh;
+
   padding-left: 8vw;
   
 }
@@ -132,7 +138,9 @@ body{
 }
 
 .result_Explanation p{
+  width: 30vw;
   font-size: 14px;
+  margin: 0;
 }
 
 .Curation_result{
@@ -163,15 +171,15 @@ body{
 .Curation_btn{
   position: relative;
   left: 8vw;
-  background: rgb(255, 255, 255);
+
   z-index: 1;
   height: 30px;
   width: 300px;
-  margin-top: 3vh;
+  margin: 0vh 0 7vh 0;
 }
 
 .btn_before{
-  position: relative;
+
   width: 75px;
   height: 30px;
   color: rgb(0, 0, 0);
@@ -189,11 +197,12 @@ body{
 
 .btn_return{
   position: relative;
-  top: -6vh;
+  float: left;
+  top: 20px;
   left: 8vw;
   width: 75px;
   height: 30px;
-  position: relative;
+  z-index: 2;
   color: rgb(0, 0, 0);
   font-size: 10px;
   text-decoration: none;
@@ -209,13 +218,13 @@ body{
 }
 .Curation_img{
   position: relative;
-  top: 6vh;
+  top: 10vh;
   right: 3vw;
-  width: 28vw;
+  width: 100%vw;
   height: 47vh;
-  border-radius: 20px;
-  background: #e7e7e7e5;
-  box-shadow:  48px 48px 96px #e7e7e7, 
+  border-radius: 10px;
+  background: #f8f8f8;
+  box-shadow:  48px 48px 96px #a1a1a1, 
               -48px -48px 96px #ffffff;
 }
 

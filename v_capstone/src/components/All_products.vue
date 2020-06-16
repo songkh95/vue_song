@@ -58,7 +58,7 @@
           <div class="product_div" v-show="show_black_products" v-for="product of this.products" :key="product.value">
 
               
-              <img :src="require(`../assets/${product.name}.png`)" alt="PPL 이미지" />
+              <img :src="require(`../assets/product_img/${product.name}.png`)" alt="PPL 이미지" />
               <h2>{{product.name}}</h2>
               <h3>{{product.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h3>
               <p>
@@ -145,7 +145,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 *{
   margin: 0;
   padding: 0;
@@ -162,7 +162,7 @@ body {
 
 .header {
   top: 0;
-  background: #eee;
+
   position: relative;
 
 }
@@ -178,8 +178,8 @@ body {
   float: left;
   width: 10%;
   height: 100vh;
-  background: #333;
-  color: #fff;
+
+  color: rgb(0, 0, 0);
   overflow: none;
 }
 
@@ -205,20 +205,20 @@ body {
 
 .nav-link:hover {
   position: relative;
-  background: #5457de;
+
 }
 
 .content {
   position: relative;
   float: left;
   width: 90%;
-  background: #00da45;
+
 }
 
 .ppl{
   position: relative;
   width: 100%;
-  background-color: #875894;
+
 }
 .slide{
   width: 80%;
@@ -252,7 +252,7 @@ body {
   position: relative;
   padding: 0px;
   width: 100vw;
-  background-color: #d8dc00;
+
 }
 
 .menu-list {
@@ -266,7 +266,7 @@ body {
   position: relative;
   float: left;
   width: 100px;
-  background-color: #547897;
+
 }
 
 .product{
@@ -293,7 +293,7 @@ body {
   bottom: 0;
   left:0;
   right:0;
-  background: #aeacac;
+
 }
 
 </style>

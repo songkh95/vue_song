@@ -104,6 +104,7 @@ export const store =new Vuex.Store({
       }) 
       .then((res)=>{
           state.product_content = res.data; 
+          console.log(state.product_content)
       })
       
       axios.get('http://localhost:8081/b_products/product/', {   

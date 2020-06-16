@@ -72,6 +72,8 @@
                 7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
                 쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
 
+                7개의 질문을 통해 고객님의 사용환경에 맞는 제품을 추천해드며<br>
+                쉽고 빠르게 크린솔루션의 제품 견적서를 받으실 수 있으십니다. <br><br>
                 "문의하기" 버튼을 클릭하시면 저희 회사에 큐레이션 결과가 전송되어 당일에 고객님께 연락드립니다.<br><br>
 
               </p>
@@ -101,10 +103,11 @@
         <!-- 추천 상품 -->
         <div v-show="Curation_img" class="Curation_img">
           <div v-if="first_results_img">
-            <img :src="require(`../assets/${result_name}.png`)" alt="상품 이미지" /><br>
+            <img :src="require(`../assets/product_img/${result_name}.png`)" alt="상품 이미지" /><br>
             <div class="Curation_img_content">
-              <h2>{{result_name}}</h2>
               <h4>{{result_color == "color" ?  "칼라복합기" : "흑백복합기"}}</h4>
+              <h2>{{result_name}}</h2>
+              
               <p>
                 희망 임대료: {{answer["2-1"]}}<br>
                 희망 계약기간: {{answer["2-2"]}} <br>
@@ -117,7 +120,7 @@
                 기본 매수: <br><br>
                 <!-- 견적문의하기<input type="checkbox" v-model="val" :value="`${result_name}`" @change="checkbox_estimate"> -->
                 <button class="btn_before" v-show="send_btn" @click="customer_service_btn">문의 하기</button>
-                 <button  :value="result_name" @click="click_product_name">더 자세히</button>
+                 <button  class="btn_before" :value="result_name" @click="click_product_name">더 자세히</button>
               </p>
             </div>
           </div>

@@ -1,9 +1,9 @@
 <template>
   <div id="other_products">
 
-    <form v-on:submit.prevent="curation_result_img">
-      <input class="btn_OtherProducts" type="submit" value="다른 상품" @click="click_curation_result_img"
-        v-show="btn_curation_result_img">
+    <form v-on:submit.prevent="curation_result_img"><hr>
+      <input class="btn_OtherProducts" type="submit" value="다른 상품" @click="click_curation_result_img" v-show="btn_curation_result_img">
+      
     </form>
 
     <carousel v-show="btn_slide" class="slide" 
@@ -19,7 +19,7 @@
       :paginationSize="10"
       :autoplayTimeout="4000">
       <slide v-for="result of this.result_img" :key="result.value">
-        <img :src="require(`../assets/${result.name}.png`)" alt="상품 이미지" /><br>
+        <img :src="require(`../assets/product_img/${result.name}.png`)" alt="상품 이미지" /><br>
         <div class="slide_content">
           <h2>{{result.name}}</h2>
           <h3>{{result.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h3>
@@ -131,7 +131,15 @@ export default {
 </script>
 
 <style scoped>
-
+hr{
+    position: relative;
+  top: 0px;
+  width: 83%;
+  border: 1px solid #c3c3c3;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+}
 .btn_next{
   content:url("../assets/right-arrow.png" );
   width: 2vw;

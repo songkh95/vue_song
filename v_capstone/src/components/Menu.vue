@@ -2,6 +2,7 @@
   <div id="menu">
   <div class="menu">
         <a href="http://localhost:8080"><img :src="require(`../assets/xerox_logo.png`)"  alt="xerox_logo"></a>
+
         <ul>
           <li><a href="http://localhost:8080">홈</a></li>
           <li><a href="http://localhost:8080/Curation">큐레이션</a></li>
@@ -25,21 +26,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 hr{
   position: relative;
-  top: -10px;
+  top: 2vh;
   width: 83%;
-  border: 1px solid #c3c3c3;
+  border: 1px solid #ababab;
   border-bottom: 0;
   border-right: 0;
   border-left: 0;
 }
 .menu img{
-  width: 10vw;
-  display: inline-block;
-  margin: 0vh 0 0 8vw;
+  width: 8vw;
+  position: relative;
+  float: left;
+  left: 8.5vw;
+  margin-top: 0.7vh;
 }
+
 .menu ul{
   display: block;
   float: right;
@@ -76,7 +80,7 @@ ul li a:before{
   transform: scaleY(2);
   opacity: 0;
   transition: .5s;
-  z-index: -1;
+  z-index: 1;
 }
 ul li a:hover:before{
   transform: scaleY(1.1);

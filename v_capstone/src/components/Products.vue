@@ -7,7 +7,7 @@
       <section class="section_top">
         <!-- 상품 이미지 -->
           <div class="products_img">
-              <img :src="require(`../assets/DC V 2265.png`)" alt="상품 이미지" />
+              <!-- <img :src="require('../assets/product_img/'+$store.state.product_content.name+'.png')" alt="PPL 이미지" /> -->
           </div>
           <!-- 상품 내용 -->
           <div class="Products_content">
@@ -37,7 +37,7 @@
       </section>
       <!-- 제품 상세설명 -->
       <section class="section_bottom">
-        <img :src="require(`../assets/${$store.state.product_content.name}_detail.jpg`)" alt="상품 이미지" />
+        <!-- <img :src="require(`../assets/${$store.state.product_content.name}_detail.jpg`)" alt="상품 이미지" /> -->
       </section>
       <!-- 밑 -->
       <footer>
@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Menu from './Menu'
 import axios from "axios"
 import { mapMutations } from 'vuex'

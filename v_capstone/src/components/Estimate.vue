@@ -4,12 +4,8 @@
     <!-- 문의하기 -->
     <form v-on:submit.prevent="post_email" @submit="checkForm" novalidate="true" class="mail_form">
       <div v-show="customer_service" class="post_email">
+        <h1> 견적서 문의</h1>
         <table v-show="estimate_table">
-          <tr>
-            <td colspan="3">
-              <h1> 견적서 문의</h1>
-            </td>
-          </tr>
           <tr>
             <td>이름: *</td>
             <td><input type="text" value="이름" v-model="customer_name"></td>
@@ -168,7 +164,9 @@ checkForm(e) {
 }
 
 .post_email h1{
+   position: relative;
   font-size: 30px;
+  top: -3vh;
 }
 .post_email input{
   left: 20vw;
