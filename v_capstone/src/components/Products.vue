@@ -7,7 +7,7 @@
       <section class="section_top">
         <!-- 상품 이미지 -->
           <div class="products_img">
-              <!-- <img :src="require('../assets/product_img/'+$store.state.product_content.name+'.png')" alt="PPL 이미지" /> -->
+              <img :src="require('../assets/product_img/' + $store.state.product_content.name + '.png')" alt="PPL 이미지" />
           </div>
           <!-- 상품 내용 -->
           <div class="Products_content">

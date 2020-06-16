@@ -40,28 +40,20 @@
       </div>
       <div class="gradation">
         <div class="products">
-          <form :submit="curation_result_img" class="products_form">
+          <form class="products_form">
             <carousel class="carousel" :perPage="1" :autoplay="true" :loop="loop" :paginationEnabled="true"
             paginationPosition="bottom"
               :autoplayTimeout="5000" paginationActiveColor="rgb(248, 70, 70)" paginationColor="#555555"
               :paginationPadding="2" :paginationSize="5">
-              <slide v-for="result of this.result_img" :key="result.value" class="slide">
-                <img class="products_img" :src="require(`../assets/best_new_products/${result.name}.png`)" alt="상품 이미지" /><br>
+              <slide v-for="result of $store.state.product_home" :key="result.value" class="slide">
+                <img class="products_img" :src="require(`../assets/product_img/${result.name}.png`)" alt="상품 이미지" /><br>
                 <div class="products_content">
                   <!-- :navigationEnabled="true" navigationNextLabel="<i class='btn_next'> </i>" avigationPrevLabel="<i class='btn_before'> </i>" -->
 
                   <h2>{{result.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h2>
                   <h1>{{result.name}}</h1>
                   <hr>
-
                   <h3 class="products_content_h3">콤팩트한 크기와 강력한 기능을 갖춘 컬러 복합기!</h3>
-                  <!-- <p class="products_content_boast">
-
-
-                    사용자의 비지니스 확대는 새로운 ApeosPort <br>시리즈의 강력한 성능을 발휘하게 합니다.<br>
-                    전반적으로 생산성 향상이 필요한 환경에 대해 <br>클라우드 서비스와 연동시킨 기기들의 통합,<br>
-                    스마트폰과의 원활한 연결과 같이<br>최적의 수준으러 확장이 가능해집니다.<br><br><br>
-                  </p> -->
                   <div class="products_content_Performance">
                     <div class="products_content_border">
                       <h3><strong>분당 프린트 속도</strong></h3>
@@ -91,9 +83,11 @@
                   <button class="btn_estimate" @click="click_btn_estimate">
                     <img :src="require('../assets/estimate.png')" alt="문의하기 아이콘"> 문의하기
                   </button>
-                  <button class="btn_estimate" :value="result.name" @click="click_product_name">
-                    <img :src="require('../assets/plus.png')" alt="문의하기 아이콘"> 상품상세
-                  </button>
+                  
+                    <button class="btn_estimate" :value="result.name" @click="click_product_name">
+                      <img :src="require('../assets/plus.png')" alt="문의하기 아이콘"> 상품상세
+                    </button>
+
                 </div>
               </slide>
             </carousel>
@@ -168,23 +162,10 @@
       }
     },
     created() {
-      this.curation_result_img();
+      this.$store.dispatch('product_home');
     },
     methods: {
-      curation_result_img() {
-        axios.get('http://localhost:8081/best_new_products/img/', {
-            timeout: 2000
-          })
-          .then((res) => {
-            this.result_img = res.data;
-            this.result_name = res.data.name;
-            this.color = res.data.color;
-            console.log(this.result_name)
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      },
+
       click_btn_estimate(e) {
         this.estimate = true;
         e.preventDefault()
@@ -196,7 +177,7 @@
         e.preventDefault()
         console.log(e.target.value)
         let asd = e.target.value;
-        this.$store.dispatch('product_intro', asd);
+        this.$store.dispatch('product_home', asd);
         this.$router.push({
           path: '/Products'
         })

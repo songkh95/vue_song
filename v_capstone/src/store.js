@@ -9,6 +9,7 @@ export const store =new Vuex.Store({
     counter:'',
     product_name: '',
     product_content: {},
+    product_home: {},
     data: { 
       category: '',
       title: '',
@@ -93,9 +94,22 @@ export const store =new Vuex.Store({
     checkbox_estimate(state, payload) {
       return state.counter = payload;
     },
-    product_intro(state, payload){    
+    product_intro(state, payload){   
+      state.product_content = payload;
+    },
+    product_home(state, payload){
+      state.product_home = payload;
+      console.log(":s", state.product_home);
+    }
+    
+    
+  },
+  actions: { 
+    checkbox_estimate(context, payload) {
+      return context.commit('checkbox_estimate', payload);
+    },
+    product_intro(context, payload){
       let product_name = payload;
-
       axios.get('http://localhost:8081/c_products/product/', {   
           params: {
             product_name: product_name
@@ -103,8 +117,9 @@ export const store =new Vuex.Store({
           timeout: 2000
       }) 
       .then((res)=>{
-          state.product_content = res.data; 
-          console.log(state.product_content)
+          console.log('1', res.data.name)
+          context.commit('product_intro', res.data);
+
       })
       
       axios.get('http://localhost:8081/b_products/product/', {   
@@ -114,21 +129,32 @@ export const store =new Vuex.Store({
           timeout: 2000
       }) 
       .then((res)=>{
-          state.product_content = res.data; 
+        console.log('2', res.data.name)
+        context.commit('product_intro', res.data);
       })
-    }
-
-
-  },
-  actions: { // �񵿱� ó���� ���
-    checkbox_estimate(context, payload) {
-      return context.commit('checkbox_estimate', payload);
     },
-    product_intro(context, payload){
-      console.log(payload)
-      return context.commit('product_intro', payload);
+    product_home(context, payload){
+      let product_name = payload;
+      axios.get('http://localhost:8081/best_new_products/product/', {   
+          params: {
+            product_name: product_name
+          },
+          timeout: 2000
+      }) 
+      .then((res)=>{
+        console.log('3', res.data.name)
+        context.commit('product_intro', res.data);
+      })
+
+      axios.get('http://localhost:8081/best_new_products/img/', {
+            timeout: 2000
+          })
+          .then((res) => {
+            context.commit('product_home', res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
     }
-  },
-  modules: {
   }
 })
