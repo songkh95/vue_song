@@ -2,9 +2,14 @@
   <div id="Estimate">
 
     <!-- 문의하기 -->
+        <button class="cancel" @click="btn_close" v-show="btn_cencle"> 
+          <img :src="require(`../assets/close.png`)" alt="상품 이미지" /><br>
+        </button> <br><br><br>
     <form v-on:submit.prevent="post_email" @submit="checkForm" novalidate="true" class="mail_form">
       <div v-show="customer_service" class="post_email">
         <h1> 견적서 문의</h1>
+
+              
         <table v-show="estimate_table">
           <tr>
             <td>이름: *</td>
@@ -62,11 +67,14 @@
 <script>
 import axios from "axios"
 import VeeValidate, { Validator } from 'vee-validate'
+
+
 export default {
  name: 'Estimate',
-   props: {
+   props:{
     first_results: String,
-    option_select: String
+    option_select: String,
+    estimate: Boolean
   },
   data: function () {
     return {
@@ -80,12 +88,14 @@ export default {
       customer_content: "",
       customer_service: true,
       estimate_table: true,
-      pass: false
+      pass: false,
+      btn_cencle: true,
+      cencle_check: true
     }
   },
   methods:{ 
     //문의하기 유효성 검사
-checkForm(e) {
+      checkForm(e) {
         e.preventDefault();
         this.errors = [];
         if (!this.customer_name) {
@@ -142,6 +152,10 @@ checkForm(e) {
             })
         }
 
+      },
+      btn_close() {
+        console.log("as:", this.estimate)
+        this.$emit("eee", this.estimate)
       }
   }
 }
@@ -153,7 +167,6 @@ checkForm(e) {
   position: relative;
   margin: 0;
   height: 38vh;
-
 }
 .estimate{
   border: 4px;
@@ -200,6 +213,17 @@ checkForm(e) {
 .btn_mail:hover{
   color:rgb(241, 0, 0)
 }
-
+.cancel{
+  width: 2vw;
+  height: 2vh;
+  background: #fff;
+  border: none;
+  z-index: 2;
+  transform: translateX(34vw);
+}
+.cancel img{
+  width: 20px;
+  height: 20px;
+}
 
 </style>

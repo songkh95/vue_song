@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 // store.js를 불러오는 코드
 import { store } from "./store";
+import CKEditor from '../node_modules/@ckeditor/ckeditor5-vue'
 
-Vue.config.productionTip = false
+Vue.use(CKEditor);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({ //vue 인스턴스

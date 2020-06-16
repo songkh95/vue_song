@@ -1,36 +1,29 @@
 <template>
   <div id="All_products">
-    
+
     <!-- header -->
     <div class="header">
       <Menu />
     </div>
 
-    
+    <!--container-->
     <div class="container">
-      <!-- nav -->
-      <div class="nav">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="1.html" class="nav-link">흑백복합기</a></li>
-          <li class="nav-item"><a href="" class="nav-link">컬러복합기</a></li>
-          <li class="nav-item"><a href="" class="nav-link">프린터</a></li>
-        </ul>
-      </div>
-
       <!-- content -->
       <div class="content">
+
+        <!-- 슬라이드 -->
         <div class="ppl">
-          <carousel class="slide" 
-          :perPage="1" 
-          :loop="loop" 
+          <carousel class="slide"
+          :perPage="1"
+          :loop="loop"
           :autoplay="true"
-          :navigationEnabled="true" 
+          :navigationEnabled="true"
           navigationNextLabel="<i class='btn_next'> </i>"
-          navigationPrevLabel="<i class='btn_before'> </i>" 
+          navigationPrevLabel="<i class='btn_before'> </i>"
           paginationActiveColor="rgb(248, 70, 70)"
-          paginationColor="#555555" 
-          :paginationPadding="5" 
-          :paginationSize="10" 
+          paginationColor="#555555"
+          :paginationPadding="5"
+          :paginationSize="6"
           :autoplayTimeout="4000">
             <slide>
               <img :src="require(`../assets/PPL1.jpg`)" alt="PPL 이미지" />
@@ -44,30 +37,37 @@
           </carousel>
         </div>
 
-
-
-
-        <div class="menus">
-          <div class="menu-list">
-            <div class="menu-item"> <input type="submit"  @click="click_black_products" value="흑백복합기" v-model="black_products"> </div>
-            <div class="menu-item"> <input type="submit"  @click="click_color_products" value="컬러복합기" v-model="color_products"></div>
-            <div class="menu-item"> <input type="submit"   value="프린터" v-model="print_products"></div>
+        <div class="product_menu">
+        <!-- 제품종류 -->
+        <div class="type">
+          <div class="type_list">
+           <input type="submit"  @click="click_black_products" value="흑백복합기" v-model="black_products">
+           <input type="submit"  @click="click_color_products" value="컬러복합기" v-model="color_products">
+           <input type="submit"   value="프린터" v-model="print_products">
           </div>
         </div>
+        <!-- 정렬 -->
+        <div class="sortGroup">
+          <div class="sortList">
+            <button type="button">신상품순</button>
+            <button type="button">추천순</button>
+            <button type="button">낮은가격순</button>
+            <button type="button">높은가격순</button>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- 제품 -->
         <div class="product">
           <div class="product_div" v-show="show_black_products" v-for="product of this.products" :key="product.value">
-
-              
-              <img :src="require(`../assets/product_img/${product.name}.png`)" alt="PPL 이미지" />
-              <h2>{{product.name}}</h2>
-              <h3>{{product.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h3>
-              <p>
+              <div><img :src="require(`../assets/product_img/${product.name}.png`)" alt="PPL 이미지" /></div>
+              <div><h2>{{product.name}}</h2></div>
+              <div><p>
                 분당 프린트 속도: {{product.print_speed}}매 / {{product.print_speed_level}} 등급<br>
                 분당 스캔 속도: {{product.scan_speed }}매
-              </p>
-
-              <button  :value="product.name" @click="click_product_name">더 자세히</button>
-
+              </p></div>
+              <div><button  :value="product.name" @click="click_product_name">더 자세히</button></div>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<script scoped>
+<script>
 import axios from "axios"
 import Menu from './Menu'
 import {
@@ -118,7 +118,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        })        
+        })
     },
     click_color_products(){
         this.show_black_products = true;
@@ -130,7 +130,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        })  
+        })
     },
     click_product_name(e){
       e.preventDefault()
@@ -146,94 +146,65 @@ export default {
 </script>
 
 <style scoped>
+
 *{
   margin: 0;
   padding: 0;
 }
-body {
-  font:14px/1.8 Arial, Helvetica, sans-serif;
-  width: 100%;
+
+body{
+  font-family: sans-serif;
+  font-size: 14px;
+  background: #ffffff;
   height: 100%;
-  margin: 0;
-  padding: 0;
 }
-
-
 
 .header {
   top: 0;
-
   position: relative;
-
 }
 
 .container {
-  position: relative;
-  overflow: hidden;
-
-}
-
-.nav{
-    position: relative;
-  float: left;
-  width: 10%;
-  height: 100vh;
-
-  color: rgb(0, 0, 0);
-  overflow: none;
-}
-
-.nav-list {
-  display: block;
-  position: relative;
-  list-style: none;
-  top: 5vh;
-}
-
-.nav-item {
-  position: relative;
+  display:flex;
+  background-color: #ffffff;
+  justify-content: center;
   margin-top: 20px;
 }
 
-.nav-link {
-  position: relative;
-  display: block;
-  text-decoration: none;
-  padding: 4px 0px;
-  color: #fff;
-}
-
-.nav-link:hover {
-  position: relative;
-
-}
-
 .content {
-  position: relative;
-  float: left;
-  width: 90%;
-
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 82%;
+  background: none;
 }
 
 .ppl{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  padding-top: 25px;
+}
+
+.slide{
+  position: relative;
+  float: left;
+  width: 35%;
+}
+
+.slide img{
   position: relative;
   width: 100%;
-
-}
-.slide{
-  width: 80%;
-  position: relative;
-  left: 10vw;
-}
-.slide img{
-  margin: 0vh 0vw 0vw 26vw;
-  width: 20vw;
-  height: 25vh;
+  height: 35vh;
 }
 
 .VueCarousel-dot-container{
   position: relative;
-  top:-50px;
+  top: -10px;
+  left: 5px;
   z-index: 2;
 }
 .VueCarousel-pagination{
@@ -241,59 +212,114 @@ body {
 }
 .btn_next{
   content:url("../assets/right-arrow.png" );
+  position: relative;
+  float: left;
   width: 2vw;
 }
 .btn_before{
   content:url("../assets/back.png" );
+  position: relative;
+  float: left;
   width: 2vw;
 }
 
-.menus{
+.product_menu{
   position: relative;
-  padding: 0px;
-  width: 100vw;
-
-}
-
-.menu-list {
-  position: relative;
-  padding: 0px;
   width: 100%;
-  
 }
-
-.menu-item{
+.type{
   position: relative;
   float: left;
-  width: 100px;
+  left:3vw;
+  /* height: 27px; */
+  /* border-bottom: 1px solid #000; */
+  margin: 20px 0px 0px 0px;
+}
 
+.type_list input{
+  position: relative;
+  margin: 0px 25px 0px 0px;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  border: 0;
+}
+
+.sortGroup {
+    position: relative;
+    float: right;
+    right: 3vw;
+    /* height: 27px; */
+    /* border-bottom: 1px solid #000; */
+    margin: 20px 0px 0px 0px;
+}
+
+.sortGroup .sortList button {
+    position: relative;
+    float: right;
+    background: none;
+    color: #555;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0px 5px 0px 10px;
+    border: 0;
+}
+
+.sortGroup .sortList button ~ button {
+    padding-left: 11px;
+}
+
+.sortGroup .sortList button ~ button:after {
+    width: 1px;
+    height: 16px;
+    background: #707070;
+    position: absolute;
+    top: 2px;
+    right: 0;
+    margin: 0px -3px 0px 0px;
+    content: "";
 }
 
 .product{
   position: relative;
-  
+  float: left;
   width: 100%;
-  background-color: red;
+  background-color: #fff;
 }
 .product_div{
   position: relative;
   float: left;
-  width: 20vw;
-  margin: 20px;
+  width: 18vw;
+  top: 2vw;
+  margin: 10px;
+}
+.product div{
+  text-align: center;
 }
 .product_div img{
-  width: 10vw;
+  position: relative;
+  height: 210px;
+}
+.product h2{
+  font-size: 22px;
+  text-align: center;
+}
+.product p{
+  font-size: 15px;
+}
+.product button{
+  position: relative;
+  border: 1px solid #000;
+  margin-top: 1vh;
+  padding: 3px 20px;
+  background: #FFF;
 }
 
 .footer {
-  position: relative;
   text-align: center;
   border-top: 1px solid #aaa;
-  font-size: 12px;
-  bottom: 0;
-  left:0;
-  right:0;
-
+  background: #aeacac;
+  margin-top:5vh;
 }
 
 </style>

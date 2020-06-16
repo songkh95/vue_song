@@ -11,7 +11,6 @@ router.post('/', function (req, res, next) { // ��������
         // ���� �������� �ֽż����� ����Ǳ����� reverse()���
         res.send(noticeData.reverse());
     })
-    console.log(req.body)
 });
 
 router.post('/create', function (req, res, next) { // �۾���
@@ -26,7 +25,9 @@ router.post('/create', function (req, res, next) { // �۾���
         if (err) {
             return console.log('saveError', err);
         } else {
-            return console.log('Success!');
+            noticeModel.find(function (err, noticeData) {
+                res.send(noticeData.reverse());
+            })
         }
     });
 });
@@ -37,7 +38,13 @@ router.post('/modify/:nid', function (req, res, next) { // modify ��û
         modifyRes.title = req.body.title
         modifyRes.contents = req.body.contents
         modifyRes.save(function (err) {
-            if (err) res.send(err);
+            if (err) {
+                return console.log('modifyError', err);
+            } else {
+                noticeModel.find(function (err, noticeData) {
+                    res.send(noticeData.reverse());
+                })
+            }
         })
     });
 });
@@ -54,9 +61,14 @@ router.post('/:nid', function (req, res, next) { // detail ��û��
 router.post('/delete/:nid', function (req, res, next) { // delete ��û
     console.log('hee', req.body.nid, req.body)
     noticeModel.deleteOne({ nid: req.body.nid }, function (err, deleteRes) {
-        res.send(deleteRes);
+        if (err) {
+            return console.log('deleteError', err);
+        } else {
+            noticeModel.find(function (err, noticeData) {
+                res.send(noticeData.reverse());
+            })
+        }
     })
 });
-
 
 module.exports = router;

@@ -6,9 +6,13 @@
     </header>
 
     <section class="section_top">
+
+      <Estimate class="Estimate" v-show="estimate" :estimate="estimate"  @eee="estimate= !estimate"/>
+
       <div>
         <img :src="require('../assets/product_img/' + $store.state.product_content.name + '.png')" alt="PPL 이미지" />
       </div>
+      
       <div class="Products_content">
         <h2>{{$store.state.product_content.color == "color" ?  "칼라복합기" : "흑백복합기"}}</h2>
         <h1>{{$store.state.product_content.name}}</h1>
@@ -45,12 +49,16 @@
             금액: {{$store.state.product_content.sale}} <br>
           </div>
           
-          <button class="btn_estimate"> 견적 문의 </button>
+          <button class="btn_estimate" @click="click_btn_estimate">
+            <img :src="require('../assets/estimate.png')" alt="문의하기 아이콘"> 문의하기
+          </button>
+
+          
       </div>
     </section>
     <!-- 참고 -->
     <section class="section_mid">
-      asd<br><br><br><br><br>
+      <OtherProducts class="OtherProducts" v-show="curation_products_result" :Q_number="Q_number" :answer="$store.state.product_content.color" />
     </section>
     <!-- 제품 상세설명 -->
     <section class="section_bottom">
@@ -68,23 +76,36 @@
 import Menu from './Menu'
 import axios from "axios"
 import { mapMutations } from 'vuex'
+  import Estimate from './Estimate'
+  import OtherProducts from './OtherProducts'
 export default {
   name: 'Products',
    components: {
-    Menu
+    Menu,
+    Estimate,
+    OtherProducts
+  },
+  props:{
+      cencle_check: false
   },
   data: function() {
     return {
-        product_content: ""
+        product_content: "",
+        estimate: false,
+        curation_products_result: false,
+        Q_number: 8
     }
   },
   methods: {
-    ...mapMutations(['product_intro'])
+    ...mapMutations(['product_intro']),
 
     //   this.product_content = this.$store.state.product_content
     //   console.log('asd = ', this.$store.state.product_content)
 
-    
+      click_btn_estimate(e) {
+        e.preventDefault()
+        this.estimate = true;
+      },
   },
   mounted () {
       this.product_content = this.$store.state.product_content;
@@ -101,9 +122,20 @@ header{
    position: relative;
    top:0;
 }
+.Estimate{
+  position: absolute;
+  height: 45vh;
+  width: 36vw;
+  padding: 2vw;
+  border: 1px solid;
+  top: 20%;
+  left: 5%;
+  background: #ffffff;
+  z-index: 1;
+}
 .section_top{
   position: relative;
-  left:21vw;
+  left:23vw;
   height: 30vh;
   margin-top: 10vh;
   margin-bottom: 50vh;
@@ -118,9 +150,11 @@ header{
 .Products_content{
     position: relative;
     float: left;
-    left: 5vw;
-    top: 5vh;
+    left: 6vw;
+    top: 0vh;
     width: 42%;
+    padding-left: 6vw;
+    border-left: 0.5px solid #cccccc;
 }
 .Products_content h1{
   margin-bottom: -20px;
@@ -135,7 +169,11 @@ header{
 
 .Products_content hr{
   width: 66%;
-  margin-top: 2.5vh;
+  margin-top: 3.5vh;
+    border: 1px solid #ababab;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
 }
 .Products_content_subheading{
   position: relative;
@@ -205,6 +243,22 @@ header{
   color: #fff;
   font-weight: 100;
   border-radius: 0px;
+  z-index: 1;
+}
+
+.btn_estimate img{
+  position: relative;
+  top: 4px;
+  left: 4vw;
+  width: 2.5vh;
+  
+}
+.OtherProducts{
+  position: relative;
+  top: 0vh;
+  bottom: 0;
+  height: 20vh;
+  z-index: 1;
 }
 .section_bottom{
     position: relative;

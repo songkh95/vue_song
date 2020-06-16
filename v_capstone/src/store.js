@@ -4,12 +4,13 @@ import axios from 'axios'
 const url = 'http://localhost:8081/notice/'
 Vue.use(Vuex)
 
-export const store =new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
     counter:'',
     product_name: '',
     product_content: {},
     product_home: {},
+    category: '',
     data: { 
       category: '',
       title: '',
@@ -20,20 +21,15 @@ export const store =new Vuex.Store({
     },
     notices: [],
     admin: { 
-      pw: 'abcd',
-      verify: true 
+      pw: 'abc',
+      verify: false 
     }
   },
   mutations: { 
-    getNotices (state) {
-      axios.post(
-        url
-        ).then((res) => {
-          state.notices = res.data
-        }).catch((res) => {
-        console.log(res)
-      })
-    },
+    getNotices(state, payload) {
+      state.notices = payload
+      state.category = 'all'
+  },
     setForm (state, { title, contents, date, category }) {
       state.data.category = category
       state.data.title = title
@@ -99,12 +95,57 @@ export const store =new Vuex.Store({
     },
     product_home(state, payload){
       state.product_home = payload;
-      console.log(":s", state.product_home);
     }
     
     
   },
   actions: { 
+    getNotices(context){
+      axios.post(url)
+        .then((res) => {
+          context.commit('getNotices', res.data)
+        })
+        .catch((res) => {
+          console.log(res)
+        })
+    },
+    setForm(context, payload){
+      axios.post(
+          url + 'create',
+          payload, {
+            timeout: 2000
+          }
+      ).then((res) => {
+          context.commit('getNotices', res.data)
+      }).catch((res) => {
+          console.log(res)
+      })
+    },
+    deleteNotice(context, nid){
+      console.log('nid',nid)
+      axios.post(
+          url + 'delete/:nid',
+          { nid: nid }, {
+            timeout: 2000
+          }
+      ).then((res) => {
+          context.commit('getNotices', res.data)
+      }).catch((res) => {
+          console.log(res)
+      })
+    },
+    modifyNotice(context, payload){
+      axios.post(
+          url + 'modify/:nid',
+          payload, {
+            timeout: 2000
+      }
+      ).then((res) => {
+          context.commit('getNotices', res.data)
+      }).catch((res) => {
+          console.log(res)
+      })
+    },
     checkbox_estimate(context, payload) {
       return context.commit('checkbox_estimate', payload);
     },
@@ -117,7 +158,6 @@ export const store =new Vuex.Store({
           timeout: 2000
       }) 
       .then((res)=>{
-          console.log('1', res.data.name)
           context.commit('product_intro', res.data);
 
       })
@@ -129,7 +169,6 @@ export const store =new Vuex.Store({
           timeout: 2000
       }) 
       .then((res)=>{
-        console.log('2', res.data.name)
         context.commit('product_intro', res.data);
       })
     },
@@ -142,7 +181,6 @@ export const store =new Vuex.Store({
           timeout: 2000
       }) 
       .then((res)=>{
-        console.log('3', res.data.name)
         context.commit('product_intro', res.data);
       })
 

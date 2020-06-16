@@ -216,9 +216,15 @@ export default {
         if (this.Q_number == 2) {
           if (this.answer["2"] == "lease") {
             // return this.question.subquestions
-            return this.question.subquestions.filter(function (item) {
+            if(this.answer["1"] == 'black'){
+              return this.question.subquestions.filter(function (item) {
               return item._id === "2-1" || item._id === "2-2"
-            })
+              })
+            } else if(this.answer["1"] == 'color'){
+              return this.question.subquestions.filter(function (item) {
+              return item._id === "2-1" || item._id === "2-3"
+              })
+            }
           } else if(this.answer["2"] == "sale"){
             return this.question.subquestions.filter(function (item) {
               return item._id === "2-3";
@@ -350,6 +356,7 @@ export default {
 
           this.result_save();
           this.count();
+          this.$store.state.cencle_check = false;
         }
     },
     //이전 질문 버튼
@@ -391,6 +398,7 @@ export default {
       } else {
         this.result_Explanation = false;
       }
+      console.log(this.$store.state.cencle_check)
     },
     //큐레이션 다시시작하기 버튼
     curation_restart_click(){

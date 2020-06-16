@@ -1,27 +1,41 @@
-﻿<template>
+<template>
   <div id="view" class="detail">
-    <div id="title">
-      <div>{{details.title}}</div>
-      <span>{{details.date}}</span>
-    </div>
-    <div id="contents" v-html="details.contents"></div>
-    <div id="btnAdmin" v-if="admin">
-      <button @click="_deleteNotice">삭제</button>
-      <router-link :to="'/notice/modify/' + this.nid" tag="button">수정</router-link>
-    </div>
-    <div id="disqus_thread"></div>
+    <header class="curation_header">
+      <Menu />
+    </header>
+    <section class="detail_section">
+      <div id="detail_information">
+        <span id="detail_title">{{details.title}}</span>
+        <span id="detail_date">{{details.date}}</span>
+      </div>
+      <div id="contents" v-html="details.contents"></div>
+      <div id="searchAdmin" v-show="!admin"><img src="../assets/setting.png"  @click="authAdmin"></div>
+      <div  id="btnAdmin">
+        <button v-show="admin" @click="_deleteNotice">삭제</button>
+        <router-link v-show="admin" to="/notice" tag="button">목록</router-link>
+        <router-link v-show="admin"  :to="'/notice/modify/' + nid" tag="button">수정</router-link>
+      </div>
+      </section>
+    <Disqus/>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+  import { mapMutations } from 'vuex'
+import Menu from './Menu'
+import Disqus from './Disqus'
+
 export default {
-  name: 'Detail',
+    name: 'Detail',
+    components: {
+      Menu,
+      Disqus
+  },
   data: function () {
     return {
       details: [], // 게시글 details 정보
-      admin: false,
-      nid: 0
+      nid: 0,
+      admin: false
     }
   },
   methods: {
@@ -30,63 +44,77 @@ export default {
     _deleteNotice () {
       var result = confirm('이 공지를 삭제하시겠습니까?')
       if (result) {
+        this.$store.state.category=''
+        this.$store.dispatch('deleteNotice', this.nid)
         alert('삭제되었습니다.', this.nid)
-        this.deleteNotice(this.nid)
         this.$router.push({
           path: '/notice'
         })
+      }
+    },
+    authAdmin(){
+      if (this.$store.state.admin.verify == false){
+        var pw = prompt('관리자 로그인', '');
+        if(this.$store.state.admin.pw == pw){
+          this.$store.state.admin.verify = true
+          this.admin=true
+        } 
+      }else{
+        this.admin=true
       }
     }
   },
   created () {
     this.nid = this.$route.params.nid // db에 요청할 nid 번호를 가져온다
     this.getDetail(this.nid) // nid에 맞는 details요청
-    this.admin = this.$store.state.admin.verify
   },
   mounted () {
     // nid에 따른 요청정보를 가져와 details에 저장
     this.details = this.$store.state.data;
-    // DISQUS 호출
-    (function () {
-      var d = document
-      var s = d.createElement('script')
-      s.src = 'https://noticetest.disqus.com/embed.js'
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s)
-    })()
   }
 }
 </script>
 
 <style scoped>
-  .detail{
-    text-align:left;
+  *{
+    margin:0;
+    padding:0;
   }
-  #title{
-    padding: 30px 90px 30px 90px;
-    margin: 20px 0 25px 0;
+  .detail_section{
+    margin-top: 10px; 
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
+    align-items:center;
+  }
+  #detail_information{
+    padding: 30px 90px;
+    margin: 25px 0;
+    display: block;
+    width: 65%;
     background:#f7f7f7;
     border-bottom: 2px solid #e7e9ee;
     border-top: 2px solid #e7e9ee;
   }
-  #title div{
-    font-size: 18px;
+  #detail_title{
+    font-size: 20px;
+    font-weight: bold;
   }
-  #title span{
-    margin-top: 7px;
+  #detail_date{
+    margin: 5px 20px 0 0 ;
     font-size: 14px;
     color: #444343;
+    float: right;
   }
   #contents{
-    padding: 0 90px 30px 90px;
+    padding: 0 30px 30px 30px;
     border-bottom: 2px solid #e7e9ee;
     margin-bottom: 15px;
+    width: 74%;
+    min-height: 400px;
   }
   #btnAdmin{
     text-align: center;
-    margin: 15px 0 15px 0;
+    margin: 15px 0 40px 0;
   }
   #btnAdmin button{
     width: 55px;
@@ -100,6 +128,11 @@ export default {
     background: #e7e9ee;
     color: #000;
   }
-  #disqus_thread {
+  #searchAdmin img{
+    position: absolute;
+    left: 80%;
+    width: 20px;
+    height: 20px;
   }
+
 </style>

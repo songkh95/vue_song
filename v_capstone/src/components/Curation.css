@@ -33,18 +33,15 @@ body{
 /* 큐레이션 form */
 .Curation_form{
   position: relative;
-  
   top:10vh;
   left: 0vw;
   margin: 0;
-  width: 65vw;
+  width: 63vw;
   height: 100%;
-  
 }
 
 .first_question{
   position: relative;
-  
   margin: 0vh 0 -0vh 8vw;
 }
 
@@ -70,8 +67,6 @@ body{
   margin-bottom: 5vh;
   font-size: 14px;
 }
-
-
 
 .Curation_form h1{  /* 제품 견적 큐레이션 */
   color: #0015b8;
@@ -127,7 +122,6 @@ body{
 .result_Explanation{
   position: relative;
   top: 2vh;
-
   padding-left: 8vw;
   
 }

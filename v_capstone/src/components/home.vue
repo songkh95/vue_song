@@ -97,12 +97,12 @@
       </div>
       </section>
 
-    <div class="Estimate_div" v-show="estimate">
-      <button class="cancel" @click="btn_close">
+    <!-- <div class="Estimate_div"> -->
+      <!-- <button class="cancel" @click="btn_close">
         <img :src="require(`../assets/close.png`)" alt="상품 이미지" /><br>
-      </button>
-      <Estimate class="Estimate" :home="home" />
-    </div>
+      </button> -->
+      <Estimate class="Estimate" v-show="estimate" :estimate="estimate" :home="home" @eee="estimate= !estimate"/>
+    <!-- </div> -->
 
 
     <!-- 하단 정보 -->
@@ -161,18 +161,20 @@
         home: "home"
       }
     },
+    props:{
+      cencle_check: false
+    },
     created() {
       this.$store.dispatch('product_home');
     },
     methods: {
-
       click_btn_estimate(e) {
-        this.estimate = true;
         e.preventDefault()
+        this.estimate = true;
       },
-      btn_close() {
-        this.estimate = false;
-      },
+      // btn_close() {
+      //   this.estimate = false;
+      // },
       click_product_name(e){
         e.preventDefault()
         console.log(e.target.value)
