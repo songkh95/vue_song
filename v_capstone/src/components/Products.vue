@@ -281,6 +281,5 @@ footer{
     float: left;
     width: 100%;
     bottom: 0;
-    background: #dfc800;
 }
 </style>

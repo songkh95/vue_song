@@ -115,14 +115,21 @@
     list-style: none;
     margin-top: 30px;
     width: 77%;
+    
   }
-
+ #lists a{
+text-decoration: none; 
+    outline: none;
+    color: black;
+    font-weight: bold;
+ }
     #lists li {
       display: flex;
       flex-direction: column;
       text-align: left;
       padding: 15px 5%;
       border-bottom: 2px solid #fff;
+      
     }
 
       #lists li:nth-child(odd) {

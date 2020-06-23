@@ -103,6 +103,12 @@
     margin-top: 30px;
     width: 77%;
   }
+  #lists a{
+text-decoration: none; 
+    outline: none;
+    color: black;
+    font-weight: bold;
+ }
 
     #lists li {
       display: flex;

@@ -318,7 +318,6 @@ body{
 .footer {
   text-align: center;
   border-top: 1px solid #aaa;
-  background: #aeacac;
   margin-top:5vh;
 }
 
